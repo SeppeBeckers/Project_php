@@ -1,0 +1,7 @@
+/.idea
+/node_modules
+/storage/*.key
+/vendor
+.env
+.phpunit.result.cache
+npm-debug.log
