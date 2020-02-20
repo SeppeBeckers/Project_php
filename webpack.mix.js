@@ -11,8 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
 
 mix.browserSync({
     proxy: 'team62.test',
@@ -20,6 +18,7 @@ mix.browserSync({
 });
 
 mix.setPublicPath('public_html');
+
 
 mix.js('resources/js/app.js', 'js')
     .sass('resources/sass/app.scss', 'css');
