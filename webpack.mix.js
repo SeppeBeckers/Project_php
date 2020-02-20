@@ -11,7 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 
-
 mix.browserSync({
     proxy: 'team62.test',
     port: 3000
