@@ -17,7 +17,7 @@ class CreateAdminsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('password');
-            //token??
+            $table->rememberToken();
             $table->timestamps();
 
             // NO Foreign key relation

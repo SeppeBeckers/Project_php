@@ -18,6 +18,7 @@ class CreateBillsTable extends Migration
             $table->unsignedBigInteger('reservation_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
             $table->timestamp('bill_made_at');
             $table->unsignedInteger('adjusted_amount')->nullable();
+            $table->double('VAT');
             $table->timestamps();
 
             // Foreign key relation

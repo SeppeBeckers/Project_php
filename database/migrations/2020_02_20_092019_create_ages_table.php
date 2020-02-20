@@ -16,7 +16,7 @@ class CreateAgesTable extends Migration
         Schema::create('ages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('age_category');
-            $table->unsignedInteger('percentage_discount');
+            $table->double('percentage_discount');
             $table->timestamps();
 
             // NO Foreign key relation

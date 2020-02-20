@@ -16,8 +16,8 @@ class CreateNotAvailablesTable extends Migration
         Schema::create('not_availables', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('room_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
-            $table->timestamp('starting_date');
-            $table->timestamp('end_date');
+            $table->date('starting_date');
+            $table->date('end_date');
             $table->timestamps();
 
             // Foreign key relation
