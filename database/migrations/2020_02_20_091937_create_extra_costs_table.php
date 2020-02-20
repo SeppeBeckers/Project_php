@@ -16,7 +16,7 @@ class CreateExtraCostsTable extends Migration
         Schema::create('extra_costs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type');
-            $table->unsignedInteger('percentage');
+            $table->double('percentage');
             $table->timestamps();
 
             // NO Foreign key relation

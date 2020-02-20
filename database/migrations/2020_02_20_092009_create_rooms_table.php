@@ -19,6 +19,7 @@ class CreateRoomsTable extends Migration
             $table->unsignedInteger('room_number');
             $table->string('description')->nullable();
             $table->unsignedInteger('maximum_persons');
+            $table->string('picture');
             $table->timestamps();
 
             // Foreign key relation

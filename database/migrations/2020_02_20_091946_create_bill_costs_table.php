@@ -14,13 +14,13 @@ class CreateBillCostsTable extends Migration
     public function up()
     {
         Schema::create('bill_costs', function (Blueprint $table) {
-            $table->bigIncrements('extraCost_id');
+            $table->unsignedBigInteger('extra_cost_id');
             $table->unsignedBigInteger('bill_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
-            $table->unsignedInteger('amount');
+            $table->double('amount');
             $table->timestamps();
 
             // Foreign key relation
-            $table->foreign('extraCost_id')->references('id')->on('extraCosts')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('extra_cost_id')->references('id')->on('extra_costs')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('bill_id')->references('id')->on('bills')->onDelete('cascade')->onUpdate('cascade');
         });
     }

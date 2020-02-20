@@ -14,10 +14,10 @@ class CreateRoomReservationsTable extends Migration
     public function up()
     {
         Schema::create('room_reservations', function (Blueprint $table) {
-            $table->bigIncrements('reservation_id');
+            $table->unsignedBigInteger('reservation_id');
             $table->unsignedBigInteger('room_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
-            $table->timestamp('starting_date');
-            $table->timestamp('end_date');
+            $table->date('starting_date');
+            $table->date('end_date');
             $table->timestamps();
 
             // Foreign key relation

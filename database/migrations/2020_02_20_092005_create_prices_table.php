@@ -20,11 +20,13 @@ class CreatePricesTable extends Migration
             $table->unsignedBigInteger('type_room_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
             $table->unsignedInteger('price');
             $table->timestamp('from_date');
+            $table->string('from_day')->nullable();
+            $table->string('until_day')->nullable();
             $table->timestamps();
 
             // Foreign key relation
-            $table->foreign('occupancy_id')->references('id')->on('occupancys')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('accommodation_choice')->references('id')->on('accommodation_choices')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('occupancy_id')->references('id')->on('occupancies')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('accommodation_choice_id')->references('id')->on('accommodation_choices')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('type_room_id')->references('id')->on('type_rooms')->onDelete('cascade')->onUpdate('cascade');
         });
     }
