@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -31,3 +32,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('arrangement', 'Admin\ArrangementController');
     Route::resource('bill', 'Admin\BillController');
 });
+

@@ -12,6 +12,7 @@
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
 
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="/">Home</a>
                                 </li>
@@ -58,5 +59,5 @@
                             @endguest
                         </ul>
                     </div>
-                </div>
+                </div>               
 </nav>
