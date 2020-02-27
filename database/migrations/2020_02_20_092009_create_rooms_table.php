@@ -25,6 +25,74 @@ class CreateRoomsTable extends Migration
             // Foreign key relation
             $table->foreign('type_room_id')->references('id')->on('type_rooms')->onDelete('cascade')->onUpdate('cascade');
         });
+        DB::table('rooms')->insert(
+            [
+                [
+                    'room_number'=>'1',
+                    'maximum_persons'=>'1',
+                    'type_room_id'=>'2',
+                    'description'=>'Enkel bed',
+                    'picture'=>'kamer1.jpg'
+                ],
+                [
+                    'room_number'=>'2',
+                    'maximum_persons'=>'2',
+                    'type_room_id'=>'2',
+                    'description'=>'2 x enkel bed',
+                    'picture'=>'kamer2.jpg'
+                ],
+                [
+                    'room_number'=>'3',
+                    'maximum_persons'=>'2',
+                    'type_room_id'=>'2',
+                    'description'=>'2 x enkel bed',
+                    'picture'=>'kamer3.jpg'
+                ],
+                [
+                    'room_number'=>4,
+                    'maximum_persons'=>2,
+                    'type_room_id'=>1,
+                    'description'=>'1 groot bed',
+                    'picture'=>'kamer4.jpg'
+                ],
+                [
+                    'room_number'=>5,
+                    'maximum_persons'=>2,
+                    'type_room_id'=>1,
+                    'description'=>'1 groot bed',
+                    'picture'=>'kamer5.jpg'
+                ],
+                [
+                    'room_number'=>6,
+                    'maximum_persons'=>3,
+                    'type_room_id'=>2,
+                    'description'=>'3 x enkel bed',
+                    'picture'=>'kamer6.jpg'
+                ],
+                [
+                    'room_number'=>7,
+                    'maximum_persons'=>3,
+                    'type_room_id'=>1,
+                    'description'=>'1 groot + 1 klein bed',
+                    'picture'=>'kamer7.jpg'
+                ],
+                [
+                    'room_number'=>8,
+                    'maximum_persons'=>4,
+                    'type_room_id'=>2,
+                    'description'=>'4 x enkel bed',
+                    'picture'=>'kamer8.jpg'
+                ],
+                [
+                    'room_number'=>9,
+                    'maximum_persons'=>4,
+                    'type_room_id'=>1,
+                    'description'=>'1 groot + 2 x enkel bed',
+                    'picture'=>'kamer9.jpg'
+                ]
+
+            ]
+        );
     }
 
     /**

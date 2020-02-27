@@ -18,7 +18,7 @@ class CreatePricesTable extends Migration
             $table->unsignedBigInteger('occupancy_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
             $table->unsignedBigInteger('accommodation_choice_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
             $table->unsignedBigInteger('type_room_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
-            $table->unsignedInteger('price');
+            $table->double('price');
             $table->timestamp('from_date');
             $table->string('from_day')->nullable();
             $table->string('until_day')->nullable();
@@ -29,6 +29,44 @@ class CreatePricesTable extends Migration
             $table->foreign('accommodation_choice_id')->references('id')->on('accommodation_choices')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('type_room_id')->references('id')->on('type_rooms')->onDelete('cascade')->onUpdate('cascade');
         });
+        DB::table('prices')->insert(
+            [
+                [
+                    'occupancy_id' => '1',
+                    'accommodation_choice_id'=>'2',
+                    'type_room_id' => '1',
+                    'price'=>'50',
+                ],
+                [
+                    'occupancy_id' => '2',
+                    'accommodation_choice_id'=>'1',
+                    'type_room_id' => '2',
+                    'price'=>'80',
+                ],
+                [
+                    'occupancy_id' => '1',
+                    'accommodation_choice_id'=>'4',
+                    'type_room_id' => '1',
+                    'price'=>'70',
+                ],
+                [
+                    'occupancy_id' => '2',
+                    'accommodation_choice_id'=>'3',
+                    'type_room_id' => '1',
+                    'price'=>'100',
+                ],
+                [
+                    'occupancy_id' => '1',
+                    'accommodation_choice_id'=>'1',
+                    'type_room_id' => '2',
+                    'price'=>'60'
+                ],
+
+            ]
+
+
+
+        );
     }
 
     /**

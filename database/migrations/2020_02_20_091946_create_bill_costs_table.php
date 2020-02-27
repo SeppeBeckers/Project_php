@@ -23,6 +23,36 @@ class CreateBillCostsTable extends Migration
             $table->foreign('extra_cost_id')->references('id')->on('extra_costs')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('bill_id')->references('id')->on('bills')->onDelete('cascade')->onUpdate('cascade');
         });
+
+        DB::table('bill_costs')->insert(
+            [
+                [
+                    'extra_cost_id'=>'1',
+                    'bill_id'=>'1',
+                    'amount'=>'20'
+                ],
+                [
+                    'extra_cost_id'=>'2',
+                    'bill_id'=>'2',
+                    'amount'=>'30'
+                ],
+                [
+                    'extra_cost_id'=>'3',
+                    'bill_id'=>'3',
+                    'amount'=>'45'
+                ],
+                [
+                    'extra_cost_id'=>'4',
+                    'bill_id'=>'4',
+                    'amount'=>'10'
+                ],
+                [
+                    'extra_cost_id'=>'3',
+                    'bill_id'=>'5',
+                    'amount'=>'85'
+                ]
+            ]
+        );
     }
 
     /**

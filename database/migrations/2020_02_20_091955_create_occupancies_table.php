@@ -15,11 +15,21 @@ class CreateOccupanciesTable extends Migration
     {
         Schema::create('occupancies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->boolean('is_double')->default(true);
+            $table->boolean('is_double');
             $table->timestamps();
 
             // NO Foreign key relation
         });
+        DB::table('occupancies')->insert(
+            [
+                [
+                    'is_double'=> true
+                ],
+                [
+                    'is_double'=> false
+                ]
+            ]
+        );
     }
 
     /**

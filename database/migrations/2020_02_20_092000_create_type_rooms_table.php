@@ -20,6 +20,16 @@ class CreateTypeRoomsTable extends Migration
 
             // NO Foreign key relation
         });
+        DB::table('type_rooms')->insert(
+            [
+                [
+                    'type_bath'=>'Douche/Bad'
+                ],
+                [
+                    'type_bath'=>'Douche'
+                ]
+            ]
+        );
     }
 
     /**

@@ -21,6 +21,27 @@ class CreateExtraCostsTable extends Migration
 
             // NO Foreign key relation
         });
+        DB::table('extra_costs')->insert(
+            [
+                [
+                    'type'=>'hond',
+                    'percentage'=>'0.06'
+                ],
+                [
+                    'type'=>'drank',
+                    'percentage'=>'0.21'
+                ],
+                [
+                    'type'=>'eten',
+                    'percentage'=>'0.12'
+                ],
+                [
+                    'type'=>'zwembad',
+                    'percentage'=>'0.06'
+                ]
+
+            ]
+        );
     }
 
     /**
