@@ -34,7 +34,8 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/admin/genres"><i class="fas fa-microphone-alt"></i>Overview</a>
                                 <a class="dropdown-item" href="/admin/records"><i class="fas fa-compact-disc"></i>Kamers beheren</a>
-             
+                                <a class="dropdown-item" href="/admin/records"><i class="fas fa-compact-disc"></i>Reserveringen</a>
+                                <a class="dropdown-item" href="/admin/records"><i class="fas fa-compact-disc"></i>rekening</a>
                             @endif
                         </div>
                     </li>
