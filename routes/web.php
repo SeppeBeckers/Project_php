@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -30,18 +31,3 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('room', 'Admin\RoomController');
     Route::resource('arrangement', 'Admin\ArrangementController');
     Route::resource('bill', 'Admin\BillController');
-
-
-
-
-
-});
-Route::view('/', 'start');
-Route::redirect('user', '/user/profile');
-Route::middleware(['auth'])->prefix('user')->group(function () {
-    Route::get('profile', 'User\ProfileController@edit');
-    Route::post('profile', 'User\ProfileController@update');
-    Route::get('password', 'User\PasswordController@edit');
-    Route::post('password', 'User\PasswordController@update');
-});
-
