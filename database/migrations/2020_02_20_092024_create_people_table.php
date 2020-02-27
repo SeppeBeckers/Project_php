@@ -14,7 +14,8 @@ class CreatePeopleTable extends Migration
     public function up()
     {
         Schema::create('people', function (Blueprint $table) {
-            $table->bigIncrements('reservation_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('reservation_id');
             $table->unsignedBigInteger('age_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
             $table->unsignedInteger('number_of_persons');
             $table->timestamps();
@@ -23,6 +24,40 @@ class CreatePeopleTable extends Migration
             $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('age_id')->references('id')->on('ages')->onDelete('cascade')->onUpdate('cascade');
         });
+        DB::table('people')->insert(
+            [
+                [
+                    'reservation_id'=>1,
+                    'age_id'=>'4',
+                    'number_of_persons'=>'2'
+                ],
+                [
+                    'reservation_id'=>2,
+                    'age_id'=>'4',
+                    'number_of_persons'=>'2'
+                ],
+                [
+                    'reservation_id'=>3,
+                    'age_id'=>'4',
+                    'number_of_persons'=>'2'
+                ],
+                [
+                    'reservation_id'=>3,
+                    'age_id'=>'2',
+                    'number_of_persons'=>'1'
+                ],
+                [
+                    'reservation_id'=>4,
+                    'age_id'=>'4',
+                    'number_of_persons'=>'1'
+                ],
+                [
+                    'reservation_id'=>5,
+                    'age_id'=>'4',
+                    'number_of_persons'=>'2'
+                ],
+            ]
+        );
     }
 
     /**

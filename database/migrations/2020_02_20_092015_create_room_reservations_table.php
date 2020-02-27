@@ -24,6 +24,41 @@ class CreateRoomReservationsTable extends Migration
             $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade')->onUpdate('cascade');
         });
+        DB::table('room_reservations')->insert(
+            [
+                [
+                    'reservation_id'=>'1',
+                    'room_id'=>'5',
+                    'starting_date'=>'2020/05/05',
+                    'end_date'=>'2020/05/09'
+                ],
+                [
+                    'reservation_id'=>'2',
+                    'room_id'=>'2',
+                    'starting_date'=>'2020/05/08',
+                    'end_date'=>'2020/05/10'
+                ],
+                [
+                    'reservation_id'=>'3',
+                    'room_id'=>'7',
+                    'starting_date'=>'2020/05/09',
+                    'end_date'=>'2020/05/10'
+                ],
+                [
+                    'reservation_id'=>'4',
+                    'room_id'=>'1',
+                    'starting_date'=>'2020/05/04',
+                    'end_date'=>'2020/05/07'
+                ],
+                [
+                    'reservation_id'=>'5',
+                    'room_id'=>'3',
+                    'starting_date'=>'2020/05/08',
+                    'end_date'=>'2020/05/10'
+                ],
+
+            ]
+        );
     }
 
     /**
