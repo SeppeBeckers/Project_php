@@ -2,7 +2,7 @@
 
 
 Route::view('/', 'start');
-Route::get('start', function () {
+gitRoute::get('start', function () {
     return view('start');
 });
 
