@@ -31,3 +31,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('room', 'Admin\RoomController');
     Route::resource('arrangement', 'Admin\ArrangementController');
     Route::resource('bill', 'Admin\BillController');
+});
