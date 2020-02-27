@@ -21,6 +21,26 @@ class CreateAgesTable extends Migration
 
             // NO Foreign key relation
         });
+        DB::table('ages')->insert(
+            [
+                [
+                    'age_category'=>'0-3j',
+                    'percentage_discount'=>'0.8',
+                ],
+                [
+                    'age_category'=>'4-8j',
+                    'percentage_discount'=>'0.5',
+                ],
+                [
+                    'age_category'=>'8-12j',
+                    'percentage_discount'=>'0.3',
+                ],
+                [
+                    'age_category'=>'12+',
+                    'percentage_discount'=>'0',
+                ]
+            ]
+        );
     }
 
     /**

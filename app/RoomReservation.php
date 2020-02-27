@@ -10,8 +10,8 @@ class RoomReservation extends Model
     {
         return $this->belongsTo('App\Room')->withDefault();   // a roomReservation belongs to a room
     }
-    public function persons()
+    public function reservation()
     {
-        return $this->hasMany('App\Person');   // a room has many persons
+        return $this->belongsTo('App\Reservation')->withDefault();   // a roomReservation belongs to a room
     }
 }

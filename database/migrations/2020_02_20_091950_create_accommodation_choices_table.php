@@ -16,11 +16,27 @@ class CreateAccommodationChoicesTable extends Migration
         Schema::create('accommodation_choices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
 
             // NO Foreign key relation
         });
+        DB::table('accommodation_choices')->insert(
+            [
+                [
+                    'type'=>'kamer met ontbijt'
+                ],
+                [
+                    'type'=>'halfpension (4-gangenmenu)'
+                ],
+                [
+                    'type'=>'halfpension (3-gangenmenu)'
+                ],
+                [
+                    'type'=>'volpension (3-gangenmenu)'
+                ]
+            ]
+        );
     }
 
     /**

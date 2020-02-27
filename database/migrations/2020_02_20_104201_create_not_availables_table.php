@@ -23,6 +23,13 @@ class CreateNotAvailablesTable extends Migration
             // Foreign key relation
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade')->onUpdate('cascade');
         });
+        DB::table('not_availables')->insert(
+            [
+                'room_id'=>'1',
+                'starting_date'=>'2020/04/10',
+                'end_date'=>'2020/04/24'
+            ]
+        );
     }
 
     /**

@@ -14,6 +14,8 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="/contact-us">Contact</a>
+                    <a class="nav-link" href="/book">Boek een kamer</a>
+
                 </li>
             </ul>
             {{--  Auth navigation  --}}
@@ -29,12 +31,14 @@
                             {{ auth()->user()->name }} <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="/book"><i class="fas fa-user-cog"></i>Boek een kamer</a>
 
                             @if(auth()->user()->admin)
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/admin/genres"><i class="fas fa-microphone-alt"></i>Overview</a>
-                                <a class="dropdown-item" href="/admin/records"><i class="fas fa-compact-disc"></i>Kamers beheren</a>
-             
+                                <a class="dropdown-item" href="/admin/overview"><i class="fas fa-compact-disc"></i>Overzicht</a>
+                                <a class="dropdown-item" href="/admin/bill"><i class="fas fa-microphone-alt"></i>Rekening beheren</a>
+                                <a class="dropdown-item" href="/admin/arrangement"><i class="fas fa-compact-disc"></i>Arrangement beheren</a>
+                                <a class="dropdown-item" href="/admin/room"><i class="fas fa-compact-disc"></i>Kamers beheren</a>
                             @endif
                         </div>
                     </li>
