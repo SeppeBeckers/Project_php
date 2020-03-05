@@ -14,7 +14,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="/contact-us">Contact</a>
-                    <a class="nav-link" href="/book">Boek een kamer</a>
+                    <a class="nav-link" href="/reservation/book">Boek een kamer</a>
 
                 </li>
             </ul>

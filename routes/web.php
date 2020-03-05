@@ -21,7 +21,8 @@ Auth::routes();
 Route::view('/', 'start');
 
 //korte route voor statisch
-Route::get('book', 'ReservationController@index');
+Route::get('reservation/book', 'ReservationController@index');
+Route::get('reservation/data', 'ReservationController@store');
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
@@ -31,3 +32,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('room', 'Admin\RoomController');
     Route::resource('arrangement', 'Admin\ArrangementController');
     Route::resource('bill', 'Admin\BillController');
+});
