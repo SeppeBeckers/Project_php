@@ -1,6 +1,6 @@
 @extends('layouts.template')
 @section('title', 'overview')
 
-@section('main')
+@section('content')
     <h1>Overzicht Boekingen</h1>
 @endsection
