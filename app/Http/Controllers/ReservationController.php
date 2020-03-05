@@ -10,4 +10,5 @@ class ReservationController extends Controller
     {
         return view('reservation.book');
     }
+
 }
