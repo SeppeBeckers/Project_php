@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('content')
+@section('main')
     <style>
         footer{
             position: fixed;
