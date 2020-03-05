@@ -12,7 +12,12 @@
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
 
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact-us">Contact</a>
+                    <a class="nav-link" href="/reservation/book">Boek een kamer</a>
+
                         </ul>
+
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
