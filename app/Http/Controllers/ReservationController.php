@@ -12,6 +12,7 @@ class ReservationController extends Controller
         return view('reservation.book');
     }
 
+
     public function create()
     {
         return view('reservation.data');
@@ -34,4 +35,5 @@ class ReservationController extends Controller
         $reservation->save();
         return view('reservation.summary');
     }
+
 }

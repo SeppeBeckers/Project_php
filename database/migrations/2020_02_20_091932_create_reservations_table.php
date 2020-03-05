@@ -24,7 +24,7 @@ class CreateReservationsTable extends Migration
             $table->string('address')->nullable();
             $table->string('place')->nullable();
             $table->string('gender');
-            $table->string('note')->nullable();
+            $table->string('message')->nullable();
             $table->unsignedInteger('deposit_amount')->nullable();
             $table->timestamps();
 
