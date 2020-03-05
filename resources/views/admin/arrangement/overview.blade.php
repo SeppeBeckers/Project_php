@@ -37,7 +37,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Double</th>
-                        <td>74,50€</td>
+                        <td>74,50€ </td>
                         <td>76,00€</td>
                         <td>?</td>
                     </tr>
