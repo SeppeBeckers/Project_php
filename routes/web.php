@@ -24,13 +24,14 @@ Route::view('/', 'start');
 
 Route::get('reservation/book', 'ReservationController@index');
 Route::get('reservation/data', 'ReservationController@store');
+Route::get('admin/room', 'Admin\RoomController@index');
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     route::redirect('/', 'overview');
-    Route::resource('overview', 'Admin\OverviewController');
-    Route::resource('reservation', 'Admin\ReservationController@edit');
-    Route::resource('room', 'Admin\RoomController');
+    Route::get('overview', 'Admin\OverviewController@index');
+    Route::resource('reservation', 'Admin\ReservationController');
+    //Route::resource('room', 'Admin\RoomController@index');
     Route::resource('arrangement', 'Admin\ArrangementController');
     Route::resource('bill', 'Admin\BillController');
 });
