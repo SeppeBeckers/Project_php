@@ -2,6 +2,7 @@
 
 @section('title', 'Bookings')
 
+
 @section('main')
     <h1>Genres</h1>
     <p>

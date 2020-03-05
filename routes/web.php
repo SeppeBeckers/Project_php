@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -20,28 +21,16 @@ Auth::routes();
 Route::view('/', 'start');
 
 //korte route voor statisch
-Route::get('book', 'ReservationController@index');
-Route::resource('overview', 'Admin\OverviewController');
+
+Route::get('reservation/book', 'ReservationController@index');
+Route::get('reservation/data', 'ReservationController@store');
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    Route::resource('reservations', 'Admin\OverviewController');
-    Route::resource('reservation', 'Admin\ReservationController');
+    route::redirect('/', 'overview');
+    Route::resource('overview', 'Admin\OverviewController');
+    Route::resource('reservation', 'Admin\ReservationController@edit');
     Route::resource('room', 'Admin\RoomController');
     Route::resource('arrangement', 'Admin\ArrangementController');
     Route::resource('bill', 'Admin\BillController');
-
-
-
-
-
 });
-Route::view('/', 'start');
-Route::redirect('user', '/user/profile');
-Route::middleware(['auth'])->prefix('user')->group(function () {
-    Route::get('profile', 'User\ProfileController@edit');
-    Route::post('profile', 'User\ProfileController@update');
-    Route::get('password', 'User\PasswordController@edit');
-    Route::post('password', 'User\PasswordController@update');
-});
-
