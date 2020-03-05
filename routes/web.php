@@ -27,9 +27,8 @@ Route::get('book', 'ReservationController@index');
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     route::redirect('/', 'overview');
     Route::resource('overview', 'Admin\OverviewController');
-    Route::resource('reservation', 'Admin\ReservationController');
+    Route::resource('reservation', 'Admin\ReservationController@edit');
     Route::resource('room', 'Admin\RoomController');
     Route::resource('arrangement', 'Admin\ArrangementController');
     Route::resource('bill', 'Admin\BillController');
 });
-
