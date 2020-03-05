@@ -21,11 +21,11 @@ Route::view('/', 'start');
 
 //korte route voor statisch
 Route::get('book', 'ReservationController@index');
+Route::resource('overview', 'Admin\OverviewController');
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    route::redirect('/', 'overview');
-    Route::resource('overview', 'Admin\OverviewController');
+    Route::resource('reservations', 'Admin\OverviewController');
     Route::resource('reservation', 'Admin\ReservationController');
     Route::resource('room', 'Admin\RoomController');
     Route::resource('arrangement', 'Admin\ArrangementController');
