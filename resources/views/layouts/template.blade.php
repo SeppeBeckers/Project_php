@@ -17,7 +17,7 @@
 
             @include('shared.navigation')
             <main class="container mt-3">
-                @yield('content')
+                @yield('main')
             </main>
             @include('shared.footer')
 
