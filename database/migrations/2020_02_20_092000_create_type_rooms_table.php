@@ -23,10 +23,10 @@ class CreateTypeRoomsTable extends Migration
         DB::table('type_rooms')->insert(
             [
                 [
-                    'type_bath'=>'Douche/Bad'
+                    'type_bath'=>'Douche'
                 ],
                 [
-                    'type_bath'=>'Douche'
+                    'type_bath'=>'Douche/Bad'
                 ]
             ]
         );

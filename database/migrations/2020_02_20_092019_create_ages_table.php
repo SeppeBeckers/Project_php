@@ -32,11 +32,11 @@ class CreateAgesTable extends Migration
                     'percentage_discount'=>'0.5',
                 ],
                 [
-                    'age_category'=>'8-12j',
+                    'age_category'=>'9-12j',
                     'percentage_discount'=>'0.3',
                 ],
                 [
-                    'age_category'=>'12+',
+                    'age_category'=>'13+',
                     'percentage_discount'=>'0',
                 ]
             ]
