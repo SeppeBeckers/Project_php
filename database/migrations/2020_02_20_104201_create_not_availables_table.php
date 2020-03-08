@@ -15,7 +15,7 @@ class CreateNotAvailablesTable extends Migration
     {
         Schema::create('not_availables', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('room_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
+            $table->unsignedBigInteger('room_id');
             $table->date('starting_date');
             $table->date('end_date');
             $table->timestamps();
@@ -27,7 +27,32 @@ class CreateNotAvailablesTable extends Migration
             [
                 'room_id'=>'1',
                 'starting_date'=>'2020/04/10',
+                'end_date'=>'2020/10/24'
+            ],
+            [
+                'room_id'=>'2',
+                'starting_date'=>'2020/04/10',
+                'end_date'=>'2020/10/24'
+            ],
+            [
+                'room_id'=>'3',
+                'starting_date'=>'2020/04/10',
+                'end_date'=>'2020/10/24'
+            ],
+            [
+                'room_id'=>'4',
+                'starting_date'=>'2020/10/10',
                 'end_date'=>'2020/04/24'
+            ],
+            [
+                'room_id'=>'4',
+                'starting_date'=>'2020/04/10',
+                'end_date'=>'2020/04/11'
+            ],
+            [
+                'room_id'=>'3',
+                'starting_date'=>'2020/05/10',
+                'end_date'=>'2020/05/12'
             ]
         );
     }

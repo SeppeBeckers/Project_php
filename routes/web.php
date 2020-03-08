@@ -29,9 +29,9 @@ Route::get('admin/room', 'Admin\RoomController@index');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     route::redirect('/', 'overview');
-    Route::get('overview', 'Admin\OverviewController@index');
+    Route::resource('overview', 'Admin\OverviewController');
     Route::resource('reservation', 'Admin\ReservationController');
-    //Route::resource('room', 'Admin\RoomController@index');
+    Route::resource('room', 'Admin\RoomController');
     Route::resource('arrangement', 'Admin\ArrangementController');
     Route::resource('bill', 'Admin\BillController');
 });

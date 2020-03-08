@@ -18,4 +18,8 @@ class Price extends Model
     {
         return $this->belongsTo('App\ TypeRoom ')->withDefault();   // a price belongs to a typeRoom
     }
+    public function arrangement()
+    {
+        return $this->belongsTo('App\ Arrangement ')->withDefault();   // a price belongs to a arrangement
+    }
 }

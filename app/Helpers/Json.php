@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-namespace App\Helpers;
 
 
 class Json

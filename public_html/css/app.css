@@ -10884,3 +10884,16 @@ a.text-dark:focus {
   }
 }
 
+main {
+  min-height: 500px;
+}
+
+.text-body2 {
+  font-size: 25px;
+}
+
+.green-gradient {
+  background: #6ac17e;
+  background: linear-gradient(180deg, #6ac17e 0%, #c3e4cb 100%);
+}
+
