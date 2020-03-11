@@ -19,7 +19,7 @@ class CreatePricesTable extends Migration
             $table->unsignedBigInteger('occupancy_id');
             $table->unsignedBigInteger('arrangement_id')->nullable();
             $table->unsignedBigInteger('type_room_id');
-            $table->double('price');
+            $table->double('amount');
             $table->timestamp('from_date');
             $table->timestamps();
 
@@ -36,196 +36,196 @@ class CreatePricesTable extends Migration
                     'occupancy_id' => '1',
                     'arrangement_id'=> null,
                     'type_room_id' => '1',
-                    'price'=>'47'
+                    'amount'=>'47'
                 ],
                 [
                     'accommodation_choice_id'=>'1',
                     'occupancy_id' => '1',
                     'arrangement_id'=> null,
                     'type_room_id' => '2',
-                    'price'=>'49.5'
+                    'amount'=>'49.5'
                 ],
                 [
                     'accommodation_choice_id'=>'1',
                     'occupancy_id' => '2',
                     'arrangement_id'=> null,
                     'type_room_id' => '1',
-                    'price'=>'34.5'
+                    'amount'=>'34.5'
                 ],
                 [
                     'accommodation_choice_id'=>'1',
                     'occupancy_id' => '2',
                     'arrangement_id'=> null,
                     'type_room_id' => '2',
-                    'price'=>'36'
+                    'amount'=>'36'
                 ],
                 [
                     'accommodation_choice_id'=>'2',
                     'occupancy_id' => '1',
                     'arrangement_id'=> '1',
                     'type_room_id' => '1',
-                    'price'=>'87'
+                    'amount'=>'87'
                 ],
                 [
                     'accommodation_choice_id'=>'2',
                     'occupancy_id' => '1',
                     'arrangement_id'=> '1',
                     'type_room_id' => '2',
-                    'price'=>'89.5'
+                    'amount'=>'89.5'
                 ],
                 [
                     'accommodation_choice_id'=>'2',
                     'occupancy_id' => '2',
                     'arrangement_id'=>'1',
                     'type_room_id' => '1',
-                    'price'=>'74.5'
+                    'amount'=>'74.5'
                 ],
                 [
                     'accommodation_choice_id'=>'2',
                     'occupancy_id' => '2',
                     'arrangement_id'=>'1',
                     'type_room_id' => '2',
-                    'price'=>'76'
+                    'amount'=>'76'
                 ],
                 [
                     'accommodation_choice_id'=>'3',
                     'occupancy_id' => '1',
                     'arrangement_id'=> null,
                     'type_room_id' => '1',
-                    'price'=>'74'
+                    'amount'=>'74'
                 ],
                 [
                     'accommodation_choice_id'=>'3',
                     'occupancy_id' => '1',
                     'arrangement_id'=> null,
                     'type_room_id' => '2',
-                    'price'=>'76.5'
+                    'amount'=>'76.5'
                 ],
                 [
                     'accommodation_choice_id'=>'3',
                     'occupancy_id' => '2',
                     'arrangement_id'=> null,
                     'type_room_id' => '1',
-                    'price'=>'61.5'
+                    'amount'=>'61.5'
                 ],
                 [
                     'accommodation_choice_id'=>'3',
                     'occupancy_id' => '2',
                     'arrangement_id'=> null,
                     'type_room_id' => '2',
-                    'price'=>'63'
+                    'amount'=>'63'
                 ],
                 [
                     'accommodation_choice_id'=>'4',
                     'occupancy_id' => '1',
                     'arrangement_id'=> null,
                     'type_room_id' => '1',
-                    'price'=>'90'
+                    'amount'=>'90'
                 ],
                 [
                     'accommodation_choice_id'=>'4',
                     'occupancy_id' => '1',
                     'arrangement_id'=> null,
                     'type_room_id' => '2',
-                    'price'=>'92.5'
+                    'amount'=>'92.5'
                 ],
                 [
                     'accommodation_choice_id'=>'4',
                     'occupancy_id' => '2',
                     'arrangement_id'=> null,
                     'type_room_id' => '1',
-                    'price'=>'77.5'
+                    'amount'=>'77.5'
                 ],
                 [
                     'accommodation_choice_id'=>'4',
                     'occupancy_id' => '2',
                     'arrangement_id'=> null,
                     'type_room_id' => '2',
-                    'price'=>'80'
+                    'amount'=>'80'
                 ],
                 [
                     'accommodation_choice_id'=> null,
                     'occupancy_id' => '1',
                     'arrangement_id'=>'2',
                     'type_room_id' => '1',
-                    'price'=>'161'
+                    'amount'=>'161'
                 ],
                 [
                     'accommodation_choice_id'=> null,
                     'occupancy_id' => '1',
                     'arrangement_id'=>'2',
                     'type_room_id' => '2',
-                    'price'=>'166'
+                    'amount'=>'166'
                 ],
                 [
                     'accommodation_choice_id'=> null,
                     'occupancy_id' => '2',
                     'arrangement_id'=>'2',
                     'type_room_id' => '1',
-                    'price'=>'136'
+                    'amount'=>'136'
                 ],
                 [
                     'accommodation_choice_id'=> null,
                     'occupancy_id' => '2',
                     'arrangement_id'=>'2',
                     'type_room_id' => '2',
-                    'price'=>'139'
+                    'amount'=>'139'
                 ],
                 [
                     'accommodation_choice_id'=> null,
                     'occupancy_id' => '1',
                     'arrangement_id'=>'3',
                     'type_room_id' => '1',
-                    'price'=>'181'
+                    'amount'=>'181'
                 ],
                 [
                     'accommodation_choice_id'=> null,
                     'occupancy_id' => '1',
                     'arrangement_id'=>'3',
                     'type_room_id' => '2',
-                    'price'=>'186'
+                    'amount'=>'186'
                 ],
                 [
                     'accommodation_choice_id'=> null,
                     'occupancy_id' => '2',
                     'arrangement_id'=>'3',
                     'type_room_id' => '1',
-                    'price'=>'156'
+                    'amount'=>'156'
                 ],
                 [
                     'accommodation_choice_id'=> null,
                     'occupancy_id' => '2',
                     'arrangement_id'=>'3',
                     'type_room_id' => '2',
-                    'price'=>'159'
+                    'amount'=>'159'
                 ],
                 [
                     'accommodation_choice_id'=> null,
                     'occupancy_id' => '1',
                     'arrangement_id'=>'4',
                     'type_room_id' => '1',
-                    'price'=>'309'
+                    'amount'=>'309'
                 ],
                 [
                     'accommodation_choice_id'=> null,
                     'occupancy_id' => '1',
                     'arrangement_id'=>'4',
                     'type_room_id' => '2',
-                    'price'=>'319'
+                    'amount'=>'319'
                 ],
                 [
                     'accommodation_choice_id'=> null,
                     'occupancy_id' => '2',
                     'arrangement_id'=>'4',
                     'type_room_id' => '1',
-                    'price'=>'259'
+                    'amount'=>'259'
                 ],
                 [
                     'accommodation_choice_id'=> null,
                     'occupancy_id' => '2',
                     'arrangement_id'=>'4',
                     'type_room_id' => '2',
-                    'price'=>'265'
+                    'amount'=>'265'
                 ]
             ]
         );
