@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+window.Noty = require('noty');
 
 window.Vue = require('vue');
 
