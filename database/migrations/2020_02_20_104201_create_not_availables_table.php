@@ -26,23 +26,23 @@ class CreateNotAvailablesTable extends Migration
         DB::table('not_availables')->insert(
             [
                 'room_id'=>'1',
-                'starting_date'=>'2020/04/10',
+                'starting_date'=>'2020/10/04',
                 'end_date'=>'2020/10/24'
             ],
             [
                 'room_id'=>'2',
-                'starting_date'=>'2020/04/10',
+                'starting_date'=>'2020/10/04',
                 'end_date'=>'2020/10/24'
             ],
             [
                 'room_id'=>'3',
-                'starting_date'=>'2020/04/10',
+                'starting_date'=>'2020/10/04',
                 'end_date'=>'2020/10/24'
             ],
             [
                 'room_id'=>'4',
-                'starting_date'=>'2020/10/10',
-                'end_date'=>'2020/04/24'
+                'starting_date'=>'2020/10/04',
+                'end_date'=>'2020/10/24'
             ],
             [
                 'room_id'=>'4',
