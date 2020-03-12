@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+window.Noty = require('noty');
 
 window.Vue = require('vue');
 
@@ -29,4 +30,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+});
+
+$('body').tooltip({
+    selector: '[data-toggle="tooltip"]',
+    html : true,
 });

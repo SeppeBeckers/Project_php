@@ -32,7 +32,7 @@ class CreateExtraCostsTable extends Migration
                     'percentage'=>'0.21'
                 ],
                 [
-                    'type'=>'eten',
+                    'type'=>'voeding',
                     'percentage'=>'0.12'
                 ],
                 [
