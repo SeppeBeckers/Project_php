@@ -24,7 +24,7 @@ Route::view('/', 'start');
 
 Route::get('reservation/book', 'ReservationController@index');
 Route::get('reservation/data', 'ReservationController@store');
-Route::get('admin/room', 'Admin\RoomController@index');
+
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
