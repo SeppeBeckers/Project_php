@@ -15,7 +15,7 @@ class CreateRoomReservationsTable extends Migration
     {
         Schema::create('room_reservations', function (Blueprint $table) {
             $table->unsignedBigInteger('reservation_id');
-            $table->unsignedBigInteger('room_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
+            $table->unsignedBigInteger('room_id');
             $table->date('starting_date');
             $table->date('end_date');
             $table->timestamps();
@@ -56,7 +56,12 @@ class CreateRoomReservationsTable extends Migration
                     'starting_date'=>'2020/05/08',
                     'end_date'=>'2020/05/10'
                 ],
-
+                [
+                    'reservation_id'=>'5',
+                    'room_id'=>'9',
+                    'starting_date'=>'2020/05/08',
+                    'end_date'=>'2020/05/11'
+                ]
             ]
         );
     }

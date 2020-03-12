@@ -1,10 +1,18 @@
 // Fonts
+
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css');
-
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script&display=swap');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+//Noty
+@import '~noty/src/noty';
+@import '~noty/src/themes/bootstrap-v4';
+
+//Custom code
+@import "main";

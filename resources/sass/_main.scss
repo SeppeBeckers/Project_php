@@ -1,0 +1,61 @@
+main {
+  min-height: 500px;
+  background-color: white;
+  margin-bottom: 70px;
+  font-size: 14px;
+  border: 1px solid lightseagreen;
+  border-radius: 10px;
+
+}
+
+body{
+  background: rgb(255,255,255);
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(137,187,103,1) 100%);
+  font-family: 'Nunito', sans-serif;
+}
+
+footer{
+  h3{
+    font-size: 16px!important;
+    font-weight: bolder;
+  }
+  p,ul,a{
+    font-size: 12px;
+  }
+}
+
+.verticalLine {
+  border-left: 1px solid #28a745;
+}
+
+h1{
+  font-size: 25px!important;
+}
+
+h2{
+  font-size: 20px!important;
+}
+
+h3{
+  font-size: 18px!important;
+}
+
+@media (min-width: 750px) {
+  .container-sm{
+    width: 65%!important;
+  }
+}
+
+.bg-green{
+  background-color: #89bb67;
+}
+
+.bg-lightgreen{
+  background-color: rgba(137, 187, 103, 0.5);
+}
+
+.hotel-name{
+  font-family: 'Dancing Script', cursive;
+  font-size: 30px!important;
+}
+
