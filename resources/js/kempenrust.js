@@ -1,4 +1,4 @@
-xport function hello(){
+export function hello(){
     console.log('Welkom op de reserveringspagina van het hotel Kempenrust!');
 }
 
