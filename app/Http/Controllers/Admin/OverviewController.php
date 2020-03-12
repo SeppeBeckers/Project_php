@@ -13,13 +13,15 @@ class OverviewController extends Controller
 {
     public function index()
     {
-        $room_reservations = RoomReservation::orderBy('starting_date')
-            ->get();
-        $result = compact('room_reservations');
+        $Reservation = RoomReservation::with('Reservation')->get();
+        $result = compact('Reservation');
         Json::dump($result);
         return view('admin.overview', $result);
-    }
 
+
+
+
+    }
     public function create(Request $request)
     {
 
@@ -53,6 +55,8 @@ class OverviewController extends Controller
         return redirect('admin/overview');
 
     }
+
+
 
 
 

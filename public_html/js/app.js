@@ -52655,6 +52655,10 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app'
 });
+$('body').tooltip({
+  selector: '[data-toggle="tooltip"]',
+  html: true
+});
 
 /***/ }),
 
