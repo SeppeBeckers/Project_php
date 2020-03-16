@@ -16,7 +16,7 @@ class CreatePeopleTable extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('reservation_id');
-            $table->unsignedBigInteger('age_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
+            $table->unsignedBigInteger('age_id');
             $table->unsignedInteger('number_of_persons');
             $table->timestamps();
 
@@ -55,7 +55,7 @@ class CreatePeopleTable extends Migration
                     'reservation_id'=>5,
                     'age_id'=>'4',
                     'number_of_persons'=>'2'
-                ],
+                ]
             ]
         );
     }

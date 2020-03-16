@@ -15,7 +15,7 @@ class CreateBillCostsTable extends Migration
     {
         Schema::create('bill_costs', function (Blueprint $table) {
             $table->unsignedBigInteger('extra_cost_id');
-            $table->unsignedBigInteger('bill_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
+            $table->unsignedBigInteger('bill_id');
             $table->double('amount');
             $table->timestamps();
 

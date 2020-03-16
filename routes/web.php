@@ -21,15 +21,18 @@ Auth::routes();
 Route::view('/', 'start');
 
 //korte route voor statisch
+
 Route::get('reservation/book', 'ReservationController@index');
 Route::get('reservation/data', 'ReservationController@create');
 
 
+
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     route::redirect('/', 'overview');
-    Route::resource('overview', 'Admin\OverviewController');
-    Route::resource('reservation', 'Admin\ReservationController@edit');
+    Route::get('overview', 'Admin\OverviewController@index');
+    Route::resource('reservation', 'Admin\ReservationController');
     Route::resource('room', 'Admin\RoomController');
+    Route::get('arrangements/qryArrangements', 'Admin\ArrangementController@qryArrangements');
     Route::resource('arrangement', 'Admin\ArrangementController');
     Route::resource('bill', 'Admin\BillController');
 });

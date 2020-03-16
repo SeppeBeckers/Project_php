@@ -25,7 +25,7 @@ class CreateReservationsTable extends Migration
             $table->string('place')->nullable();
             $table->string('gender');
             $table->string('message')->nullable();
-            $table->unsignedInteger('deposit_amount')->nullable();
+            $table->double('deposit_amount')->nullable();
             $table->timestamps();
 
             // NO Foreign key relation
@@ -39,42 +39,51 @@ class CreateReservationsTable extends Migration
                     'phone_number' => '0494843178',
                     'address' => 'Achterbist 48B',
                     'place' => 'Nijlen',
-                    'gender' => 'Male'
+                    'gender' => 'Male',
+                    'message' => 'Graag kamer 2 aub.',
+                    'deposit_amount' => '20'
                 ],
                 [
-                'name' => 'Geerkens',
-                'first_name' => 'Babette',
-                'email' => 'babettegeerkens@gmail.com',
-                'phone_number' => '0472712297',
-                'address' => 'Velodroomstraat 59',
-                'place' => 'Geel',
-                'gender' => 'Female'
-            ],[
-                'name' => 'Vermeulen',
-                'first_name' => 'Bram',
-                'email' => 'brakke69@gmail.com',
-                'phone_number' => '0412312369',
-                'address' => 'Hooidonk 12',
-                'place' => 'Grobbendonk',
-                'gender' => 'Male'
-            ],[
-                'name' => 'Beckers',
-                'first_name' => 'Seppe',
-                'email' => 'seppebeckers@gmail.com',
-                'phone_number' => '0123456789',
-                'address' => 'Hoofdstraat 50',
-                'place' => 'Eksel',
-                'gender' => 'Male'
-            ],[
-                'name' => 'Vervecken',
-                'first_name' => 'Brent',
-                'email' => 'brentvervecken@gmail.com',
-                'phone_number' => '0123412341',
-                'address' => 'Donatusstraat 2',
-                'place' => 'Hallaer',
-                'gender' => 'Male'
-            ]
-
+                    'name' => 'Geerkens',
+                    'first_name' => 'Babette',
+                    'email' => 'babettegeerkens@gmail.com',
+                    'phone_number' => '0472712297',
+                    'address' => 'Velodroomstraat 59',
+                    'place' => 'Geel',
+                    'gender' => 'Female',
+                    'message' => null,
+                    'deposit_amount' => null
+                ],[
+                    'name' => 'Vermeulen',
+                    'first_name' => 'Bram',
+                    'email' => 'brakke@gmail.com',
+                    'phone_number' => '0412312369',
+                    'address' => 'Hooidonk 12',
+                    'place' => 'Grobbendonk',
+                    'gender' => 'Male',
+                    'message' => 'Ik breng mijn klein hondje mee',
+                    'deposit_amount' => null
+                ],[
+                    'name' => 'Beckers',
+                    'first_name' => 'Seppe',
+                    'email' => 'seppebeckers@gmail.com',
+                    'phone_number' => '0123456789',
+                    'address' => 'Hoofdstraat 50',
+                    'place' => 'Eksel',
+                    'gender' => 'Male',
+                    'message' => null,
+                    'deposit_amount' => '30'
+                ],[
+                    'name' => 'Vervecken',
+                    'first_name' => 'Brent',
+                    'email' => 'brentvervecken@gmail.com',
+                    'phone_number' => '0123412341',
+                    'address' => 'Donatusstraat 2',
+                    'place' => 'Hallaer',
+                    'gender' => 'Male',
+                    'message' => null,
+                    'deposit_amount' => '10'
+                ]
             ]
         );
     }

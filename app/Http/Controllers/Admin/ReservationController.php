@@ -7,6 +7,12 @@ use App\Http\Controllers\Controller;
 
 class ReservationController extends Controller
 {
+
+    public function index()
+    {
+        return view('admin.reservation');
+    }
+
     // Edit reservation
     public function edit()
     {

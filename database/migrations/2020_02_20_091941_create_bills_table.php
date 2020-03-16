@@ -15,7 +15,7 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('reservation_id');    // use SAME SIZE as id: unsignedInteger() creates an error!
+            $table->unsignedBigInteger('reservation_id');
             $table->timestamp('bill_made_at');
             $table->double('adjusted_amount')->nullable();
             $table->double('vat');
@@ -33,7 +33,7 @@ class CreateBillsTable extends Migration
                 ],
                 [
                     'reservation_id' => '2',
-                    'adjusted_amount' => '200',
+                    'adjusted_amount' => null,
                     'VAT'=>'42'
                 ],
                 [
@@ -43,12 +43,12 @@ class CreateBillsTable extends Migration
                 ],
                 [
                     'reservation_id' => '4',
-                    'adjusted_amount' => '400',
+                    'adjusted_amount' => null,
                     'VAT'=>'84'
                 ],
                 [
                     'reservation_id' => '5',
-                    'adjusted_amount' => '100',
+                    'adjusted_amount' => null,
                     'VAT'=>'105'
                 ],
 

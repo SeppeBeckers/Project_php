@@ -23,10 +23,10 @@ class CreateOccupanciesTable extends Migration
         DB::table('occupancies')->insert(
             [
                 [
-                    'is_double'=> true
+                    'is_double'=> false
                 ],
                 [
-                    'is_double'=> false
+                    'is_double'=> true
                 ]
             ]
         );

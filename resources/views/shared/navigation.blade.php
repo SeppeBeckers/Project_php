@@ -1,7 +1,7 @@
 
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm border-success border-bottom">
                 <div class="container">
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand hotel-name" href="{{ url('/') }}">
                         Hotel Kempenrust
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -11,20 +11,16 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact-us">Contact</a>
-                    <a class="nav-link" href="/reservation/book">Boek een kamer</a>
-
+                    <a class="nav-link ml-5 btn btn-outline-success px-3" href="/reservation/book">Boek een kamer</a>
                         </ul>
-
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <!-- Authentication Links -->
                             @guest
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Inloggen') }}</a>
                                 </li>
                             @else
                                 <li class="nav-item dropdown">
@@ -33,14 +29,15 @@
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="../admin"><i class="fas fa-microphone-alt"></i>Overview</a>
-                                        <a class="dropdown-item" href="../admin/room"><i class="fas fa-compact-disc"></i>Kamers beheren</a>
-                                        <a class="dropdown-item" href="../reservation"><i class="fas fa-compact-disc"></i>Reserveringen</a>
-                                        <a class="dropdown-item" href="../admin/bill"><i class="fas fa-compact-disc"></i>rekening</a>
+                                        <a class="dropdown-item" href="/admin/overview"><i class="fas fa-microphone-alt"></i>Overview</a>
+                                        <a class="dropdown-item" href="/reservation/book"><i class="fas fa-compact-disc"></i>Nieuwe Reservatie</a>
+                                        <a class="dropdown-item" href="/admin/room"><i class="fas fa-compact-disc"></i>Kamers beheren</a>
+                                        <a class="dropdown-item" href="/admin/arrangement"><i class="fas fa-compact-disc"></i>Arrangementen beheren</a>
+                                        <a class="dropdown-item" href="/admin/bill"><i class="fas fa-compact-disc"></i>Rekening</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                            {{ __('Uitloggen') }}
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             @csrf
