@@ -6,8 +6,8 @@
     <hr>
     <h3>Overzicht</h3>
     <div class="pl-3">
-        <p>Datum: {{request('room_reservation->starting_date')}}</p>
-        <p>Bezetting:</p>
+        <p>Datum: {{"request->aankomstdatum"}}</p>
+        <p>Bezetting: </p>
         <p>Verblijfkeuze:</p>
     </div>
     <form action="">
@@ -65,7 +65,14 @@
                     <input type="text" class="form-control" id="postcode">
                 </div>
             </div>
+            @guest()
+                <p>U dient een voorschot van 10% te betalen</p>
+            @else
+                <label for="voorschot">Voorschot</label>
+                <input type="checkbox" class="form-control" id="voorschot">
+            @endguest
             <button type="submit" class="btn btn-success mb-4">Bevestig reservatie</button>
+
         </form>
     </form>
 

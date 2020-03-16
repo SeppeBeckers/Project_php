@@ -22,7 +22,7 @@ class CreateBillsTable extends Migration
             $table->timestamps();
 
             // Foreign key relation
-            $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('reservation_id')->references('id')->on('reservations');
         });
         DB::table('bills')->insert(
             [

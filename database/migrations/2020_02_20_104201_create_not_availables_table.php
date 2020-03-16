@@ -21,7 +21,7 @@ class CreateNotAvailablesTable extends Migration
             $table->timestamps();
 
             // Foreign key relation
-            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('room_id')->references('id')->on('rooms');
         });
         DB::table('not_availables')->insert(
             [

@@ -22,7 +22,7 @@ Route::view('/', 'start');
 
 //korte route voor statisch
 Route::get('reservation/book', 'ReservationController@index');
-Route::get('reservation/data', 'ReservationController@store');
+Route::get('reservation/data', 'ReservationController@create');
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {

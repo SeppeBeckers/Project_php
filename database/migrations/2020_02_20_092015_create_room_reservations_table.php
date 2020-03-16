@@ -21,8 +21,8 @@ class CreateRoomReservationsTable extends Migration
             $table->timestamps();
 
             // Foreign key relation
-            $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('reservation_id')->references('id')->on('reservations');
+            $table->foreign('room_id')->references('id')->on('rooms');
         });
         DB::table('room_reservations')->insert(
             [

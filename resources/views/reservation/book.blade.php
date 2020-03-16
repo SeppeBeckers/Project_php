@@ -19,19 +19,19 @@
         <div class="row text-center ml-4">
             <div class="col-2">
                 <label for="aantal0_3">0-3j:</label>
-                <input type="number" min="0" id="aantal0_3" name="aantal0_3">
+                <input type="number" min="0" id="aantal0_3" name="aantal0_3" value="0">
             </div>
             <div class="col-2">
                 <label for="aantal4_8">4-8j:</label>
-                <input type="number" min="0" id="aantal4_8" name="aantal4_8">
+                <input type="number" min="0" id="aantal4_8" name="aantal4_8" value="0">
             </div>
             <div class="col-2">
                 <label for="aantal9_12">9-12j:</label>
-                <input type="number" min="0" id="aantal9_12" name="aantal9_12">
+                <input type="number" min="0" id="aantal9_12" name="aantal9_12" value="0">
             </div>
             <div class="col-2">
                 <label for="aantal12+">12+j:</label>
-                <input type="number" min="0" id="aantal12" name="aantal12">
+                <input type="number" min="0" id="aantal12" name="aantal12" value="0">
             </div>
         </div>
 
