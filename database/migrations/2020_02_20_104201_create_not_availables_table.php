@@ -25,6 +25,7 @@ class CreateNotAvailablesTable extends Migration
         });
         DB::table('not_availables')->insert(
             [
+            [
                 'room_id'=>'1',
                 'starting_date'=>'2020/10/04',
                 'end_date'=>'2020/10/24'
@@ -41,6 +42,11 @@ class CreateNotAvailablesTable extends Migration
             ],
             [
                 'room_id'=>'4',
+                'starting_date'=>'2020/03/10',
+                'end_date'=>'2020/03/20'
+            ],
+            [
+                'room_id'=>'4',
                 'starting_date'=>'2020/10/04',
                 'end_date'=>'2020/10/24'
             ],
@@ -53,6 +59,8 @@ class CreateNotAvailablesTable extends Migration
                 'room_id'=>'3',
                 'starting_date'=>'2020/05/10',
                 'end_date'=>'2020/05/12'
+            ]
+
             ]
         );
     }
