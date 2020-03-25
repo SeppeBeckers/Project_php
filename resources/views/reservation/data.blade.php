@@ -6,17 +6,51 @@
     <hr>
     <h3>Overzicht</h3>
     <div class="pl-3">
-        <p>Datum: {{"request->aankomstdatum"}}</p>
-        <p>Bezetting: </p>
-        <p>Verblijfkeuze:</p>
+        <p>Datum: {{$aankomstdatum}} tot {{$vertrekdatum}}</p>
+        <p>Bezetting:</p>
+        <div class="col-7">
+        <table class="table  table-sm table-bordered">
+            <tr>
+                <td width="10%">Aantal 0 tot 3j</td>
+                <td width="10%">Aantal 4 tot 8j</td>
+                <td width="10%">Aantal 9 tot 12j</td>
+                <td width="10%">Aantal volwassenen</td>
+            </tr>
+            <tr>
+                <td width="10%">{{$aantal0_3}}</td>
+                <td width="10%">{{$aantal4_8}}</td>
+                <td width="10%">{{$aantal9_12}}</td>
+                <td width="10%">{{$aantal12}}</td>
+            </tr>
+        </table>
+        </div>
     </div>
-    <form action="">
+    <form action="/reservation/summary">
         <h3>Persoonsgegevens:</h3>
-        <form>
+            {{--Hidden velden van vorige pagina--}}
+            <label for="aankomstdatum" ></label>
+            <input type="text"  id="aankomstdatum"  hidden value="{{$aankomstdatum}}">
+            <label for="vertrekdatum" ></label>
+            <input type="text"  id="vertrekdatum"  hidden value="{{$vertrekdatum}}">
+            <label for="aantal0_3" ></label>
+            <input type="text"  id="aantal0_3"  hidden value="{{$aantal0_3}}">
+            <label for="aantal4_8" ></label>
+            <input type="text"  id="aantal4_8"  hidden value="{{$aantal4_8}}">
+            <label for="aantal9_12" ></label>
+            <input type="text"  id="aantal9_12"  hidden value="{{$aantal9_12}}">
+            <label for="aantal12" ></label>
+            <input type="text"  id="aantal12"  hidden value="{{$aantal12}}">
+            <label for="soortkamer" ></label>
+            <input type="text"  id="soortkamer"  hidden value="{{$soortkamer}}">
+            <label for="verblijfskeuze" ></label>
+            <input type="text"  id="verblijfskeuze"  hidden value="{{$verblijfskeuze}}">
+            <label for="comment" ></label>
+            <input type="text"  id="comment"  hidden value="{{$comment}}">
+
             <div class="form-row">
                 <div class="form-group col-md-5">
                     <label for="naam" >Naam *</label>
-                    <input type="text" class="form-control" id="naam" required placeholder="Naam">
+                    <input type="text" class="form-control" id="naam" value="" required placeholder="Naam">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="voornaam">Voornaam *</label>
@@ -25,9 +59,9 @@
                 <div class="form-group col-1">
                     <label for="geslacht">Geslacht *</label>
                     <select required id="geslacht" name="geslacht" class="form-control">
-                        <option value="volvo">Man</option>
-                        <option value="saab">Vrouw</option>
-                        <option value="fiat">Andere</option>
+                        <option value="man">Man</option>
+                        <option value="vrouw">Vrouw</option>
+                        <option value="anders">Andere</option>
                     </select>
                 </div>
             </div>
@@ -72,8 +106,6 @@
                 <input type="checkbox" class="form-control" id="voorschot">
             @endguest
             <button type="submit" class="btn btn-success mb-4">Bevestig reservatie</button>
-
-        </form>
     </form>
 
 @endsection
