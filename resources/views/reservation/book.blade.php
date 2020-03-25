@@ -36,50 +36,33 @@
         </div>
 
         <h3>Selecteer het soort kamer</h3>
-        <div class="row ml-4">
-            <div class="col-3">
-                <input type="radio" id="bad" name="soortkamer" value="bad">
-                <label for="bad">Kamer met bad/douche, toilet en tv</label><br>
+        @foreach($typerooms as $typeroom)
+            <div class="row ml-4">
+                <div class="col-3">
+                    <input type="radio" id="bad" name="soortkamer" value="{{$typeroom->id}}">
+                    <label for="bad">Kamer met {{$typeroom->type_bath}}, toilet en tv</label><br>
+                </div>
+
             </div>
-            <div class="col-3">
-                <input type="radio" id="douche" name="soortkamer" value="douche">
-                <label for="douche">Kamer met douche, toilet en tv</label><br>
-            </div>
-        </div>
+        @endforeach
 
         <h3>Kies uw verblijfkeuze</h3>
+        @foreach($accomodationchoices as $accomodationchoice)
         <div class="ml-4">
-            <input type="radio" id="douche" name="verblijfskeuze" value="douche">
-            <label for="douche">Kamer met ontbijt</label><br>
-
-            <input type="radio" id="douche" name="verblijfskeuze" value="douche">
-            <label for="douche">Halfpension (3 gangen)</label><br>
-
-            <input type="radio" id="douche" name="verblijfskeuze" value="douche">
-            <label for="douche">Halfpension (4 gangen)</label><br>
-
-            <input type="radio" id="douche" name="verblijfskeuze" value="douche">
-            <label for="douche">Volpension (3 gangen)</label><br>
+            <input type="radio" id="douche" name="verblijfskeuze" value="{{ $accomodationchoice->id }}">
+            <label for="douche">{{ $accomodationchoice->type  }}</label><br>
         </div>
+        @endforeach
 
         <h3>Speciale arrangementen</h3>
+        @foreach ($arrangements as $arrangement)
         <div class="ml-4">
-        <input type="radio" id="douche" name="verblijfskeuze" value="kortweekend">
-        <label for="douche">Kort weekend</label><br>
-        <p>Eén overnachting met ontbijt, één 4-gangenmenu  (zaterdagnamiddag tot zondagmorgen)</p>
-
-        <input type="radio" id="douche" name="verblijfskeuze" value="langweekend">
-        <label for="douche">Lang weekend</label><br>
-        <p>Twee overnachtingen met ontbijt, één 3-gangenmenu op vrijdag, één viergangenmenu op zaterdag (vrijdagmiddag tot zondagmorgen)</p>
-
-        <input type="radio" id="douche" name="verblijfskeuze" value="fietsweekend">
-        <label for="douche">Fietsweekend</label><br>
-        <p>Twee overnachtingen met ontbijt, één 4-gangenmenu, één 3-gangenmenu en twee lunchpakketten (vrijdagnamiddag tot zondagmorgen)</p>
-
-        <input type="radio" id="douche" name="verblijfskeuze" value="midweek">
-        <label for="douche">Midweek</label><br>
-        <p>Vier overnachtingen met ontbijt, één 4-gangenmenu en drie 3-gangenmenu's(van maandag tot vrijdag)</p>
+            <input type="radio" id="douche" name="verblijfskeuze" value="{{ $arrangement->id }}">
+            <label for="douche">{{ $arrangement->type }}</label><br>
+            <p>{{ $arrangement->description }}</p>
         </div>
+        @endforeach
+
         {{--extra opmerkingen--}}
         <div class="text-center">
             <textarea placeholder="Geef hier uw eventuele extra opmerkingen" rows="4" cols="120" name="comment" form="usrform"></textarea>
