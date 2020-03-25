@@ -8,7 +8,7 @@ class Person extends Model
 {
     public function roomReservation()
     {
-        return $this->belongsTo('App\RoomReservation')->withDefault();   // a person belongs to a roomReservation
+        return $this->belongsTo('App\Reservation')->withDefault();   // a person belongs to a roomReservation
     }
     public function age()
     {

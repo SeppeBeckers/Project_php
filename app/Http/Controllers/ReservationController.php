@@ -29,6 +29,7 @@ class ReservationController extends Controller
     }
     public function create(Request $request)
     {
+         $reservation = new Reservation();
             $aankomstdatum = $request->aankomstdatum;
             $vertrekdatum = $request->vertrekdatum;
             $aantal0_3 = $request->aantal0_3;
@@ -38,14 +39,14 @@ class ReservationController extends Controller
             $soortkamer = $request->soortkamer;
             $verblijfskeuze = $request->verblijfskeuze;
             $comment = $request->comment;
-            return view('reservation.data', compact('aankomstdatum', 'vertrekdatum', 'aantal0_3', 'aantal4_8', 'aantal9_12', 'aantal12', 'soortkamer','verblijfskeuze', 'comment'));
+            return view('reservation.data', compact('reservation','aankomstdatum', 'vertrekdatum', 'aantal0_3', 'aantal4_8', 'aantal9_12', 'aantal12', 'soortkamer','verblijfskeuze', 'comment'));
 
     }
     public function store(Request $request)
     {
         $reservation = new Reservation();
         $roomreservation = new RoomReservation();
-
+        $reservationid = $reservation->id;
         if ($request->aantal0_3 > 0) {
             $people = new Person();
             $people->reservation_id=$reservation->id;
@@ -75,7 +76,7 @@ class ReservationController extends Controller
             $people->save();
         }
 
-        $roomreservation->id=$reservation->id;
+        $roomreservation->reservation_id=$reservation->id;
         $roomreservation->aankomstdatum = $request->aankomstdatum;
         $roomreservation->vertrekdatum = $request->vertrektdatum;
 
