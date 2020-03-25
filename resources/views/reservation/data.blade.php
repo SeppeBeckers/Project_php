@@ -29,32 +29,32 @@
         <h3>Persoonsgegevens:</h3>
             {{--Hidden velden van vorige pagina--}}
             <label for="aankomstdatum" ></label>
-            <input type="text"  id="aankomstdatum"  hidden value="{{$aankomstdatum}}">
+            <input type="text"  name="aankomstdatum" id="aankomstdatum"  hidden value="{{$aankomstdatum}}">
             <label for="vertrekdatum" ></label>
-            <input type="text"  id="vertrekdatum"  hidden value="{{$vertrekdatum}}">
+            <input type="text" name="vertrekdatum" id="vertrekdatum"  hidden value="{{$vertrekdatum}}">
             <label for="aantal0_3" ></label>
-            <input type="text"  id="aantal0_3"  hidden value="{{$aantal0_3}}">
+            <input type="text" name="aantal0_3" id="aantal0_3"  hidden value="{{$aantal0_3}}">
             <label for="aantal4_8" ></label>
-            <input type="text"  id="aantal4_8"  hidden value="{{$aantal4_8}}">
+            <input type="text" name="aantal4_8" id="aantal4_8"  hidden value="{{$aantal4_8}}">
             <label for="aantal9_12" ></label>
-            <input type="text"  id="aantal9_12"  hidden value="{{$aantal9_12}}">
+            <input type="text" name="aantal9_12" id="aantal9_12"  hidden value="{{$aantal9_12}}">
             <label for="aantal12" ></label>
-            <input type="text"  id="aantal12"  hidden value="{{$aantal12}}">
+            <input type="text" name="aantal12" id="aantal12"  hidden value="{{$aantal12}}">
             <label for="soortkamer" ></label>
-            <input type="text"  id="soortkamer"  hidden value="{{$soortkamer}}">
+            <input type="text" name="soortkamer" id="soortkamer"  hidden value="{{$soortkamer}}">
             <label for="verblijfskeuze" ></label>
-            <input type="text"  id="verblijfskeuze"  hidden value="{{$verblijfskeuze}}">
+            <input type="text" name="verblijfskeuze" id="verblijfskeuze"  hidden value="{{$verblijfskeuze}}">
             <label for="comment" ></label>
-            <input type="text"  id="comment"  hidden value="{{$comment}}">
+            <input type="text" name="comment" id="comment"  hidden value="{{$comment}}">
 
             <div class="form-row">
                 <div class="form-group col-md-5">
                     <label for="naam" >Naam *</label>
-                    <input type="text" class="form-control" id="naam" value="" required placeholder="Naam">
+                    <input type="text" class="form-control" name="naam" id="naam" value="" required placeholder="Naam">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="voornaam">Voornaam *</label>
-                    <input required type="text" class="form-control" id="voornaam" placeholder="Voornaam">
+                    <input required type="text" class="form-control" name="voornaam" id="voornaam" placeholder="Voornaam">
                 </div>
                 <div class="form-group col-1">
                     <label for="geslacht">Geslacht *</label>
@@ -68,42 +68,42 @@
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label required for="email">Email *</label>
-                    <input type="email" class="form-control" id="email" placeholder="Email">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                 </div>
                 <div class="form-group col-md-4">
                     <label required for="telefoonnummer">Telefoonnummer *</label>
-                    <input type="tel" class="form-control" id="telefoonnummer" placeholder="Telefoonnummer">
+                    <input type="tel" class="form-control" name="telefoonnummer" id="telefoonnummer" placeholder="Telefoonnummer">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-10">
                     <label for="adres">Adres</label>
-                    <input type="text" class="form-control" id="adres" placeholder="Straat en nummer">
+                    <input type="text" class="form-control" name="adres" id="adres" placeholder="Straat en nummer">
                 </div>
                 <div class="form-group col-2">
                     <label for="bus">Bus</label>
-                    <input type="text" class="form-control" id="bus" placeholder="Bus">
+                    <input type="text" class="form-control" name="bus" id="bus" placeholder="Bus">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="stad">Stad</label>
-                    <input type="text" class="form-control" id="stad">
+                    <input type="text" class="form-control" name="stad" id="stad">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="provincie">Provincie</label>
-                    <input type="text" id="provincie" class="form-control">
+                    <input type="text" name="provincie" id="provincie" class="form-control">
                 </div>
                 <div class="form-group col-md-2">
                     <label for="postcode">Postcode</label>
-                    <input type="text" class="form-control" id="postcode">
+                    <input type="text" class="form-control" name="postcode" id="postcode">
                 </div>
             </div>
             @guest()
                 <p>U dient een voorschot van 10% te betalen</p>
             @else
                 <label for="voorschot">Voorschot</label>
-                <input type="checkbox" class="form-control" id="voorschot">
+                <input type="checkbox" class="form-control" name="voorschot" id="voorschot">
             @endguest
             <button type="submit" class="btn btn-success mb-4">Bevestig reservatie</button>
     </form>
