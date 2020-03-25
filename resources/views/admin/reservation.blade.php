@@ -2,9 +2,6 @@
 @section('title', 'Reservatie')
 
 @section('main')
-    <hr>
-<p class="text-center">- - - - - -  - Under construction - - - - - -  -<br> Ik wacht nog op andere pagina's om beter te kunnen testen ;)</p>
-<hr>
 <h1 class="pl-0 ml-0 pl-xl-5">Reservatie</h1>
 
 <div class="row">
