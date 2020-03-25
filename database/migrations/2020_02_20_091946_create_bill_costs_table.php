@@ -20,8 +20,8 @@ class CreateBillCostsTable extends Migration
             $table->timestamps();
 
             // Foreign key relation
-            $table->foreign('extra_cost_id')->references('id')->on('extra_costs')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('bill_id')->references('id')->on('bills')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('extra_cost_id')->references('id')->on('extra_costs');
+            $table->foreign('bill_id')->references('id')->on('bills');
         });
 
         DB::table('bill_costs')->insert(

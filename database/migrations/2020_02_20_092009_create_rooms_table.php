@@ -23,7 +23,7 @@ class CreateRoomsTable extends Migration
             $table->timestamps();
 
             // Foreign key relation
-            $table->foreign('type_room_id')->references('id')->on('type_rooms')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('type_room_id')->references('id')->on('type_rooms');
         });
         DB::table('rooms')->insert(
             [

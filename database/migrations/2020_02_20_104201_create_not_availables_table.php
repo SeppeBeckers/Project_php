@@ -21,7 +21,7 @@ class CreateNotAvailablesTable extends Migration
             $table->timestamps();
 
             // Foreign key relation
-            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('room_id')->references('id')->on('rooms');
         });
         DB::table('not_availables')->insert(
             [
@@ -42,6 +42,11 @@ class CreateNotAvailablesTable extends Migration
             ],
             [
                 'room_id'=>'4',
+                'starting_date'=>'2020/03/10',
+                'end_date'=>'2020/03/20'
+            ],
+            [
+                'room_id'=>'4',
                 'starting_date'=>'2020/10/04',
                 'end_date'=>'2020/10/24'
             ],
@@ -55,6 +60,7 @@ class CreateNotAvailablesTable extends Migration
                 'starting_date'=>'2020/05/10',
                 'end_date'=>'2020/05/12'
             ]
+
             ]
         );
     }

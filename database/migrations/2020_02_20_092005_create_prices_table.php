@@ -22,12 +22,11 @@ class CreatePricesTable extends Migration
             $table->double('amount');
             $table->timestamp('from_date');
             $table->timestamps();
-
             // Foreign key relation
-            $table->foreign('occupancy_id')->references('id')->on('occupancies')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('accommodation_choice_id')->references('id')->on('accommodation_choices')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('type_room_id')->references('id')->on('type_rooms')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('arrangement_id')->references('id')->on('arrangements')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('occupancy_id')->references('id')->on('occupancies');
+            $table->foreign('accommodation_choice_id')->references('id')->on('accommodation_choices');
+            $table->foreign('type_room_id')->references('id')->on('type_rooms');
+            $table->foreign('arrangement_id')->references('id')->on('arrangements');
         });
         DB::table('prices')->insert(
             [
