@@ -21,7 +21,7 @@ class CreatePeopleTable extends Migration
             $table->timestamps();
 
             // Foreign key relation
-            $table->foreign('reservation_id')->references('id')->on('reservations');
+            $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('age_id')->references('id')->on('ages');
         });
         DB::table('people')->insert(
