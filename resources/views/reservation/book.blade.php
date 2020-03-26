@@ -8,11 +8,12 @@
         <div class="row ml-4">
             <div class="col-5">
                 <label for="aankomstdatum">Aankomstdatum:</label>
-                <input type="date" id="aankomstdatum" name="aankomstdatum">
+                <input class=" {{ $errors->first('aankomstdatum') ? 'is-invalid' : '' }}" required type="date" id="aankomstdatum" name="aankomstdatum">
+                <div class="invalid-feedback">{{ $errors->first('aankomstdatum') }}</div>
             </div>
             <div class="col-5">
                 <label for="vertrekdatum">Vertrekdatum:</label>
-                <input type="date" id="vertrekdatum" name="vertrekdatum">
+                <input required type="date" id="vertrekdatum" name="vertrekdatum">
             </div>
         </div>
         <h3>Aantal volwassenen en kinderen (met leeftijd)</h3>
@@ -30,19 +31,16 @@
                 <input type="number" min="0" id="aantal9_12" name="aantal9_12" value="0">
             </div>
             <div class="col-2">
-                <label for="aantal12+">12+j:</label>
+                <label for="aantal12+">Volwassenen (12+):</label>
                 <input type="number" min="0" id="aantal12" name="aantal12" value="0">
             </div>
         </div>
 
         <h3>Selecteer het soort kamer</h3>
         @foreach($typerooms as $typeroom)
-            <div class="row ml-4">
-                <div class="col-3">
-                    <input type="radio" id="bad" name="soortkamer" value="{{$typeroom->id}}">
-                    <label for="bad">Kamer met {{$typeroom->type_bath}}, toilet en tv</label><br>
-                </div>
-
+            <div class="ml-4">
+                <input type="radio" id="bad" name="soortkamer" value="{{$typeroom->id}}">
+                <label required for="bad">Kamer met {{$typeroom->type_bath}}, toilet en tv</label><br>
             </div>
         @endforeach
 
@@ -50,7 +48,7 @@
         @foreach($accomodationchoices as $accomodationchoice)
         <div class="ml-4">
             <input type="radio" id="douche" name="verblijfskeuze" value="{{ $accomodationchoice->id }}">
-            <label for="douche">{{ $accomodationchoice->type  }}</label><br>
+            <label required for="douche">{{ $accomodationchoice->type  }}</label><br>
         </div>
         @endforeach
 

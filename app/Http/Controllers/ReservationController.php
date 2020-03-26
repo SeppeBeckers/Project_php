@@ -12,6 +12,7 @@ use App\Age;
 use App\AccommodationChoice;
 use App\TypeRoom;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Json;
 
 class ReservationController extends Controller
@@ -29,6 +30,18 @@ class ReservationController extends Controller
     }
     public function create(Request $request)
     {
+//        $this->validate($request,[
+//            'aankomstdatum' => 'required'|'date'|'after:today',
+//            'vertrekdatum' => 'required'|'after:aankomstdatum',
+//            'soortkamer' => 'required',
+//            'verblijfskeuze' => 'required',
+//        ], [
+//            'aankomstdatum.after' => 'Je kan niet in het verleden boeken.',
+//            'vertrekdatum.after' => 'Gelieve een geldige einddatum in te geven.',
+//            'soortkamer.required' => 'Kies de soort kamer die je wilt.',
+//            'verblijfskeuze.required' => 'Gelieve een verblijfskeuze te kiezen.',
+//        ]);
+
          $reservation = new Reservation();
             $aankomstdatum = $request->aankomstdatum;
             $vertrekdatum = $request->vertrekdatum;
@@ -44,9 +57,40 @@ class ReservationController extends Controller
     }
     public function store(Request $request)
     {
+        $request->validate([
+            'aankomstdatum' => 'required',
+            'vertrekdatum' => 'required',
+            'soortkamer' => 'required',
+            'verblijfskeuze' => 'required',
+            'verblijfskeuze' => 'required',
+            'naam' => 'required',
+            'voornaam' => 'required',
+            'geslacht' => 'required',
+            'email' => 'required',
+            'telefoonnummer' => 'required',
+            'adres' => 'required',
+            'stad' => 'required',
+            'provincie' => 'required',
+            'postcode' => 'required',
+        ]);
         $reservation = new Reservation();
+        $reservation->name = $request->naam;
+        $reservation->first_name = $request->voornaam;
+        $reservation->email = $request->email;
+        $reservation->phone_number = $request->telefoonnummer;
+        $reservation->address = $request->adres;
+        $reservation->place = $request->stad;
+        $reservation->gender = $request->geslacht;
+        $reservation->message = $request->comment;
+        $reservation->save();
+
         $roomreservation = new RoomReservation();
-        $reservationid = $reservation->id;
+        $roomreservation->reservation_id=$reservation->id;
+        $roomreservation->room_id=5;
+        $roomreservation->starting_date = $request->aankomstdatum;
+        $roomreservation->end_date = $request->vertrekdatum;
+        $roomreservation->save();
+
         if ($request->aantal0_3 > 0) {
             $people = new Person();
             $people->reservation_id=$reservation->id;
@@ -76,10 +120,6 @@ class ReservationController extends Controller
             $people->save();
         }
 
-        $roomreservation->reservation_id=$reservation->id;
-        $roomreservation->aankomstdatum = $request->aankomstdatum;
-        $roomreservation->vertrekdatum = $request->vertrektdatum;
-
         $occupancies = $request->aantal0_3 + $request->aantal4_8 + $request->aantal9_12 + $request->aantal12;
 //        $prijs = Price::with()
 //            ->where('typeroom', 'like', $request->typeroom)
@@ -91,18 +131,10 @@ class ReservationController extends Controller
         $result = compact('rooms');
         Json::dump($result);
 
-        $reservation->name = $request->naam;
-        $reservation->first_name = $request->voornaam;
-        $reservation->email = $request->email;
-        $reservation->phone_number = $request->telefoonnummer;
-        $reservation->address = $request->adres;
-        $reservation->place = $request->stad;
-        $reservation->gender = $request->geslacht;
-        $reservation->message = $request->comment;
-        $reservation->save();
-        $roomreservation->save();
+        $verblijfskeuze = AccommodationChoice::with('prices')->where('id','like', $request->verblijfskeuze)->get();
+        Json::dump($verblijfskeuze);
 //        session()->flash('success', "Succesvol geboekt");
-        return view('reservation.summary');
+        return view('reservation.summary', compact('verblijfskeuze','reservation', 'roomreservation', 'occupancies'));
     }
 
 }

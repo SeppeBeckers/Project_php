@@ -59,15 +59,15 @@
                 <div class="form-group col-1">
                     <label for="geslacht">Geslacht *</label>
                     <select required id="geslacht" name="geslacht" class="form-control">
-                        <option value="man">Man</option>
-                        <option value="vrouw">Vrouw</option>
-                        <option value="anders">Andere</option>
+                        <option value="Male">Man</option>
+                        <option value="Female">Vrouw</option>
+                        <option value="Other">Andere</option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-8">
-                    <label required for="email">Email *</label>
+                    <label required for="email">E-mail *</label>
                     <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                 </div>
                 <div class="form-group col-md-4">
