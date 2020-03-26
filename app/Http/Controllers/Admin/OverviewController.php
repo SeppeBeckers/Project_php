@@ -18,9 +18,6 @@ class OverviewController extends Controller
         Json::dump($result);
         return view('admin.overview', $result);
 
-
-
-
     }
     public function create(Request $request)
     {
