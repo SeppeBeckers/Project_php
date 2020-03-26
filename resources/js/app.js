@@ -6,7 +6,7 @@
 
 require('./bootstrap');
 window.Noty = require('noty');
-
+require('./kempenrust');
 window.Vue = require('vue');
 
 /**
@@ -32,7 +32,4 @@ const app = new Vue({
     el: '#app',
 });
 
-$('body').tooltip({
-    selector: '[data-toggle="tooltip"]',
-    html : true,
-});
+
