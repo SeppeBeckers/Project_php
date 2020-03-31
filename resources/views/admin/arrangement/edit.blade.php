@@ -8,25 +8,22 @@
         @method('put')
         @csrf
         <div class="form-group">
-            <label for="type">Naam</label>
-            <input type="text" name="type" id="type"
-                   class="form-control @error('type') is-invalid @enderror"
-                   placeholder="Type"
-                   required
-                   value="{{ old('type', $arrangement->type) }}">
-            @error('type')
+            <label for="naam">Naam</label>
+            <input type="text" name="naam" id="naam"
+                   class="form-control @error('naam') is-invalid @enderror"
+                   placeholder="Kies een naam" required
+                   value="{{ $arrangement->type}}">
+            @error('naam')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
         <div class="form-group">
-            <label for="description">Beschrijving</label>
-            <input type="text" name="description" id="description"
-                   class="form-control @error('description') is-invalid @enderror"
-                   placeholder="Description"
-                   description
-                   required
-                   value="{{ old('description', $arrangement->description) }}">
-            @error('description')
+            <label for="beschrijving">Beschrijving</label>
+            <input type="text" name="beschrijving" id="beschrijving"
+                   class="form-control @error('beschrijving') is-invalid @enderror"
+                   placeholder="Geef een beschrijving"  required
+                   value="{{ $arrangement->description }}">
+            @error('beschrijving')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
@@ -53,10 +50,8 @@
                         </label>
                     <input type="number" name="{{ $price->id }}" id="{{ $price->id }}"
                            class="form-control @error('$price->id ') is-invalid @enderror"
-                           placeholder="{{ $price->id }}"
-                           {{ $price->id }}
-                           required
-                           value="{{ old('$price->amount', $price->amount) }}">
+                           placeholder="Prijs" required
+                           value="{{ $price->amount }}">
                     @error('$price->id')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

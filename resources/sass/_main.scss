@@ -51,7 +51,7 @@ h3{
 }
 
 .bg-lightgreen{
-  background-color: rgba(137, 187, 103, 0.5);
+  background-color: lightseagreen;
 }
 
 .hotel-name{
@@ -59,3 +59,53 @@ h3{
   font-size: 30px!important;
 }
 
+.text-green{
+  color: #96C277;
+}
+
+.border-green{
+  border: 1px solid lightseagreen;
+}
+
+.bg-grey{
+  color: #495057;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+
+
+.overlay{
+  width: 100%;
+  background: darkslategrey;
+  opacity: 0.8;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  transform: scale(0);
+}
+
+.content{
+  text-align: center;
+  position: relative;
+  top: 15%;
+  margin-top: 4%;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.overlay p{
+  color: #fff;
+  display: block;
+  font-size: 30px;
+  text-shadow:  2px 1px black;
+  margin-bottom: 2%;
+}
+
+.overlay #closeHelp{
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  font-size: 60px;
+}

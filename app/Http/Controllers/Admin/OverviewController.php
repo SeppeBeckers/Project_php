@@ -13,12 +13,13 @@ class OverviewController extends Controller
 {
     public function index()
     {
-        $Reservation = RoomReservation::with('Reservation')->get();
-        $result = compact('Reservation');
+        $reservations = Reservation::orderBy('id')->get();
+        $room_reservations = RoomReservation::with('reservation')->get();
+
+
+        $result = compact('reservations', 'room_reservations');
         Json::dump($result);
         return view('admin.overview', $result);
-
-
 
 
     }
