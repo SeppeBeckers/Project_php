@@ -15,10 +15,10 @@
             <meta name="msapplication-TileColor" content="#00aba9">
             <meta name="theme-color" content="#ffffff">
         </head>
-        <body>
+        <body class="body">
 
             @include('shared.navigation')
-            <main class="container-sm mt-3 p-4">
+            <main class="container-sm mt-3 p-4 ">
                 @yield('main')
             </main>
             @include('shared.footer')

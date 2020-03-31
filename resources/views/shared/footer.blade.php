@@ -12,7 +12,7 @@
                 <div class="col-5 col-sm-4 col-xl-2 text-right text-sm-center">
                     <ul class="p-0 m-0">
                         <li class="list-unstyled">Brent Vervecken</li>
-                        <li class="list-unstyled"><a href="https://babette90.sinners.be/" class="text-dark ">Babette Geerkens</a></li>
+                        <li class="list-unstyled">Babette Geerkens</li>
                     </ul>
 
                 </div>
@@ -31,5 +31,6 @@
         </div>
     </div>
 </footer>
+
 
 
