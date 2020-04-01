@@ -14,4 +14,8 @@ class Room extends Model
     {
         return $this->hasMany('App\NotAvailable ');   // a room has many notAvailables
     }
+    public function typeRoom()
+    {
+        return $this->belongsTo('App\TypeRoom')->withDefault();   // a room has one type
+    }
 }
