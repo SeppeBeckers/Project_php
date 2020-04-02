@@ -10,7 +10,8 @@ class TypeRoom extends Model
     {
         return $this->hasMany('App\Price');   // a typeRoom has many prices
     }
-    public function Rooms()
+
+    public function rooms()
     {
         return $this->hasMany('App\Room');   // a typeroom belongs to many rooms
     }
