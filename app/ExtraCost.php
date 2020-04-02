@@ -8,7 +8,7 @@ class ExtraCost extends Model
 {
     public function billCosts()
     {
-        return $this->hasMany('App\BillCost');   // an extraCost has many billCosts
+        return $this->hasMany('App\BillCost', 'extra_cost_id');   // an extraCost has many billCosts
     }
 
 }
