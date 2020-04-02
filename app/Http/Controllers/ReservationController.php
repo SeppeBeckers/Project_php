@@ -52,7 +52,15 @@ class ReservationController extends Controller
             $soortkamer = $request->soortkamer;
             $verblijfskeuze = $request->verblijfskeuze;
             $comment = $request->comment;
-            return view('reservation.data', compact('reservation','aankomstdatum', 'vertrekdatum', 'aantal0_3', 'aantal4_8', 'aantal9_12', 'aantal12', 'soortkamer','verblijfskeuze', 'comment'));
+            $occupancies = $request->aantal0_3 + $request->aantal4_8 + $request->aantal9_12 + $request->aantal12;
+            $samenopkamer = $request->samenopkamer;
+            if ($samenopkamer) {
+                $rooms = Room::all()->where('maximum_persons','>=',$occupancies);
+            } else {
+                $rooms = Room::all();
+            }
+            json::dump($rooms);
+            return view('reservation.data', compact('rooms','reservation','aankomstdatum', 'vertrekdatum', 'aantal0_3', 'aantal4_8', 'aantal9_12', 'aantal12', 'soortkamer','verblijfskeuze', 'comment'));
 
     }
     public function store(Request $request)
@@ -127,11 +135,9 @@ class ReservationController extends Controller
 //            ->orWhere('arrangement', 'like', $request->arrangement->id)
 //            ->where('occupancies', 'like', $occupancies);
 
-        $rooms = Room::with('type_rooms')->where('maximum_persons', '>=', $occupancies);
-        $result = compact('rooms');
-        Json::dump($result);
 
-        $verblijfskeuze = AccommodationChoice::with('prices')->where('id','like', $request->verblijfskeuze)->get();
+
+        $verblijfskeuze = AccommodationChoice::with('prices')->where('id','like', $request->verblijfskeuze);
         Json::dump($verblijfskeuze);
 //        session()->flash('success', "Succesvol geboekt");
         return view('reservation.summary', compact('verblijfskeuze','reservation', 'roomreservation', 'occupancies'));

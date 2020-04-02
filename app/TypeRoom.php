@@ -10,4 +10,5 @@ class TypeRoom extends Model
     {
         return $this->hasMany('App\Price');   // a typeRoom has many prices
     }
+
 }
