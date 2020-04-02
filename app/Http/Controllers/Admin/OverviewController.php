@@ -16,7 +16,6 @@ class OverviewController extends Controller
         $reservations = Reservation::orderBy('id')->get();
         $room_reservations = RoomReservation::with('reservation')->get();
 
-
         $result = compact('reservations', 'room_reservations');
         Json::dump($result);
         return view('admin.overview', $result);
