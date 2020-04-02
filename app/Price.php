@@ -8,18 +8,18 @@ class Price extends Model
 {
     public function accommodationChoice()
     {
-        return $this->belongsTo('App\ AccommodationChoice ')->withDefault();   // a price belongs to a accomodationChoice
+        return $this->belongsTo('App\AccommodationChoice', 'accommodation_choice_id')->withDefault();   // a price belongs to a accomodationChoice
     }
     public function occupancy()
     {
-        return $this->belongsTo('App\ Occupancy')->withDefault();   // a price belongs to a occupancy
+        return $this->belongsTo('App\Occupancy', 'id')->withDefault();   // a price belongs to a occupancy
     }
     public function typeRoom()
     {
-        return $this->belongsTo('App\ TypeRoom ')->withDefault();   // a price belongs to a typeRoom
+        return $this->belongsTo('App\TypeRoom', 'type_room_id')->withDefault();   // a price belongs to a typeRoom
     }
     public function arrangement()
     {
-        return $this->belongsTo('App\ Arrangement ')->withDefault();   // a price belongs to a arrangement
+        return $this->belongsTo('App\Arrangement')->withDefault();   // a price belongs to a arrangement
     }
 }

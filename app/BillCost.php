@@ -12,7 +12,7 @@ class BillCost extends Model
     }
     public function bill()
     {
-        return $this->belongsTo('App\Bill')->withDefault();   // a billCost belongs to a bill
+        return $this->belongsTo('App\Bill', 'id')->withDefault();   // a billCost belongs to a bill
     }
 
 }

@@ -49,7 +49,7 @@
                                         title="Delete {{$reservation->Reservation->name}}">
                                     <i class="fas fa-trash-alt">Verwijder</i>
                                 </button>
-                                <a href="/bill/{{$reservation->reservation_id}}" class="btn btn-outline-success"
+                                <a href="/admin/bill/{{$reservation->reservation_id}}" class="btn btn-outline-success"
                                    data-toggle="tooltip"
                                    title="Edit {{$reservation->Reservation->name}}">
                                     <i class="fas fa-edit">Edit</i>

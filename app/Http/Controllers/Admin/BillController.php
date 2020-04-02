@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AccommodationChoice;
+use App\Arrangement;
 use App\Bill;
+use App\Person;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Reservation;
@@ -41,7 +44,7 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -52,9 +55,23 @@ class BillController extends Controller
      */
     public function show($reservation_id)
     {
-        $Bill = Bill::findOrFail($reservation_id);
-        $Reservatie = Reservation::with('RoomReservations')->findOrFail($reservation_id);
-        $result = compact('Reservatie', 'Bill');
+
+
+
+
+        $Bill = Bill::with('Reservation.people.age', 'Reservation.roomReservations.room.typeRoom.prices.accommodationChoice', 'billCosts')->findOrFail($reservation_id);
+        $BeginPrijs = $Bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->price;
+        $Aantal = $Bill->reservation->people->first()->number_of_persons;
+        $EindPrijs = $BeginPrijs;
+        foreach( $Bill->reservation->people as $Person )
+            $Korting = $Person->Age->percentage_discount;
+            if($Person->Age->percentage_discount != 0){
+                $KortingPrijs = ($BeginPrijs / $Aantal)* $Korting ;
+                $EindPrijs = $BeginPrijs - $KortingPrijs;
+            }
+
+
+        $result = compact('Bill', 'EindPrijs');
         Json::dump($result);
         return view('admin.bill.consult', $result);  // Pass $result to the view
 
@@ -68,7 +85,9 @@ class BillController extends Controller
      */
     public function edit(Bill $bill)
     {
-        //
+        $result = compact('bill');
+        Json::dump($result);
+        return view('admin.bill.edit', $result);
     }
 
     /**
