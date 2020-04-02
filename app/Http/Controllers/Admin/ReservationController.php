@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Reservation;
+use App\Room;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Json;
@@ -33,7 +34,8 @@ class ReservationController extends Controller
     // Edit reservation
     public function edit(Reservation $reservation)
     {
-        $result = compact('reservation');
+        $rooms = Room::orderBy('room_number');
+        $result = compact('reservation', 'rooms');
         Json::dump($result);
 
         return view('admin/reservation', $result);
@@ -47,6 +49,12 @@ class ReservationController extends Controller
             'name' => 'required',
             'first_name' => 'required',
             'email' => 'required|email',
+            'telefoonnummer' => 'required|numeric',
+
+        ], [
+            'telefoonnummer.numeric' => 'Telefoonnummer mag enkel cijfers bevatten.',
+
+
         ]);
 
         // Update reservation in the database and redirect to previous page
@@ -55,7 +63,7 @@ class ReservationController extends Controller
         $reservation->name = $request->name;
         $reservation->first_name = $request->first_name;
         $reservation->email = $request->email;
-        $reservation->phone_number = $request->phone_number;
+        $reservation->phone_number = $request->telefoonnummer;
         $reservation->address = $request->address;
         $reservation->place = $request->place;
         //$reservation->gender = $request->gender;

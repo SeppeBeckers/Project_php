@@ -19,6 +19,7 @@ class ArrangementController extends Controller
     public function index()
     {
         $arrangements = Arrangement::orderBy('id')
+
             ->has('prices')
             ->get();
         $occupancies = Occupancy::with('prices')
@@ -27,6 +28,7 @@ class ArrangementController extends Controller
             ->get();
 
         $result = compact('arrangements', 'occupancies', 'prices');
+        //dd($result);
         Json::dump($result);
         return view('admin.arrangement.overview', $result);
     }
@@ -89,15 +91,13 @@ class ArrangementController extends Controller
     public function update(Request $request, Arrangement $arrangement)
     {
         $this->validate($request,[
-            'type' => 'required',
-            'description' => 'required',
-            '$id' => 'required'
+            'naam' => 'required',
+            'beschrijving' => 'required',
         ]);
-        $arrangement->type = $request->type;
-        $arrangement->description = $request->description;
 
+        $arrangement->type = $request->naam;
+        $arrangement->description = $request->beschrijving;
         $arrangement->save();
-
 
         session()->flash('success', 'Het arrangement is aangepast');
         return redirect('admin/arrangement');
