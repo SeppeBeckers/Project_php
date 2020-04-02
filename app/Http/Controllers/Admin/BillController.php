@@ -56,9 +56,6 @@ class BillController extends Controller
     public function show($reservation_id)
     {
 
-
-
-
         $Bill = Bill::with('Reservation.people.age', 'Reservation.roomReservations.room.typeRoom.prices.accommodationChoice', 'billCosts')->findOrFail($reservation_id);
         $BeginPrijs = $Bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->price;
         $Aantal = $Bill->reservation->people->first()->number_of_persons;

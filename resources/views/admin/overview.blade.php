@@ -54,6 +54,11 @@
                                                 title="Verwijder reservatie van {{$reservation->name}}">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
+                                        <a href="/admin/bill/{{$reservation->id}}" class="btn btn-outline-success"
+                                           data-toggle="tooltip"
+                                           title="Edit {{$reservation->name}}">
+                                            <i class="fas fa-edit">Edit</i>
+                                        </a>
                                     </div>
                                 </form>
                             </td>
@@ -61,29 +66,7 @@
 
                     @endforeach
 
-                    <td>
-                        <form action="" method="post">
-                            @method('delete')
-                            @csrf
-                            <div class="btn-group btn-group-sm">
-                                <a href="reservation" class="btn btn-outline-success"
-                                   data-toggle="tooltip"
-                                   title="Edit {{$reservation->Reservation->name}}">
-                                    <i class="fas fa-edit">Edit</i>
-                                </a>
-                                <button type="submit" class="btn btn-outline-danger"
-                                        data-toggle="tooltip"
-                                        title="Delete {{$reservation->Reservation->name}}">
-                                    <i class="fas fa-trash-alt">Verwijder</i>
-                                </button>
-                                <a href="/admin/bill/{{$reservation->reservation_id}}" class="btn btn-outline-success"
-                                   data-toggle="tooltip"
-                                   title="Edit {{$reservation->Reservation->name}}">
-                                    <i class="fas fa-edit">Edit</i>
-                                </a>
-                            </div>
-                        </form>
-                    </td>
+
 
                 </tr>
             @endforeach
