@@ -47,6 +47,19 @@
             <label for="comment" ></label>
             <input type="text" name="comment" id="comment"  hidden value="{{$comment}}">
 
+
+            <div class="card-columns">
+                @foreach($rooms as $room)
+                    <div>
+                        <div class="card">
+                            <p class="card-header">Kamer {{$room->room_number}}</p>
+                            <p>Beschrijving: {{$room->description}}</p>
+                            <p>max personen: {{$room->maximum_persons}}</p>
+                            <p>Type badkamer: {{$room->type_room_id}}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
             <div class="form-row">
                 <div class="form-group col-md-5">
                     <label for="naam" >Naam *</label>

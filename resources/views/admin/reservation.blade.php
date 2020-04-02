@@ -29,7 +29,7 @@
                         <input type="text" name="name" id="name"
                                class="form-control @error('name') is-invalid @enderror"
                                placeholder="Naam" required
-                               value="{{ old('name', $reservation->name) }}">
+                               value="{{ $reservation->name }}">
                         @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -40,7 +40,7 @@
                         <input type="text" name="first_name" id="first_name"
                                class="form-control @error('first_name') is-invalid @enderror"
                                placeholder="Voornaam" required
-                               value="{{ old('first_name', $reservation->first_name) }}">
+                               value="{{ $reservation->first_name }}">
                         @error('first_name')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -53,19 +53,19 @@
                         <input type="email" name="email" id="email"
                                class="form-control @error('email') is-invalid @enderror"
                                placeholder="Email" required
-                               value="{{ old('email', $reservation->email) }}">
+                               value="{{ $reservation->email }}">
                         @error('email')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-6 my-2">
-                        <label for="phone_number">Telefoonnummer:</label>
-                        <input type="text" name="phone_number" id="phone_number"
-                               class="form-control @error('phone_number') is-invalid @enderror"
-                               placeholder="Telefoon nummer" required
-                               value="{{ old('phone_number', $reservation->phone_number) }}">
-                        @error('phone_number')
+                        <label for="telefoonnummer">Telefoonnummer:</label>
+                        <input type="text" name="telefoonnummer" id="telefoonnummer"
+                               class="form-control @error('telefoonnummer') is-invalid @enderror"
+                               placeholder="Telefoonnummer" required
+                               value="{{ $reservation->phone_number }}">
+                        @error('telefoonnummer')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -76,7 +76,7 @@
                 <label for="message">Opmerking:</label>
                 <textarea name="message" id="message" rows="5"
                           class="form-control" text-left>
-                    {{ old('message', $reservation->message) }}
+                    {{ $reservation->message }}
                 </textarea>
             </div>
         </div>
@@ -119,8 +119,19 @@
         <div class="row">
             <div class="col-md-2 col-4 my-2">
 
+                <!--
                 <label for="room_number">Kamernummer:</label>
-                <select class="form-control" id="room_number" value="{{ old('id', $reservation->id) }}">
+                <select class="form-control" name="room_number" id="room_number">
+                    <option value="{{ $reservation->id }}">{{ $reservation->id }}</option>
+                    @foreach($rooms as $room)
+                        <option value="{{ $room->id }}"
+                                {{ (request()->room_id ==  $room->id ? 'selected' : '') }}>{{ $room->id }}</option>
+                    @endforeach
+                </select>
+-->
+
+                <label for="room_number">Kamernummer:</label>
+                <select class="form-control" id="room_number" name="room_number" value="{{ $reservation->id }}">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>

@@ -8,12 +8,12 @@
         <div class="row ml-4">
             <div class="col-5">
                 <label for="aankomstdatum">Aankomstdatum:</label>
-                <input class=" {{ $errors->first('aankomstdatum') ? 'is-invalid' : '' }}" required type="date" id="aankomstdatum" name="aankomstdatum">
+                <input class=" {{ $errors->first('aankomstdatum') ? 'is-invalid' : '' }}" required type="date" min="{{date('Y-m-d')}}" id="aankomstdatum" name="aankomstdatum">
                 <div class="invalid-feedback">{{ $errors->first('aankomstdatum') }}</div>
             </div>
             <div class="col-5">
                 <label for="vertrekdatum">Vertrekdatum:</label>
-                <input required type="date" id="vertrekdatum" name="vertrekdatum">
+                <input required type="date" min="{{date('Y-m-d', time() + 86400)}}" id="vertrekdatum" name="vertrekdatum">
             </div>
         </div>
         <h3>Aantal volwassenen en kinderen (met leeftijd)</h3>
@@ -34,6 +34,10 @@
                 <label for="aantal12+">Volwassenen (12+):</label>
                 <input type="number" min="0" id="aantal12" name="aantal12" value="0">
             </div>
+        </div>
+        <div class="row ml-4">
+            <input class="mr-1" type="checkbox" name="samenopkamer" id="samenopkamer">
+            <label for="samenopkamer"> Duid dit aan als je allemaal op 1 kamer wil.</label>
         </div>
 
         <h3>Selecteer het soort kamer</h3>

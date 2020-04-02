@@ -28,12 +28,12 @@
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
 
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="/admin/overview"><i class="fas fa-microphone-alt"></i>Overview</a>
-                                        <a class="dropdown-item" href="/reservation/book"><i class="fas fa-compact-disc"></i>Nieuwe Reservatie</a>
-                                        <a class="dropdown-item" href="/admin/room"><i class="fas fa-compact-disc"></i>Kamers beheren</a>
-                                        <a class="dropdown-item" href="/admin/arrangement"><i class="fas fa-compact-disc"></i>Arrangementen beheren</a>
-                                        <a class="dropdown-item" href="/admin/bill"><i class="fas fa-compact-disc"></i>Rekening</a>
+                                    <div class="dropdown-menu dropdown-menu-right  border-success" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/admin/overview">Overzicht boekingen</a>
+                                        <a class="dropdown-item" href="/reservation/book">Nieuwe Reservatie</a>
+                                        <a class="dropdown-item" href="/admin/room">Kamers beheren</a>
+                                        <a class="dropdown-item" href="/admin/arrangement">Arrangementen beheren</a>
+                                        <a class="dropdown-item" href="/admin/bill">Rekening</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
