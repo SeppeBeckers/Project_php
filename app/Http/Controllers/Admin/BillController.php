@@ -20,8 +20,8 @@ class BillController extends Controller
      */
     public function index()
     {
-        $Bill = Bill::with('Reservation')->get();
-        $result = compact('Bill');
+        $bill = Bill::with('Reservation')->get();
+        $result = compact('bill');
         Json::dump($result);
         return view('/bill');
     }
@@ -56,19 +56,10 @@ class BillController extends Controller
     public function show($reservation_id)
     {
 
-        $Bill = Bill::with('Reservation.people.age', 'Reservation.roomReservations.room.typeRoom.prices.accommodationChoice', 'billCosts')->findOrFail($reservation_id);
-        $BeginPrijs = $Bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->price;
-        $Aantal = $Bill->reservation->people->first()->number_of_persons;
-        $EindPrijs = $BeginPrijs;
-        foreach( $Bill->reservation->people as $Person )
-            $Korting = $Person->Age->percentage_discount;
-            if($Person->Age->percentage_discount != 0){
-                $KortingPrijs = ($BeginPrijs / $Aantal)* $Korting ;
-                $EindPrijs = $BeginPrijs - $KortingPrijs;
-            }
-
-
-        $result = compact('Bill', 'EindPrijs');
+        $bill = Bill::with('Reservation.people.age', 'Reservation.roomReservations.room.typeRoom.prices.accommodationChoice', 'billCosts')->findOrFail($reservation_id);
+        $eindPrijs = $this->calculateDiscount($bill->reservation->people, $bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->amount);
+        $bill->billCosts->first()->amount = $eindPrijs;
+        $result = compact('bill');
         Json::dump($result);
         return view('admin.bill.consult', $result);  // Pass $result to the view
 
@@ -96,7 +87,19 @@ class BillController extends Controller
      */
     public function update(Request $request, Bill $bill)
     {
-        //
+        $optel = 0;
+        $eindPrijs = $this->calculateDiscount($bill->reservation->people, $bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->amount);
+        $bill->billCosts->first()->amount = $eindPrijs;
+        if(($request->zwembad == true) ? 1 : 0){
+            $optel +=10;
+        }
+        if(($request->hond == true) ? 1 : 0){
+            $optel +=5;
+        }
+        $bill->adjusted_amount = $bill->billCosts->first()->amount + $request->extra + $optel;
+        $bill->save();
+        session()->flash('success', "De reservatie is aangepast!");
+        return redirect('admin/overview');
     }
 
     /**
@@ -108,5 +111,17 @@ class BillController extends Controller
     public function destroy(Bill $bill)
     {
         //
+    }
+
+    //Call the function like: calculateDiscount($Bill->reservation->people, $Bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->price)
+    public function calculateDiscount($people, $price)
+    {
+        $totalprice = $price;
+        foreach($people as $person){
+            if($person->Age->percentage_discount!=0){
+                $totalprice -= ($price / sizeof($people)) * (1-$person->Age->percentage_discount);
+            }
+        }
+        return $totalprice;
     }
 }
