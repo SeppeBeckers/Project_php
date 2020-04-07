@@ -39,7 +39,7 @@ class OverviewController extends Controller
         $reservation->save();
         return response()->json([
             'type' => 'success',
-            'text' => "The genre <b>$reservation->reservation_id</b> has been added"
+            'text' => "The reservation <b>$reservation->reservation_id</b> has been added"
         ]);
     }
 
