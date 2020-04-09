@@ -12,7 +12,7 @@
     <h2>Gegevens verblijvers</h2>
     </div>
     <div class="col-12 col-md-6 text-md-right">
-        <a href="/admin/bill" class="btn btn-primary mx-1 ">Factuur raadplegen</a>
+        <a href="/admin/bill/{{$reservation->id}}" class="btn btn-primary mx-1 ">Factuur raadplegen</a>
 
     </div>
 </div>

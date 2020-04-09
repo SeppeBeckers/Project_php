@@ -2,51 +2,37 @@
 @section('title', 'Edit bill')
 
 @section('main')
-    <h1>Extra kosten toevoegen:</h1>
-    <form action="/admin/bill/{{ $bill->reservation->reservation_id }}" method="post">
-        @method('put')
-        @csrf
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name"
-                   class="form-control @error('name') is-invalid @enderror"
-                   placeholder="Name"
-                   required
-                   minlength="3"
-                   value="{{ old('name' ) }}">
-            @error('name')
-            <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="form-group">
-            <label for="name">Email</label>
-            <input type="email" name="email" id="email"
-                   class="form-control "
-                   placeholder="Name"
-                   required
-                   value="{{ old('email') }}">
-
-        </div>
-        <div class="mb-3">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="1"
-
-
-                       id="active" name="active">
-                <label class="form-check-label" for="active">
-                    Active
-                </label>
+    <div class="container-fluid">
+        <h1>Extra kosten toevoegen:</h1>
+        <form action="/admin/bill/{{ $bill->reservation_id }}" method="post">
+            @method('put')
+            @csrf
+            <div class="row">
+                <div class="col-md-2 col-3 my-2">
+                    <label for="extra">Extra algemene kosten:</label>
+                    <input type="number" name="extra" class="form-control" id="extra"
+                           placeholder="€0"
+                           value="">
+                </div>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" value="1"
+            <div class="mb-3 my-5">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="1"
+                           id="zwembad" name="zwembad">
+                    <label class="form-check-label" for="zwembad">
+                        Zwembad
+                    </label>
+                </div>
 
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="1"
+                           id="hond" name="hond">
+                    <label class="form-check-label" for="hond">
+                        Hond
+                    </label>
+                </div>
 
-                       id="admin" name="admin">
-                <label class="form-check-label" for="admin">
-                    Admin
-                </label>
             </div>
-        </div>
-        <button type="submit" class="btn btn-success">Save user</button>
-    </form>
+            <button type="submit"  class="btn btn-success">Nieuwe rekening opslagen</button>
+        </form></div>
 @endsection
