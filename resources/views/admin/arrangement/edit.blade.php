@@ -58,15 +58,11 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
-
-
                     </div>
                 </div>
 
             @endforeach
         </div>
-
 
         <button type="submit" id="submit" class="btn btn-success ">Opslaan</button>
         <a href="/admin/arrangement" class="btn btn-primary mx-1 ">Terug</a>

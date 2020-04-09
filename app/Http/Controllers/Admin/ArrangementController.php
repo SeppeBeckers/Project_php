@@ -97,7 +97,6 @@ class ArrangementController extends Controller
         $this->validate($request,[
             'naam' => 'required',
             'beschrijving' => 'required',
-
         ]);
 
         $arrangement = Arrangement::find($id);
@@ -105,6 +104,8 @@ class ArrangementController extends Controller
         $arrangement->description = $request->beschrijving;
         $arrangement->save();
 
+
+        //Multiple prices at same time
         $price = Price::find($request->id[0]);
         $price->amount = $request->amount[0];
         $price->save();
@@ -122,22 +123,6 @@ class ArrangementController extends Controller
         $price->save();
 
         session()->flash('success', 'Your price has been updated');
-        return redirect('admin/arrangement');
-    }
-
-
-
-
-    public function updatePrice(Request $request, Price $price)
-    {
-        $this->validate($request,[
-            'amount' => 'required',
-        ]);
-
-        $price->amount = $request->amount;
-        $price->save();
-
-        session()->flash('success', 'Het arrangement is aangepast');
         return redirect('admin/arrangement');
     }
 
