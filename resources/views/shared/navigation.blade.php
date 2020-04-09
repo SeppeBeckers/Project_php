@@ -30,7 +30,7 @@
 
                                     <div class="dropdown-menu dropdown-menu-right  border-success" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="/admin/overview">Overzicht boekingen</a>
-                                        <a class="dropdown-item" href="/reservation/book">Nieuwe Reservatie</a>
+                                        <a class="dropdown-item" href="/reservation/book">Nieuwe reservatie</a>
                                         <a class="dropdown-item" href="/admin/room">Kamers beheren</a>
                                         <a class="dropdown-item" href="/admin/arrangement">Arrangementen beheren</a>
                                         <a class="dropdown-item" href="/admin/bill">Rekening</a>

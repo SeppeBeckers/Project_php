@@ -11368,3 +11368,7 @@ h3 {
   font-size: 60px;
 }
 
+#openHelp {
+  cursor: pointer;
+}
+
