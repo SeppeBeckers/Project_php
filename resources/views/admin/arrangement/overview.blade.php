@@ -8,7 +8,7 @@
             <h1>Overzicht arrangementen</h1>
         </div>
         <div class="col-12 col-md-4 text-md-right">
-            <button class=" btn btn-dark" id="openHelp">Help mij</button>
+            <i class="fas fa-2x fa-info-circle" id="openHelp"></i>
         </div>
     </div>
     <div class="mx-4">
@@ -59,18 +59,18 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                                </div>
-                                </div>
-                                </div>
-                                <p class="m-0"><b>Dagen:</b> {{ $arrangement->from_day . ' - ' . $arrangement->until_day }}
+                            </div>
+                        </div>
+                    </div>
+                        <p class="m-0"><b>Dagen:</b> {{ $arrangement->from_day . ' - ' . $arrangement->until_day }}
 
-                                <a href="/admin/arrangement/{{ $arrangement->id }}/edit" class="btn btn-success ml-5 mb-1 "
-                                data-toggle="tooltip"
-                                data-id="{{ $arrangement->id }}"
-                                title="{{ $arrangement->type }} aanpassen" >Aanpassen</a>
-                                </p>
-                                </div>
-                                </div>
+                        <a href="/admin/arrangement/{{ $arrangement->id }}/edit" class="btn btn-success ml-5 mb-1 "
+                        data-toggle="tooltip"
+                        data-id="{{ $arrangement->id }}"
+                        title="{{ $arrangement->type }} aanpassen" >Aanpassen</a>
+                        </p>
+                    </div>
+                </div>
 @endforeach
 
 <a href="/admin/overview" class="btn btn-primary mx-1 ">Terug</a>
@@ -80,7 +80,7 @@
 
 
     <div class="overlay" id="MyDiv">
-        <a href="#" class="text-danger" id="closeHelp">&times;</a>
+        <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
         <div class="content">
             <p>Hier kan je de arrangementen bekijken. Je vindt hier informatie erover en je kan ook bepaalde informatie bewerken zoals de naam, de beschrijving en de prijzen. Dit doe je door op de groene knop 'Aanpassen' te klikken.
                 <br>

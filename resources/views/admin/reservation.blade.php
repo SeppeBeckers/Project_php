@@ -82,8 +82,11 @@
         </div>
 
         <div class="row">
-            <div class="col-md-2 col-3 my-2">
-                <label for="age">0-3 jaar:</label>
+            <div class="col-12 font-weight-bold">
+                <p>Aantal personen</p>
+            </div>
+            <div class="col-md-2 col-3 mb-2">
+                <label for="age1">0 - 3 jaar:</label>
                 <input type="text" class="form-control" id="age"
                        @error('age') is-invalid @enderror
                        placeholder="0"
@@ -92,7 +95,7 @@
             </div>
 
             <div class="col-md-2 col-3 my-2">
-                <label for="age">4-8 jaar:</label>
+                <label for="age2">4 - 8 jaar:</label>
                 <input type="text" class="form-control" id="age"
                        @error('age') is-invalid @enderror
                        placeholder="0"
@@ -100,7 +103,7 @@
                        required>
             </div>
             <div class="col-md-2 col-3 my-2">
-                <label for="age">9-12 jaar:</label>
+                <label for="age3">9 - 12 jaar:</label>
                 <input type="text" class="form-control" id="age"
                        @error('age') is-invalid @enderror
                        placeholder="0"
@@ -108,7 +111,7 @@
                        required>
             </div>
             <div class="col-md-2 col-3 my-2">
-                <label for="age">Volwassenen:</label>
+                <label for="age4">Volwassenen:</label>
                 <input type="text" class="form-control" id="age"
                        @error('age') is-invalid @enderror
                        placeholder="2"
@@ -187,6 +190,9 @@
             </div>
 
         @endif
+
+
+
         <div class="row">
             <div class="col-6 ">
                 <button type="submit" class="btn btn-success">Opslaan</button>

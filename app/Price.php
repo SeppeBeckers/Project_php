@@ -22,4 +22,7 @@ class Price extends Model
     {
         return $this->belongsTo('App\Arrangement')->withDefault();   // a price belongs to a arrangement
     }
+
+    protected $price = 'prices';
+    protected $fillable = ['amount'];
 }
