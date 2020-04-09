@@ -35,4 +35,8 @@
             </div>
             <button type="submit"  class="btn btn-success">Nieuwe rekening opslagen</button>
         </form></div>
+
 @endsection
+
+
+

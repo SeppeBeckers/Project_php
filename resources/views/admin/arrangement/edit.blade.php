@@ -29,50 +29,45 @@
         </div>
 
 
-<div class="row">
-        @foreach($arrangement->prices as $price)
-            <div class="col-6 col-sm-3">
-                <div class="form-group">
-                    <label for="{{ $price->id }}">
-                        @if ($price->occupancy_id == 1)
-                            @if ($price->type_room_id == 1)
-                                Single - Douche
-                            @else
-                                Single - Douche/Bad
-                            @endif
-                        @else
-                            @if ($price->type_room_id == 1)
-                                Double - Douche
-                            @else
-                                Double - Douche/Bad
-                            @endif
-                        @endif
-                        </label>
-                    <input type="number" name="{{ $price->id }}" id="{{ $price->id }}"
-                           class="form-control @error('$price->id ') is-invalid @enderror"
-                           placeholder="Prijs" required
-                           value="{{ $price->amount }}">
-                    @error('$price->id')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+        <div class="row">
+            @foreach($arrangement->prices as $price)
+                <div class="col-6 col-sm-3">
+                    <div class="form-group">
+
+                        <div class="form-group">
+                            <label for="prijssoort">@if ($price->occupancy_id == 1)
+                                    @if ($price->type_room_id == 1)
+                                        Single - Douche
+                                    @else
+                                        Single - Douche/Bad
+                                    @endif
+                                @else
+                                    @if ($price->type_room_id == 1)
+                                        Double - Douche
+                                    @else
+                                        Double - Douche/Bad
+                                    @endif
+                                @endif</label>
+                            <input type="hidden" name="id[]" value="{{$price->id}}">
+                            <input type="number" name="amount[]"
+                                   class="form-control @error('amount[]') is-invalid @enderror"
+
+                                   placeholder="Prijs" required
+                                   value="{{ $price->amount }}">
+                            @error('amount[]')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-        @endforeach
-</div>
-
-
-
-
-
-
-
-
-
+            @endforeach
+        </div>
 
         <button type="submit" id="submit" class="btn btn-success ">Opslaan</button>
         <a href="/admin/arrangement" class="btn btn-primary mx-1 ">Terug</a>
     </form>
 @endsection
+
 
 

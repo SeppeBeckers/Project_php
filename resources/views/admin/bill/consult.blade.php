@@ -4,6 +4,7 @@
 @section('main')
     <div class="container-fluid">
         <div class="row">
+
             <div class="col-10">
                 <h1>Klant</h1>
                 <p><span class="font-weight-bold">Naam:</span> {{$bill->reservation->name}}  {{$bill->reservation->first_name}} <br>
@@ -23,6 +24,7 @@
 
         <div>
             <h2>Overzicht Verblijf</h2>
+
             <p> <span class="font-weight-bold">Verblijfsduur:</span>  {{$bill->reservation->roomReservations->first()->starting_date}} tot en met {{$bill->reservation->roomReservations->first()->end_date}}
                 <br>
                 <span class="font-weight-bold">Aantal personen:</span> {{$bill->reservation->people->first()->number_of_persons}} <br>
@@ -51,10 +53,8 @@
                     <span class="font-weight-bold">Prijs met kinderkorting:</span> €{{$bill->billCosts->first()->amount}} <br>
                 @endif
             </p>
+
         </div>
-
-
-
 
         <div class="row">
 
@@ -66,6 +66,14 @@
                 @endif</div>
 
 
+    <div class="col-8">Rekening gemaakt op {{$bill->bill_made_at}} </div>
+    <div class="col-4 h4"> <span class="font-weight-bold">Totaal:</span> €{{$bill->billCosts->first()->amount}}
+        @if($bill->adjusted_amount != 0 && $bill->adjusted_amount != $bill->billCosts->first()->amount)
+            <div > <span class="font-weight-bold">Totaal met extra kosten: </span> €{{$bill->adjusted_amount}}</div>
+        @else()
+        @endif</div>
+
+
 
             <a href="/admin/bill/{{$bill->reservation_id}}/edit" class="btn btn-outline-success">
                 <i class="fa fa-eur"></i>Aanpassen
@@ -74,6 +82,10 @@
 
 
 
+
+
+
+</div>
 
 
 
