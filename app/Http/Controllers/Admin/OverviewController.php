@@ -16,7 +16,6 @@ class OverviewController extends Controller
         $reservations = Reservation::orderBy('id')->get();
         $room_reservations = RoomReservation::with('reservation')->get();
 
-
         $result = compact('reservations', 'room_reservations');
         Json::dump($result);
         return view('admin.overview', $result);
@@ -40,7 +39,7 @@ class OverviewController extends Controller
         $reservation->save();
         return response()->json([
             'type' => 'success',
-            'text' => "The genre <b>$reservation->reservation_id</b> has been added"
+            'text' => "The reservation <b>$reservation->reservation_id</b> has been added"
         ]);
     }
 

@@ -54,12 +54,19 @@
                                                 title="Verwijder reservatie van {{$reservation->name}}">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
+                                        <a href="/admin/bill/{{$reservation->id}}" class="btn btn-outline-success"
+                                           data-toggle="tooltip"
+                                           title="Edit {{$reservation->name}}">
+                                            <i class="fas fa-edit">Edit</i>
+                                        </a>
                                     </div>
                                 </form>
                             </td>
                         @endif
 
                     @endforeach
+
+
 
                 </tr>
             @endforeach

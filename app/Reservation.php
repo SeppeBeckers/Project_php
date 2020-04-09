@@ -16,6 +16,6 @@ class Reservation extends Model
     }
     public function people()
     {
-        return $this->hasMany('App\Person');   // a reservation has many roomReservations
+        return $this->hasMany('App\Person', 'reservation_id');   // a reservation has many roomReservations
     }
 }

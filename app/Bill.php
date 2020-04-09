@@ -8,7 +8,7 @@ class Bill extends Model
 {
     public function billCosts()
     {
-        return $this->hasMany('App\BillCost');   // a bill has many billCosts
+        return $this->hasMany('App\BillCost', 'bill_id');   // a bill has many billCosts
     }
     public function reservation()
     {
