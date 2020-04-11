@@ -95,8 +95,9 @@ class ArrangementController extends Controller
     {
 
         $this->validate($request,[
-            'naam' => 'required',
-            'beschrijving' => 'required',
+            'naam' => 'required|min:3',
+            'beschrijving' => 'required|min:5',
+
         ]);
 
         $arrangement = Arrangement::find($id);
@@ -136,13 +137,6 @@ class ArrangementController extends Controller
     public function destroy(Arrangement $arrangement)
     {
         //
-    }
-
-    public function qryArrangements()
-    {
-        $prices = Price::orderBy('id')
-            ->get();
-        return $prices;
     }
 
 

@@ -28,7 +28,7 @@ class OverviewController extends Controller
 
                     [
                         'color' => '#f05050',
-                        'url' => '/admin/reservation/' . $value->reservation->id . '/edit',
+                        'url' => '/admin/reservation/' . $value->id . '/edit',
                     ]
                 );
             }
