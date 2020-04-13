@@ -5,7 +5,7 @@
 .env
 .phpunit.result.cache
 npm-debug.log
-public_html/css/app.css
-public_html/js/app.js
-public_html/mix-manifest.json
+/public_html/css/app.css
+/public_html/js/app.js
+/public_html/mix-manifest.json
 package-lock.json

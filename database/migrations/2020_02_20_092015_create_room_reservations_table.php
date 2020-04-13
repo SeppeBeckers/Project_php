@@ -14,6 +14,7 @@ class CreateRoomReservationsTable extends Migration
     public function up()
     {
         Schema::create('room_reservations', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('reservation_id');
             $table->unsignedBigInteger('room_id');
             $table->date('starting_date');

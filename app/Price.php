@@ -12,7 +12,7 @@ class Price extends Model
     }
     public function occupancy()
     {
-        return $this->belongsTo('App\Occupancy', 'id')->withDefault();   // a price belongs to a occupancy
+        return $this->belongsTo('App\Occupancy', 'occupancy_id')->withDefault();   // a price belongs to a occupancy
     }
     public function typeRoom()
     {

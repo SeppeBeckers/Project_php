@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AccommodationChoice;
 use App\Reservation;
 use App\Room;
 use App\RoomReservation;
@@ -14,63 +15,62 @@ class ReservationController extends Controller
 
     public function index()
     {
-        return view('admin/reservation');
-    }
-
-    public function create()
-    {
         return redirect('admin.reservation');
     }
 
-    public function store(Request $request)
-    {
-        return redirect('admin/reservation');
-    }
-
-    public function show(Reservation $reservation)
-    {
-        return redirect('admin/reservation');
-    }
-
     // Edit reservation
-    public function edit(Reservation $reservation)
+    public function edit($id)
     {
-
-        $rooms = Room::orderBy('room_number');
-        $result = compact('reservation', 'rooms');
+        $room_reservation = RoomReservation::with('reservation', 'room.typeRoom.prices.accommodationChoice', 'room.typeRoom.prices.occupancy', 'room.typeRoom.prices.arrangement', 'reservation.people.age')
+            ->findOrFail($id);
+        $accommodations = AccommodationChoice::all();
+        $rooms = Room::all();
+        $result = compact('room_reservation', 'rooms', 'accommodations');
         Json::dump($result);
 
         return view('admin/reservation', $result);
     }
 
     // Update reservation
-    public function update(Request $request, Reservation $reservation)
+    public function update(Request $request, $id)
     {
         // Validate $request
         $this->validate($request, [
             'name' => 'required',
             'first_name' => 'required',
             'email' => 'required|email',
-            'telefoonnummer' => 'required|numeric',
+            'phone_number' => 'required|numeric',
         ], [
-            'telefoonnummer.numeric' => 'Telefoonnummer mag enkel cijfers bevatten.',
+            'phone_number.numeric' => 'Telefoonnummer mag enkel cijfers bevatten.',
+            'phone_number.required' => 'Telefoonnummer is verplicht.',
         ]);
 
         // Update reservation in the database and redirect to previous page
-        //$reservation->reservation_made_at->timestamps();
-        //$reservation->with_deposit = $request->with_deposit;
-        $reservation->name = $request->name;
-        $reservation->first_name = $request->first_name;
-        $reservation->email = $request->email;
-        $reservation->phone_number = $request->telefoonnummer;
-        $reservation->address = $request->address;
-        $reservation->place = $request->place;
-        //$reservation->gender = $request->gender;
-        $reservation->message = $request->message;
-        $reservation->deposit_amount = $request->deposit_amount;
-        $reservation->save();
+        $room_reservation = RoomReservation::find($id);
+        $room_reservation->starting_date = $request->starting_date ;
+        $room_reservation->end_date = $request->end_date ;
+        $room_reservation->room_id = $request->room_number ;
+        //$room_reservation->room->typeRoom->prices->first()->accommodationChoice->id = $request->accommodation_type ;
+        //$room_reservation->room->typeRoom->prices->first()->occupancy->id = $request->occupancy ;
+
+        $room_reservation->reservation->with_deposit = $request->with_deposit ;
+        $room_reservation->reservation->deposit_amount = $request->deposit_amount ;
+        //$room_reservation->reservation->deposit_paid = $request->deposit_paid ;
+        $room_reservation->reservation->message = $request->message ;
+
+        //aantal personen ....
+
+        $room_reservation->reservation->name = $request->name ;
+        $room_reservation->reservation->first_name = $request->first_name;
+        $room_reservation->reservation->email = $request->email;
+        $room_reservation->reservation->address = $request->address;
+        $room_reservation->reservation->place = $request->place;
+        $room_reservation->reservation->phone_number = $request->phone_number;
+
+        $room_reservation->push();
+        //$reservation->roomReservations->first()->room_id = (request);
+
         session()->flash('success', 'De reservatie is aangepast');
-        //return back();
         return redirect('admin/overview');
 
     }
