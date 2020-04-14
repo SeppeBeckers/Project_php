@@ -49,18 +49,40 @@ class ReservationController extends Controller
             $aantal4_8 = $request->aantal4_8;
             $aantal9_12 = $request->aantal9_12;
             $aantal12 = $request->aantal12;
-            $soortkamer = $request->soortkamer;
             $verblijfskeuze = $request->verblijfskeuze;
+            $arrangement = $request->arrangement;
+            $soortkamer = $request->soortkamer;
             $comment = $request->comment;
             $occupancies = $request->aantal0_3 + $request->aantal4_8 + $request->aantal9_12 + $request->aantal12;
             $samenopkamer = $request->samenopkamer;
-            if ($samenopkamer) {
-                $rooms = Room::all()->where('maximum_persons','>=',$occupancies);
+            if ($arrangement == null) {
+                $tefilterenop = 'accommodation_choice_id';
+                $filter = $verblijfskeuze;
             } else {
-                $rooms = Room::all();
+                $tefilterenop = 'arrangement_id';
+                $filter = $arrangement;
+            }
+            //prijzen
+
+            $prijzen = Price::where('type_room_id', $soortkamer)
+                ->where($tefilterenop, $filter)
+                ->get();
+            Json::dump($prijzen);
+
+            //kamer
+            if ($samenopkamer) {
+                $rooms = Room::all()
+
+                    ->where('maximum_persons','>=',$occupancies)
+                    ->where('type_room_id',$soortkamer);
+            } else {
+                $rooms = Room::all()->where('type_room_id',$soortkamer);
             }
             json::dump($rooms);
-            return view('reservation.data', compact('rooms','reservation','aankomstdatum', 'vertrekdatum', 'aantal0_3', 'aantal4_8', 'aantal9_12', 'aantal12', 'soortkamer','verblijfskeuze', 'comment'));
+            $gekozenkamer = TypeRoom::where('id',$soortkamer);
+            $result = compact('prijzen','rooms', 'gekozenkamer','reservation','aankomstdatum', 'vertrekdatum', 'aantal0_3', 'aantal4_8', 'aantal9_12', 'aantal12', 'soortkamer','verblijfskeuze','arrangement', 'comment');
+            Json::dump($result);
+            return view('reservation.data', $result);
 
     }
     public function store(Request $request)
@@ -97,6 +119,7 @@ class ReservationController extends Controller
         $roomreservation->room_id=5;
         $roomreservation->starting_date = $request->aankomstdatum;
         $roomreservation->end_date = $request->vertrekdatum;
+        $roomreservation->room_id = $request->room;
         $roomreservation->save();
 
         if ($request->aantal0_3 > 0) {
