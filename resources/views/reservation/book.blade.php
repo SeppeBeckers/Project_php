@@ -59,8 +59,8 @@
         <h3>Speciale arrangementen</h3>
         @foreach ($arrangements as $arrangement)
         <div class="ml-4">
-            <input type="radio" id="douche" name="verblijfskeuze" value="{{ $arrangement->id }}">
-            <label for="douche">{{ $arrangement->type }}</label><br>
+            <input type="radio" id="arrangement" name="arrangement" value="{{ $arrangement->id }}">
+            <label for="arrangement">{{ $arrangement->type }}</label><br>
             <p>{{ $arrangement->description }}</p>
         </div>
         @endforeach
