@@ -11294,10 +11294,11 @@ h1 {
 
 h2 {
   font-size: 20px !important;
+  font-weight: 500;
 }
 
 h3 {
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 
 @media (min-width: 750px) {
@@ -11364,17 +11365,29 @@ h3 {
   text-align: center;
   position: relative;
   top: 15%;
-  margin-top: 4%;
-  padding-left: 100px;
-  padding-right: 100px;
+  margin-top: 20%;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .overlay p {
   color: #fff;
   display: block;
-  font-size: 30px;
+  font-size: 15px;
   text-shadow: 2px 1px black;
   margin-bottom: 2%;
+}
+
+@media (min-width: 800px) {
+  .overlay p {
+    font-size: 30px;
+  }
+
+  .content {
+    padding-left: 100px;
+    padding-right: 100px;
+    margin-top: 4%;
+  }
 }
 
 .overlay #closeHelp {
@@ -11382,5 +11395,14 @@ h3 {
   right: 30px;
   top: 30px;
   font-size: 60px;
+
+}
+
+#openHelp {
+  cursor: pointer;
+}
+
+.small-input input {
+  width: 50%;
 }
 

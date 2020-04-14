@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\NotAvailable;
 use App\Room;
 use App\TypeRoom;
-use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Json;
@@ -22,7 +21,6 @@ class RoomController extends Controller
             ->with('room')
             ->get();
 
-        $now = new DateTime('now');
         $standard_date = date("Y-m-d", strtotime('now'));
 
         $result = compact('rooms', 'not_availables', 'standard_date');
@@ -41,20 +39,6 @@ class RoomController extends Controller
         $result = compact('room', 'not', 'typeRoom', 'standard_date');
         Json::dump($result);
         return view('admin.room.edit', $result);
-
-    }
-
-    //show available
-    public function not_available($id)
-    {
-        $room = Room::with('typeRoom')->findOrFail($id);
-        $not = NotAvailable::where('room_id',$id )->orderBy('starting_date')->first();
-        $standard_date = date("Y-m-d", strtotime('now'));
-        $typeRoom = TypeRoom::orderBy('id')->get();
-
-        $result = compact('room', 'not', 'typeRoom', 'standard_date');
-        Json::dump($result);
-        return view('admin.room.not_available', $result);
 
     }
 

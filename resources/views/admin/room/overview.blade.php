@@ -28,20 +28,24 @@
 </td>
 
                     <td>
+
                         @foreach($not_availables as $not_available)
                             @if ($not_available->room_id === $room->id)
                                 @if ($standard_date >  $not_available->starting_date && $standard_date < $not_available->end_date)
                                     <i id="optie {{$not_available->id}}" class="fas fa-times"></i>
+                                    @break
                                 @else
                                     <i id="optie {{$not_available->id}}" class="fas fa-check"></i>
+                                    @break
                                 @endif
+                                @else
+                                <i id="optie {{$not_available->id}}" class="fas fa-check"></i>
+                                @break
                             @endif
                         @endforeach
-                            @if ($not_available->room_id != $room->room_number)
-                                <i class="fas fa-check"></i>
-                                @endif
 
                     </td>
+
                    <td>
                        <form action="/admin/room/{{ $room->id }}" method="post">
                            @method('not_available')
@@ -55,6 +59,7 @@
                            </div>
                        </form>
                    </td>
+
                     <td>
                         <form action="/admin/room/{{ $room->id }}" method="post">
                             @method('edit')
