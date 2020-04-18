@@ -21,7 +21,8 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-
+            </div>
+                <div class="form-row">
                 {{-- Aantal personen --}}
                 <div class="col-sm-6 align-self-end">
                     <label for="maxPers">Maximum aantal personen: </label>
@@ -73,63 +74,6 @@
                          alt="{{$room->picture}}" style="margin-bottom: 5%"/>
                 </div>
             </div>
-
-            {{-- Als er geen datums gevonden zijn --}}
-            @if ($not == null)
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="beschikbaarheid" id="onbeschikbaar" value="onbeschikbaar">
-                    <label class="form-check-label" for="onbeschikbaar">
-                        Onbeschikbaar
-                    </label>
-                    <div class="form-group" style="margin-top: 1%">
-                        <label for="van">Van: </label>
-                        <input class="form-control col-sm-2" type="date" name="van" id="van" placeholder="Van"
-                               value=" ">
-                        <br>
-                        <label for="tot">Tot: </label>
-                        <input class="form-control col-sm-2" type="date" name="tot" id="tot" placeholder="Tot"
-                               value=" ">
-                    </div>
-                </div>
-
-                <div class="form-check" style="margin-bottom: 3%">
-                    <input class="form-check-input" type="radio" name="beschikbaarheid" id="beschikbaar" value="obeschikbaar"
-                           checked>
-                    <label class="form-check-label" for="beschikbaar" >
-                        Beschikbaar
-                    </label>
-                </div>
-                @else
-                {{-- Als er wel datums gevonden zijn --}}
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="beschikbaarheid" id="onbeschikbaar" value="onbeschikbaar"
-                           @if ($standard_date >  $not->starting_date && $standard_date < $not->end_date)
-                           checked
-                            @endif>
-                    <label class="form-check-label" for="onbeschikbaar">
-                        Onbeschikbaar
-                    </label>
-                    <div class="form-group" style="margin-top: 1%">
-                        <label for="van">Van: </label>
-                        <input class="form-control col-sm-2" type="date" name="van" id="van" placeholder="Van"
-                               value="{{$not->starting_date}}">
-                        <br>
-                        <label for="tot">Tot: </label>
-                        <input class="form-control col-sm-2" type="date" name="tot" id="tot" placeholder="Tot"
-                               value="{{$not->end_date}}">
-                    </div>
-                </div>
-
-                <div class="form-check" style="margin-bottom: 3%">
-                    <input class="form-check-input" type="radio" name="beschikbaarheid" id="beschikbaar" value="obeschikbaar"
-                           @if ($standard_date <  $not->starting_date)
-                           checked
-                            @endif>
-                    <label class="form-check-label" for="beschikbaar" >
-                        Beschikbaar
-                    </label>
-                </div>
-            @endif
 
         <button type="submit" class="btn btn-success">Kamer opslaan</button>
         </div>

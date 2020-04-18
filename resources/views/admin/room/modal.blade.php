@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">modal-genre-title</h5>
+                <h5 class="modal-title">modal-not-title</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -13,6 +13,7 @@
                     @method('')
                     @csrf
                     <div class="form-group">
+                        <input type="hidden" name="id" id="id" value="">
                         <label for="starting_date">Van: </label>
                         <input type="date" name="starting_date" id="starting_date"
                                class="form-control"

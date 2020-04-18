@@ -28,6 +28,18 @@ class RoomController extends Controller
         return view('admin.room.overview', $result);
     }
 
+    public function show($id)
+    {
+        $room = Room::with('typeRoom')->findOrFail($id);
+        $not = NotAvailable::where('room_id',$id )->orderBy('starting_date')->get();
+        $standard_date = date("Y-m-d", strtotime('now'));
+
+        $result = compact('room', 'not',  'standard_date');
+
+        Json::dump($result);
+        return view('admin.room.not_available', $result);
+    }
+
     //show room
     public function edit($id)
     {
@@ -52,8 +64,10 @@ class RoomController extends Controller
             'kamerNr.required' => 'Gelieve de kamer nummer in te vullen',
             'kamerNr.integer' => 'Kamer nummer moet een getal zijn',
             'maxPers.required' => 'Gelieve de maximum aantal personen in te vullen',
-            'maxPers.integer' => 'Maximum aantal personen moet een getal zijn'
+            'maxPers.integer' => 'Maximum aantal personen moet een getal zijn',
+
         ]);
+
         $room->room_number = $request->kamerNr;
         $room->maximum_persons = $request->maxPers;
         $room->description = $request->beschrijving;
@@ -68,5 +82,26 @@ class RoomController extends Controller
         return redirect('admin/room');
     }
 
+    //opslaan nieuwe onbeschikbaarheid
+    public function store(Request $request, NotAvailable $not_available)
+    {
+        $this->validate($request, [
+            'starting_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:starting_date',
+        ], [
+            'starting_date.required' => 'Gelieve een begindatum in te geven',
+            'end_date.required' => 'Gelieve een einddatum in te geven',
+            'end_date.after_or_equal' => 'De einddatum mag niet voor de startdatum komen'
+        ]);
+        $not_available = new NotAvailable();
+        $not_available->room_id = $request->id;
+        $not_available->starting_date = $request->starting_date;
+        $not_available->end_date = $request->end_date;
+        $not_available->save();
+        return response()->json([
+            'type' => 'success',
+            'text' => "De kamers is onbeschikbaar gesteld van: <b>$not_available->starting_date</b> tot: <b>$not_available->end_date</b>"
+        ]);
+    }
 
 }

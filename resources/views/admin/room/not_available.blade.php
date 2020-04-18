@@ -2,6 +2,7 @@
 @section('title', 'Beschikbaarheden kamer')
 
 @section('main')
+    @include('shared.alert')
     <h1>Overzicht onbeschikbaarheden kamer {{$room->id}}</h1>
     <p>
         <a href="#!" class="btn btn-outline-success" id="btn-create">
@@ -19,28 +20,24 @@
             </thead>
             <tbody>
 
-            {{-- Alle onbeschikbaarheden alten zien plus knoppen --}}
+            {{-- Alle onbeschikbaarheden zien plus knoppen --}}
             @foreach($not as $not_available)
                 <tr>
                     <td>{{$not_available->starting_date}}</td>
                     <td>{{$not_available->end_date}}</td>
-                    <td data-id="{{$not_available->id}}"
-                        data-starting_date="{{$not_available->starting_date}}"
-                        data-end_date="{{$not_available->end_date}}">
-                            @method('delete')
+                    <td>
+                        <form action="/admin/room/{{ $room->id }}" method="post">
+                            @method('not_available')
                             @csrf
                             <div class="btn-group btn-group-sm">
-                                <button class="btn btn-outline-success btn-edit"
-                                   data-toggle="tooltip"
-                                   title="Bewerk onbeschikbaarheid ">
+                                <a href="/admin/not_available/{{$not_available->id}}/edit" class="btn btn-outline-success"
+                                   data-toggle="tooltip" data-id="{{ $not_available->id }}"
+                                   title="Aanpassen onbeschikbaarheid van">
                                     <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-outline-danger btn-delete"
-                                        data-toggle="tooltip"
-                                        title="Verwijder onbeschikbaarheid ">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                </a>
+
                             </div>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
@@ -54,62 +51,15 @@
            Er zijn geen onbeschikbaarheden gevonden
         </div>
     @endif
+
     @include('admin.room.modal')
 @endsection
 
 @section('script_after')
     <script>
         $(function () {
-            {{-- Verwijderknop --}}
-            $('tbody').on('click','.btn-delete',  function () {
-                // Get data attributes from td tag
-                let id = $(this).closest('td').data('id');
-                let starting_date = $(this).closest('td').data('starting_date');
-                let end_date = $(this).closest('td').data('end_date');
-                // Set some values for Noty
-                let text = `<p>Verwijder  de datums van: <b>${starting_date}</b> en tot: <b>${end_date}</b>?</p>`;
-                let type = 'warning';
-                let btnText = 'Verwijder datums';
-                let btnClass = 'btn-success';
 
-                // Show Noty
-                let modal = new Noty({
-                    timeout: false,
-                    layout: 'center',
-                    modal: true,
-                    type: type,
-                    text: text,
-                    buttons: [
-                        Noty.button(btnText, `btn ${btnClass}`, function () {
-                            // Delete datum and close modal
-                            deleteDate(id);
-                            modal.close();
-                        }),
-                        Noty.button('Annuleer', 'btn btn-secondary ml-2', function () {
-                            modal.close();
-                        })
-                    ]
-                }).show();
-            });
-
-            {{-- Bewerkknop --}}
-            $('tbody').on('click', '.btn-edit', function () {
-                // Get data attributes from td tag
-                let id = $(this).closest('td').data('id');
-                let starting_date = $(this).closest('td').data('starting_date');
-                let end_date = $(this).closest('td').data('end_date');
-                // Update the modal
-                $('.modal-title').text(`Bewerk onbeschikbaarheid van ${starting_date} tot: ${end_date}`);
-                $('form').attr('action', `/admin/room/{{$room->id}}/not_available`);
-                $('#starting_date').val(starting_date);
-                $('input[starting_date="_method"]').val('put');
-                $('#end_date').val(end_date);
-                $('input[end_date="_method"]').val('put');
-                // Show the modal
-                $('#modal-not').modal('show');
-            });
-
-            {{-- Bewerken --}}
+            //form oproepen
             $('#modal-not form').submit(function (e) {
                 // Don't submit the form
                 e.preventDefault();
@@ -129,6 +79,9 @@
                         }).show();
                         // Hide the modal
                         $('#modal-not').modal('hide');
+                        setTimeout(function () {
+                            $(location).attr('href', '/admin/room/{{$room->id}}');
+                        }, 2000);
                     })
                     .fail(function (e) {
                         console.log('error', e);
@@ -148,11 +101,14 @@
                     });
             });
 
-            {{-- Aanmaken --}}
+
+            //Aanmaken
             $('#btn-create').click(function () {
                 // Update the modal
                 $('.modal-title').text(`Kamer onbeschikbaar maken`);
-                $('form').attr('action', `/admin/room/{{$room->id}}/not_available`);
+                $('form').attr('action', `/admin/room`);
+                $('#id').val('{{$room->id}}');
+                $('input[id="_method"]').val('post');
                 $('#starting_date').val('');
                 $('input[starting_date="_method"]').val('post');
                 $('#end_date').val('');
@@ -163,26 +119,7 @@
 
         });
 
-        // Delete a genre
-        function deleteDate() {
-            // Delete the genre from the database
-            let pars = {
-                '_token': '{{ csrf_token() }}',
-                '_method': 'delete',
-            };
-            $.post(`/admin/room/{{$room->id}}/not_available`, pars, 'json')
-                .done(function (data) {
-                    console.log('data', data);
-                    // Show toast
-                    new Noty({
-                        type: data.type,
-                        text: data.text
-                    }).show();
-                })
-                .fail(function (e) {
-                    console.log('error', e);
-                });
-        }
+
     </script>
 @endsection
 
