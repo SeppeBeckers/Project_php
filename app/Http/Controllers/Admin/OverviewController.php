@@ -30,9 +30,8 @@ class OverviewController extends Controller
                     // Add color and link on event
 
                     [
-
                         'color' => '#9BC57E',
-                        'url' => '/admin/reservation/' . $value->reservation->id . '/edit',
+                        'url' => '/admin/reservation/' . $value->id . '/edit',
                         'title' =>  $value->reservation->first_name . ' ' . $value->reservation->name . ', kamer ' . $value->room->room_number ,
                         'locale' => 'nl',
 
