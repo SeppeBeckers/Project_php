@@ -135,7 +135,7 @@
 
             @else
                 <label for="voorschot">Voorschot</label>
-                <input type="checkbox" class="form-control" name="voorschot" id="voorschot">
+                <input type="checkbox" class="form-control" name="voorschot" id="voorschot" checked>
             @endguest
             <button type="submit" class="btn btn-success mb-4">Bevestig reservatie</button>
     </form>

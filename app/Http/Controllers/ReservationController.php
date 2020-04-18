@@ -122,48 +122,69 @@ class ReservationController extends Controller
         $roomreservation->room_id = $request->room;
         $roomreservation->save();
 
-        if ($request->aantal0_3 > 0) {
-            $people = new Person();
-            $people->reservation_id=$reservation->id;
-            $people->number_of_persons=$request->aantal0_3;
-            $people->age_id = 1;
-            $people->save();
-        }
-        if ($request->aantal4_8 > 0) {
-            $people = new Person();
-            $people->reservation_id=$reservation->id;
-            $people->number_of_persons=$request->aantal4_8;
-            $people->age_id = 2;
-            $people->save();
-        }
-        if ($request->aantal9_12 > 0) {
-            $people = new Person();
-            $people->reservation_id=$reservation->id;
-            $people->number_of_persons=$request->aantal9_12;
-            $people->age_id = 3;
-            $people->save();
-        }
-        if ($request->aantal12 > 0) {
-            $people = new Person();
-            $people->reservation_id=$reservation->id;
-            $people->number_of_persons=$request->aantal12;
-            $people->age_id = 4;
-            $people->save();
-        }
+        $people = new Person();
+        $people->reservation_id=$reservation->id;
+        $people->number_of_persons=$request->aantal0_3;
+        $people->age_id = 1;
+        $people->save();
 
+        $people = new Person();
+        $people->reservation_id=$reservation->id;
+        $people->number_of_persons=$request->aantal4_8;
+        $people->age_id = 2;
+        $people->save();
+
+        $people = new Person();
+        $people->reservation_id=$reservation->id;
+        $people->number_of_persons=$request->aantal9_12;
+        $people->age_id = 3;
+        $people->save();
+
+        $people = new Person();
+        $people->reservation_id=$reservation->id;
+        $people->number_of_persons=$request->aantal12;
+        $people->age_id = 4;
+        $people->save();
+
+        $kamer = Room::find($request->room);
+                $maxpersonen = $kamer->maximum_persons;
         $occupancies = $request->aantal0_3 + $request->aantal4_8 + $request->aantal9_12 + $request->aantal12;
-//        $prijs = Price::with()
-//            ->where('typeroom', 'like', $request->typeroom)
-//            ->where('accomodation_choice', 'like', $request->accomodationchoice->id)
-//            ->orWhere('arrangement', 'like', $request->arrangement->id)
-//            ->where('occupancies', 'like', $occupancies);
+        //false = 0, true=1
+        if ($maxpersonen - $occupancies == 0){
+            $sofd = 1;
+        } else {
+            $sofd = 0;
+        }
+
+        $arrangement = $request->arrangement;
+        $verblijfskeuze = $request->verblijfskeuze;
+        if ($arrangement == null) {
+            $tefilterenop = 'accommodation_choice_id';
+            $filter = $verblijfskeuze;
+        } else {
+            $tefilterenop = 'arrangement_id';
+            $filter = $arrangement;
+        }
 
 
+//        $prijs = Price::orderBy('id')
+//            ->where('type_room_id', $request->soortkamer)
+//            ->where($tefilterenop, $filter)
+//            ->where('occupancy_id', $sofd)
+//            ->get();
 
-        $verblijfskeuze = AccommodationChoice::with('prices')->where('id','like', $request->verblijfskeuze);
+        $prijs= Price::orderBy('id')
+            ->where('type_room_id', 'like', $request->soortkamer)
+            ->where('occupancy_id', 'like', $sofd)
+            ->where($tefilterenop, 'like', $filter)
+            ->first();
+
+        $aantaldagen = (strtotime($request->vertrekdatum)-strtotime($request->aankomstdatum))/86400;
+        $verblijfskeuze = AccommodationChoice::find($request->verblijfskeuze);
         Json::dump($verblijfskeuze);
 //        session()->flash('success', "Succesvol geboekt");
-        return view('reservation.summary', compact('verblijfskeuze','reservation', 'roomreservation', 'occupancies'));
+        $result = compact('aantaldagen','kamer','prijs','arrangement','verblijfskeuze','reservation', 'roomreservation', 'occupancies');
+        return view('reservation.summary', $result);
     }
 
 }
