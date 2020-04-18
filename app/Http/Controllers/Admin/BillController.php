@@ -119,7 +119,7 @@ class BillController extends Controller
         $totalprice = $price;
         foreach($people as $person){
             if($person->Age->percentage_discount!=0){
-                $totalprice -= ($price / sizeof($people)) * (1-$person->Age->percentage_discount);
+                $totalprice -= ($price / sizeof($people)) * ($person->Age->percentage_discount);
             }
         }
         return $totalprice;
