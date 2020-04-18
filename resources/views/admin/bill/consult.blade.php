@@ -29,9 +29,9 @@
 
             <p> <span class="font-weight-bold">Verblijfsduur:</span>  {{$bill->reservation->roomReservations->first()->starting_date}} tot en met {{$bill->reservation->roomReservations->first()->end_date}}
                 <br>
-                <span class="font-weight-bold">Aantal personen:</span> {{$bill->reservation->people->first()->number_of_persons}} <br>
+                <span class="font-weight-bold">Aantal personen:</span> {{$aantal}} <br>
                 @foreach( $bill->reservation->people as $Person )
-                    @if($Person->Age->percentage_discount == 0)
+                    @if($Person->number_of_persons == 0 or $Person->age_id == 4 )
                     @else()
                         <span class="font-weight-bold">Toegepaste kinderkorting:</span> {{$Person->Age->age_category}} <br>
                     @endif
