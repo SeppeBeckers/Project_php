@@ -2,6 +2,7 @@
 @section('title', 'Overzicht kamers')
 
 @section('main')
+    @include('shared.alert')
     <h1>Overzicht kamers</h1>
     <div class="table-responsive">
         <table class="table">
@@ -28,37 +29,37 @@
 </td>
 
                     <td>
-
                         @foreach($not_availables as $not_available)
-                            @if ($not_available->room_id === $room->id)
-                                @if ($standard_date >  $not_available->starting_date && $standard_date < $not_available->end_date)
-                                    <i id="optie {{$not_available->id}}" class="fas fa-times"></i>
-                                    @break
-                                @else
-                                    <i id="optie {{$not_available->id}}" class="fas fa-check"></i>
+                            @if ($not_available->room_id === $room->id && $standard_date >  $not_available->starting_date && $standard_date < $not_available->end_date)
+                                <i class="fas fa-times"></i>
+                                @break
+                                @endif
+                                @if ($not_available->room_id === $room->id)
+                                    <i class="fas fa-check"></i>
                                     @break
                                 @endif
-                                @else
-                                <i id="optie {{$not_available->id}}" class="fas fa-check"></i>
-                                @break
-                            @endif
                         @endforeach
+                            @if ($not_available ->where('room_id', $room->id)->count() === 0 )
+                                <i class="fas fa-check"></i>
+                            @endif
+
 
                     </td>
 
-                   <td>
-                       <form action="/admin/room/{{ $room->id }}" method="post">
-                           @method('not_available')
-                           @csrf
-                           <div class="btn-group btn-group-sm">
-                               <a href="/admin/room/{{ $room->id }}/not_available" class="btn btn-outline-success"
-                                  data-toggle="tooltip"
-                                  title="Bekijk onbeschikbaarheden van kamer {{ $room->room_number }}">
-                                   <i class="fas fa-eye"> Onbeschikbaarheden</i>
-                               </a>
-                           </div>
-                       </form>
-                   </td>
+                    <td>
+                        <form action="/admin/room/{{ $room->id }}" method="post">
+                            @method('not_available')
+                            @csrf
+                            <div class="btn-group btn-group-sm">
+                                <a href="/admin/room/{{ $room->id }}" class="btn btn-outline-success"
+                                   data-toggle="tooltip"
+                                   title="Bekijk onbeschikbaarheden van kamer {{ $room->room_number }}">
+                                    <i class="fas fa-eye"> Onbeschikbaarheden</i>
+                                </a>
+                            </div>
+                        </form>
+                    </td>
+
 
                     <td>
                         <form action="/admin/room/{{ $room->id }}" method="post">
@@ -82,3 +83,4 @@
         <button type="submit" class="btn btn-danger btn-block">Alle kamers onbeschikbaar maken</button>
     </div>
 @endsection
+

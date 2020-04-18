@@ -33,8 +33,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('reservation', 'Admin\ReservationController');
     Route::resource('overview', 'Admin\OverviewController');
     Route::resource('room', 'Admin\RoomController');
-    Route::resource('room/{id}/not_available', 'Admin\AvailableController');
-    Route::delete('room/{id}/not_available', 'Admin\AvailableController@destroy');
+    Route::resource('not_available', 'Admin\AvailableController');
     Route::resource('arrangement', 'Admin\ArrangementController');
     Route::resource('bill', 'Admin\BillController');
 });
