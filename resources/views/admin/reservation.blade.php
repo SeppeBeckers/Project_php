@@ -7,19 +7,26 @@
         <div class="col-12 col-md-8">
             <h1>Overzicht reservatie: {{ $room_reservation->reservation->first_name . ' ' . $room_reservation->reservation->name }}</h1>
         </div>
-        <div class="col-12 col-md-4 text-md-right">
+        <div class="col-12 col-md-4 text-md-right text-center">
+            <i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i>
+            <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="p-2">Boekingsinfo</h2>
+        </div>
+        <div class="col-6 text-right">
             <a href="/admin/bill/{{$room_reservation->reservation->id}}" class="btn btn-primary mx-1 ">Factuur raadplegen</a>
         </div>
     </div>
-    <hr class="bg-success">
-    <div class="m-3">
-        <h2>Boekingsinfo</h2>
+
+    <div class="mx-3">
         <form action="/admin/reservation/{{ $room_reservation->id }}" method="post">
             @method('put')
             @csrf
-
             <div class="row ml-1 mr-5">
-                <div class="col-4">
+                <div class="col-3">
                     <div class="form-group">
                         <label for="starting_date">Aankomstdatum:</label>
                         <input type="date"  id="starting_date" name="starting_date"
@@ -30,7 +37,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="form-group">
                         <label for="end_date">Vertrekdatum:</label>
                         <input type="date"  id="end_date" name="end_date"
@@ -41,47 +48,37 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <div class="form-group">
                         <label for="room_number">Kamernummer:</label>
                         <select name="room_number" id="room_number" class="form-control">
                             <option value="" disabled>Kies een kamer</option>
                             @foreach($rooms as $room)
-                                <option value="{{ $room->id }}" {{ $room->id == $room_reservation->room_id ? 'selected' : '' }}>{{ $room->room_number }}</option>
+                                @if ($room->maximum_persons >= $numberPersons)
+                                    <option value="{{ $room->id }}" {{ $room->id == $room_reservation->room_id ? 'selected' : '' }}>{{ $room->room_number }} &nbsp;({{ $room->typeRoom->type_bath }} - max personen: {{ $room->maximum_persons }})  </option>
+
+                                @endif
                             @endforeach
                         </select>
-                     </div>
+                    </div>
                 </div>
             </div>
 
             <div class="row ml-1 mr-5">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="occupancy">Bezetting:</label>
+                        <input disabled type="text" name="occupancy" id="occupancy"
+                               class="form-control"
+                               value="{{ $room_reservation->room->typeRoom->prices->first()->occupancy_id == 1 ? '1 persoon' : '2 personen'  }}">
+                    </div>
+                </div>
                 <div class="col-4">
                     <div class="form-group">
                         <label for="accommodation_type">Verblijfskeuze:</label>
-                        <select name="accommodation_type" id="accommodation_type" class="form-control">
-                            <option value="" disabled>Kies een verblijfskeuze</option>
-                            @foreach($accommodations as $accommodation)
-                                <option value="{{ $accommodation->id }}" {{ $accommodation->id == $room_reservation->room->typeRoom->prices->first()->accommodation_id ? 'selected' : '' }}>{{ $accommodation->type }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <label for="occupancy">Bezetting:</label>
-                        <select name="occupancy" id="occupancy" class="form-control">
-                            <option value="" disabled>Kies een bezetting</option>
-                            <option value="0" {{ $room_reservation->room->typeRoom->prices->first()->occupancy->is_double == 'false' ? 'selected' : '' }}>1 persoon</option>
-                            <option value="1" {{ $room_reservation->room->typeRoom->prices->first()->occupancy->is_double == 'true' ? 'selected' : '' }}>2 personen</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <label for="type_bath">Type badkamer:</label>
-                        <input disabled type="text" name="type_bath" id="type_bath"
+                        <input disabled type="text" name="accommodation_type" id="accommodation_type"
                                class="form-control"
-                               value="{{ $room_reservation->room->typeRoom->type_bath }}">
+                               value="{{ $room_reservation->room->typeRoom->prices->first()->accommodationChoice->type }}">
                     </div>
                 </div>
             </div>
@@ -89,7 +86,7 @@
             <div class="row ml-1 mr-5">
                 <div class="col-4">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="1"
+                        <input class="form-check-input with_deposit" type="checkbox" value="1"
                                @if (old('_token'))
                                @if (old('with_deposit')) checked @endif
 
@@ -99,14 +96,14 @@
                                id="with_deposit" name="with_deposit">
                         <label for="with_deposit" class="form-check-label">Met voorschot</label>
                     </div>
-                    <div class="form-group ml-4 small-input">
+                    <div class="form-group ml-4 small-input deposit_amount">
                         <label for="deposit_amount">Voorschotbedrag(€):</label>
                         <input type="number" name="deposit_amount" id="deposit_amount"
                                class="form-control"
                                placeholder="0"
                                value="{{ $room_reservation->reservation->deposit_amount }}">
                     </div>
-                    <div class="form-check">
+                    <div class="form-check deposit_amount">
                         <input class="form-check-input" type="checkbox" value="1"
                                @if (old('_token'))
                                @if (old('admin')) checked @endif
@@ -120,45 +117,37 @@
                 </div>
 
                 <div class="col-8">
-                    <label for="message">Opmerking:</label>
-                    <textarea name="message" id="message" rows="3"
-                              class="form-control text-left">
-                        {{ $room_reservation->reservation->message }}
-                    </textarea>
+                    <div class="form-group">
+                        <label for="message">Opmerking:</label>
+                        <textarea name="message" id="message" rows="3" class="form-control">{{ $room_reservation->reservation->message }}</textarea>
+                    </div>
                 </div>
             </div>
 
             <h3 class="ml-1 mt-4">Aantal personen</h3>
             <div class="row ml-2 mr-5">
-                <div class="col-md-2 col-3">
-                    <label for="age1">0 - 3 jaar:</label>
-                    <input type="text" class="form-control" id="age"
-                           @error('age') is-invalid @enderror
-                           placeholder="0"
-                           value="">
+                <?php $index = 1; ?>
+                @foreach ($room_reservation->reservation->people as $person)
+                    <div class=" col-6 col-lg-3">
+                        <div class="form-group small-input">
+                            <label for="age{{ $index }}">{{$person->age->age_category}}:</label>
+                            <input type="hidden" name="age_{{$person->age_id}}" value="{{$person->id}}">
+                            <input type="number" name="age{{$person->age_id}}" id="age{{$index}}"
+                                   class="form-control @error('age' . $index) is-invalid @enderror"
+                                   placeholder="Aantal" required
+                                   value="{{$person->number_of_persons}}">
+                            @error('age' . $index)
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <?php $index ++; ?>
+                @endforeach
+
+                <div class=" col">
+                    @include('shared.alert')
                 </div>
 
-                <div class="col-md-2 col-3">
-                    <label for="age2">4 - 8 jaar:</label>
-                    <input type="text" class="form-control" id="age"
-                           @error('age') is-invalid @enderror
-                           placeholder="0"
-                           value="">
-                </div>
-                <div class="col-md-2 col-3">
-                    <label for="age3">9 - 12 jaar:</label>
-                    <input type="text" class="form-control" id="age"
-                           @error('age') is-invalid @enderror
-                           placeholder="0"
-                           value="">
-                </div>
-                <div class="col-md-2 col-3">
-                    <label for="age4">Volwassenen:</label>
-                    <input type="text" class="form-control" id="age"
-                           @error('age') is-invalid @enderror
-                           placeholder="2"
-                           value="">
-                </div>
             </div>
 
             <hr class="bg-success">
@@ -204,7 +193,7 @@
                 <div class="col-2">
                     <div class="form-group">
                         <label for="gender">Geslacht:</label>
-                        <select disabled name="occupancy" id="occupancy" class="form-control">
+                        <select disabled name="gender" id="gender" class="form-control">
                             <option value="M" {{ $room_reservation->reservation->gender == 'Male' ? 'selected' : '' }}>M</option>
                             <option value="V" {{ $room_reservation->reservation->gender == 'Female' ? 'selected' : '' }}>V</option>
                             <option value="/" {{ $room_reservation->reservation->gender == 'Other' ? 'selected' : '' }}>/</option>
@@ -309,6 +298,21 @@
             </div>
     </div>
 
+
+    <!-- Overlay text: when you press the info button this help page will be displayed -->
+    <div class="overlay" id="MyDiv">
+        <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
+        <div class="content">
+            <p>Je vindt hier alle informatie over een reservatie, alsook kan je de factuur hier raadplegen via de blauwe knop vanboven.
+                Ben je klaar met aanpassen? Klik dan op de groene knop 'opslaan' vanonder op de pagina. Is de reservatie geannuleerd of is deze fout? Klik dan op de rode knop 'Verwijderen' vanonder op de pagina.
+                <br>
+                <br>
+                Wil je terug naar het hoofdscherm? Klik dan op het huisje rechts vanboven.
+            </p>
+            <p>Om dit scherm te sluiten, klik je rechts boven op het kruisje.</p>
+        </div>
+    </div>
+
 @endsection
 @section('script_after')
     <script>
@@ -340,7 +344,30 @@
                     ]
                 }).show();
             });
+
+            //With deposit or not => show the amount
+            let checked = $('.with_deposit').prop('checked');
+            if (checked === true){
+                $('.deposit_amount').show();
+            }
+            else {
+                $('.deposit_amount').hide();
+            }
+            let $checkbox = $('input[name="with_deposit"]');
+            console.dir($checkbox);
+            $checkbox.change(function () {
+                let checked = $(this).prop('checked');
+                console.log(checked);
+                if (checked === true){
+                    $('.deposit_amount').show();
+                }
+                else {
+                    $('.deposit_amount').hide();
+                }
+            });
         });
+
+
     </script>
 @endsection
 

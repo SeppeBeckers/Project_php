@@ -28,23 +28,78 @@ class CreatePeopleTable extends Migration
             [
                 [
                     'reservation_id'=>1,
+                    'age_id'=>'1',
+                    'number_of_persons'=>'1'
+                ],
+                [
+                    'reservation_id'=>1,
+                    'age_id'=>'2',
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>1,
+                    'age_id'=>'3',
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>1,
                     'age_id'=>'4',
                     'number_of_persons'=>'2'
                 ],
                 [
                     'reservation_id'=>2,
+                    'age_id'=>'1',
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>2,
+                    'age_id'=>'2',
+                    'number_of_persons'=>'1'
+                ],
+                [
+                    'reservation_id'=>2,
+                    'age_id'=>'3',
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>2,
                     'age_id'=>'4',
-                    'number_of_persons'=>'2'
+                    'number_of_persons'=>'1'
                 ],
                 [
                     'reservation_id'=>3,
-                    'age_id'=>'4',
-                    'number_of_persons'=>'2'
+                    'age_id'=>'1',
+                    'number_of_persons'=>'0'
                 ],
                 [
                     'reservation_id'=>3,
                     'age_id'=>'2',
-                    'number_of_persons'=>'1'
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>3,
+                    'age_id'=>'3',
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>3,
+                    'age_id'=>'4',
+                    'number_of_persons'=>'2'
+                ],
+                [
+                    'reservation_id'=>4,
+                    'age_id'=>'1',
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>4,
+                    'age_id'=>'2',
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>4,
+                    'age_id'=>'3',
+                    'number_of_persons'=>'0'
                 ],
                 [
                     'reservation_id'=>4,
@@ -53,9 +108,24 @@ class CreatePeopleTable extends Migration
                 ],
                 [
                     'reservation_id'=>5,
+                    'age_id'=>'1',
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>5,
+                    'age_id'=>'2',
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>5,
+                    'age_id'=>'3',
+                    'number_of_persons'=>'1'
+                ],
+                [
+                    'reservation_id'=>5,
                     'age_id'=>'4',
                     'number_of_persons'=>'2'
-                ]
+                ],
             ]
         );
     }

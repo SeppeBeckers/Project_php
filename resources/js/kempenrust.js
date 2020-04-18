@@ -3,10 +3,12 @@ export function hello(){
 }
 
 $(function(){
+    //Tooltips
     $('body').tooltip({
         selector: '[data-toggle="tooltip"]',
         html : true,
     });
+
 });
 
 Noty.overrideDefaults({

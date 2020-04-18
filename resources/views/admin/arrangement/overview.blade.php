@@ -12,6 +12,7 @@
             <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3"></i></a>
         </div>
     </div>
+
     <div class="mx-4">
         <p class="font-weight-bold">Prijzen per persoon</p>
         <div class="row">
@@ -27,17 +28,18 @@
                                         <thead class="thead-light">
                                             <tr>
                                                 <th></th>
-                                                <th>Douche </th>
-                                                <th>Douche/Bad </th>
+                                                @foreach($type_rooms as $type_room)
+                                                    <th>{{ $type_room->type_bath }}</th>
+                                                @endforeach
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($occupancies as $occupancy)
                                                 <tr>
                                                     @if ($occupancy->id ==1)
-                                                        <td class="font-weight-bold bg-grey">Single</td>
+                                                        <td class="font-weight-bold bg-grey">1 persoon</td>
                                                     @else
-                                                        <td class="font-weight-bold bg-grey">Double</td>
+                                                        <td class="font-weight-bold bg-grey">2 personen</td>
                                                     @endif
 
                                                     @foreach($arrangement->prices as $price)
@@ -65,7 +67,8 @@
         </div>
     </div>
 
-    <!-- Overlay text: when you press the info button this will be displayed -->
+
+    <!-- Overlay text: when you press the info button this help page will be displayed -->
     <div class="overlay" id="MyDiv">
         <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
         <div class="content">
@@ -80,16 +83,4 @@
     </div>
 
 @endsection
-@section('script_after')
-    <script>
-        $(function () {
 
-            $('#openHelp').click(function () {
-                $('#MyDiv').css('transform', 'scale(1)');
-            })
-            $('#closeHelp').click(function () {
-                $('#MyDiv').css('transform', 'scale(0)');
-            })
-        })
-    </script>
-@endsection

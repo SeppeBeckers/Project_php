@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Arrangement;
 use App\Occupancy;
 use App\Price;
+use App\TypeRoom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Json;
@@ -18,53 +19,17 @@ class ArrangementController extends Controller
      */
     public function index()
     {
-        $arrangements = Arrangement::orderBy('id')
-            ->has('prices')
-            ->get();
-        $occupancies = Occupancy::with('prices')
-            ->get();
-        $prices = Price::orderBy('id')
+        $arrangements = Arrangement::with('prices.typeRoom', 'prices.occupancy')
+            ->orderBy('id')
             ->get();
 
-        $result = compact('arrangements', 'occupancies', 'prices');
+        $occupancies = Occupancy::get();
+        $type_rooms = TypeRoom::get();
+
+        $result = compact('arrangements', 'occupancies', 'type_rooms');
         //dd($result);
         Json::dump($result);
         return view('admin.arrangement.overview', $result);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Arrangement  $arrangement
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Arrangement $arrangement)
-    {
-        $price = Price::with('arrangement')->findOrFail($id);
-        $result = compact('price');
-        \Facades\App\Helpers\Json::dump($result);
-        return view('admin.arrangement.edit', $result);  // Pass $result to the view
     }
 
     /**
@@ -75,9 +40,14 @@ class ArrangementController extends Controller
      */
     public function edit(Arrangement $arrangement)
     {
+        $arrangements = Arrangement::with('prices.typeRoom', 'prices.occupancy')
+            ->orderBy('id')
+            ->get();
 
-        $arrangements = Arrangement::orderBy('id');
-        $result = compact('arrangement', 'arrangements');
+        $occupancies = Occupancy::get();
+        $type_rooms = TypeRoom::get();
+
+        $result = compact('arrangement', 'arrangements', 'occupancies', 'type_rooms');
         Json::dump($result);
         return view('admin.arrangement.edit', $result);
     }
@@ -97,7 +67,15 @@ class ArrangementController extends Controller
         $this->validate($request,[
             'naam' => 'required|min:3',
             'beschrijving' => 'required|min:5',
-
+            'amount1' => 'required',
+            'amount2' => 'required',
+            'amount3' => 'required',
+            'amount4' => 'required',
+        ], [
+            'amount1.required' => 'Prijs is verplicht.',
+            'amount2.required' => 'Prijs is verplicht.',
+            'amount3.required' => 'Prijs is verplicht.',
+            'amount4.required' => 'Prijs is verplicht.',
         ]);
 
         $arrangement = Arrangement::find($id);
@@ -107,25 +85,26 @@ class ArrangementController extends Controller
 
 
         //Multiple prices at same time
-        $price = Price::find($request->id[0]);
-        $price->amount = $request->amount[0];
+        $price = Price::find($request->id_1);
+        $price->amount = $request->amount1;
         $price->save();
 
-        $price = Price::find($request->id[1]);
-        $price->amount = $request->amount[1];
+        $price = Price::find($request->id_2);
+        $price->amount = $request->amount2;
         $price->save();
 
-        $price = Price::find($request->id[2]);
-        $price->amount = $request->amount[2];
+        $price = Price::find($request->id_3);
+        $price->amount = $request->amount3;
         $price->save();
 
-        $price = Price::find($request->id[3]);
-        $price->amount = $request->amount[3];
+        $price = Price::find($request->id_4);
+        $price->amount = $request->amount4;
         $price->save();
 
         session()->flash('success', 'Your price has been updated');
         return redirect('admin/arrangement');
     }
+
 
 
     /**
