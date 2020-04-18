@@ -59,7 +59,13 @@ class BillController extends Controller
         $bill = Bill::with('Reservation.people.age', 'Reservation.roomReservations.room.typeRoom.prices.accommodationChoice', 'billCosts')->findOrFail($reservation_id);
         $eindPrijs = $this->calculateDiscount($bill->reservation->people, $bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->amount);
         $bill->billCosts->first()->amount = $eindPrijs;
-        $result = compact('bill');
+        $aantal = 0;
+        foreach($bill->reservation->people as $person){
+            $aantal+= $person->number_of_persons;
+        }
+
+
+        $result = compact('bill', 'aantal');
         Json::dump($result);
         return view('admin.bill.consult', $result);  // Pass $result to the view
 
@@ -114,14 +120,20 @@ class BillController extends Controller
     }
 
     //Call the function like: calculateDiscount($Bill->reservation->people, $Bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->price)
-    public function calculateDiscount($people, $price)
+    public function calculateDiscount($people, $amount)
     {
-        $totalprice = $price;
+        $totalprice = $amount;
+        $aantal = 0;
+        $percentage = 0;
         foreach($people as $person){
-            if($person->Age->percentage_discount!=0){
-                $totalprice -= ($price / sizeof($people)) * ($person->Age->percentage_discount);
+            $aantal+= $person->number_of_persons;
+
+            if($person->number_of_persons !=0 and $person->Age->percentage_discount != 0){
+                $percentage = $person->Age->percentage_discount ;
             }
         }
+        $korting = ($amount / $aantal) * $percentage ;
+        $totalprice -=  $korting  ;
         return $totalprice;
     }
 }
