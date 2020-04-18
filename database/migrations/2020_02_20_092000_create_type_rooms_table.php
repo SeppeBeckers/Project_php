@@ -26,7 +26,7 @@ class CreateTypeRoomsTable extends Migration
                     'type_bath'=>'Douche'
                 ],
                 [
-                    'type_bath'=>'Douche/Bad'
+                    'type_bath'=>'Douche/bad'
                 ]
             ]
         );

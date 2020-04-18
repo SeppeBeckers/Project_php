@@ -29,6 +29,16 @@
     @if(env('APP_DEBUG'))
         <script>
             $('form').attr('novalidate', 'true');
+
+            $(function () {
+                //Overlay for help
+                $('#openHelp').click(function () {
+                    $('#MyDiv').css('transform', 'scale(1)');
+                });
+                $('#closeHelp').click(function () {
+                    $('#MyDiv').css('transform', 'scale(0)');
+                });
+            })
         </script>
     @endif
 

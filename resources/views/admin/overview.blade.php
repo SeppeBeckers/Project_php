@@ -3,6 +3,7 @@
 @section('title', 'Bookings')
 
 @section('main')
+    @include('shared.alert')
     <div class="container-fluid ">
         <p>
             <a href="../reservation/book" class="btn btn-outline-success">
