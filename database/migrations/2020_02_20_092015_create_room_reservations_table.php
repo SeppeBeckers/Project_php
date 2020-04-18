@@ -14,10 +14,12 @@ class CreateRoomReservationsTable extends Migration
     public function up()
     {
         Schema::create('room_reservations', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('reservation_id');
             $table->unsignedBigInteger('room_id');
             $table->date('starting_date');
             $table->date('end_date');
+            $table->unsignedBigInteger('price_id');
             $table->timestamps();
 
             // Foreign key relation
@@ -30,37 +32,44 @@ class CreateRoomReservationsTable extends Migration
                     'reservation_id'=>'1',
                     'room_id'=>'5',
                     'starting_date'=>'2020/05/05',
-                    'end_date'=>'2020/05/09'
+                    'end_date'=>'2020/05/09',
+                    'price_id' =>'2'
                 ],
                 [
                     'reservation_id'=>'2',
                     'room_id'=>'2',
                     'starting_date'=>'2020/05/08',
-                    'end_date'=>'2020/05/10'
+                    'end_date'=>'2020/05/10',
+                    'price_id' =>'3'
+
                 ],
                 [
                     'reservation_id'=>'3',
                     'room_id'=>'7',
                     'starting_date'=>'2020/05/09',
-                    'end_date'=>'2020/05/10'
+                    'end_date'=>'2020/05/10',
+                    'price_id' =>'4'
                 ],
                 [
                     'reservation_id'=>'4',
                     'room_id'=>'1',
                     'starting_date'=>'2020/05/04',
-                    'end_date'=>'2020/05/07'
+                    'end_date'=>'2020/05/07',
+                    'price_id' =>'1'
                 ],
                 [
                     'reservation_id'=>'5',
                     'room_id'=>'3',
                     'starting_date'=>'2020/05/08',
-                    'end_date'=>'2020/05/10'
+                    'end_date'=>'2020/05/10',
+                    'price_id' =>'2'
                 ],
                 [
                     'reservation_id'=>'5',
                     'room_id'=>'9',
                     'starting_date'=>'2020/05/08',
-                    'end_date'=>'2020/05/11'
+                    'end_date'=>'2020/05/11',
+                    'price_id' =>'2'
                 ]
             ]
         );

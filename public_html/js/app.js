@@ -52789,6 +52789,7 @@ function hello() {
   console.log('Welkom op de reserveringspagina van het hotel Kempenrust!');
 }
 $(function () {
+  //Tooltips
   $('body').tooltip({
     selector: '[data-toggle="tooltip"]',
     html: true

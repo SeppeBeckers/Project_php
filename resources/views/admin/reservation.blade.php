@@ -3,234 +3,326 @@
 @section('title', 'Reservatie')
 
 @section('main')
-
-<h1>Overzicht reservatie</h1>
-@include('shared.alert')
-
-<div class="row">
-    <div class="col-12 col-md-6">
-    <h2>Gegevens verblijvers</h2>
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <h1>Overzicht reservatie: {{ $room_reservation->reservation->first_name . ' ' . $room_reservation->reservation->name }}</h1>
+        </div>
+        <div class="col-12 col-md-4 text-md-right text-center">
+            <i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i>
+            <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3"></i></a>
+        </div>
     </div>
-    <div class="col-12 col-md-6 text-md-right">
-        <a href="/admin/bill/{{$reservation->id}}" class="btn btn-primary mx-1 ">Factuur raadplegen</a>
-
+    <div class="row">
+        <div class="col-6">
+            <h2 class="p-2">Boekingsinfo</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a href="/admin/bill/{{$room_reservation->reservation->id}}" class="btn btn-primary mx-1 ">Factuur raadplegen</a>
+        </div>
     </div>
-</div>
 
-<div class="row m-2 justify-content-center">
-    <form action="/admin/reservation/{{ $reservation->id }}" method="post">
-        @method('put')
-        @csrf
-        <div class="row">
-            <div class="col-7">
-                <div class="row">
-                    <div class="col-6 my-2">
+    <div class="mx-3">
+        <form action="/admin/reservation/{{ $room_reservation->id }}" method="post">
+            @method('put')
+            @csrf
+            <div class="row ml-1 mr-5">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="starting_date">Aankomstdatum:</label>
+                        <input type="date"  id="starting_date" name="starting_date"
+                               class="form-control {{ $errors->first('starting_date') ? 'is-invalid' : '' }}"
+                               value="{{ $room_reservation->starting_date }}">
+                        @error('starting_date')
+                        <div class="invalid-feedback">{{ $errors->first('starting_date') }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="end_date">Vertrekdatum:</label>
+                        <input type="date"  id="end_date" name="end_date"
+                               class="form-control {{ $errors->first('end_date') ? 'is-invalid' : '' }}"
+                               value="{{ $room_reservation->end_date }}">
+                        @error('end_date')
+                        <div class="invalid-feedback">{{ $errors->first('end_date') }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="room_number">Kamernummer:</label>
+                        <select name="room_number" id="room_number" class="form-control">
+                            <option value="" disabled>Kies een kamer</option>
+                            @foreach($rooms as $room)
+                                @if ($room->maximum_persons >= $numberPersons)
+                                    <option value="{{ $room->id }}" {{ $room->id == $room_reservation->room_id ? 'selected' : '' }}>{{ $room->room_number }} &nbsp;({{ $room->typeRoom->type_bath }} - max personen: {{ $room->maximum_persons }})  </option>
+
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row ml-1 mr-5">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="occupancy">Bezetting:</label>
+                        <input disabled type="text" name="occupancy" id="occupancy"
+                               class="form-control"
+                               value="{{ $room_reservation->room->typeRoom->prices->first()->occupancy_id == 1 ? '1 persoon' : '2 personen'  }}">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="accommodation_type">Verblijfskeuze:</label>
+                        <input disabled type="text" name="accommodation_type" id="accommodation_type"
+                               class="form-control"
+                               value="{{ $room_reservation->room->typeRoom->prices->first()->accommodationChoice->type }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row ml-1 mr-5">
+                <div class="col-4">
+                    <div class="form-check">
+                        <input class="form-check-input with_deposit" type="checkbox" value="1"
+                               @if (old('_token'))
+                               @if (old('with_deposit')) checked @endif
+
+                               @else
+                               @if ($room_reservation->reservation->with_deposit) checked @endif
+                               @endif
+                               id="with_deposit" name="with_deposit">
+                        <label for="with_deposit" class="form-check-label">Met voorschot</label>
+                    </div>
+                    <div class="form-group ml-4 small-input deposit_amount">
+                        <label for="deposit_amount">Voorschotbedrag(€):</label>
+                        <input type="number" name="deposit_amount" id="deposit_amount"
+                               class="form-control"
+                               placeholder="0"
+                               value="{{ $room_reservation->reservation->deposit_amount }}">
+                    </div>
+                    <div class="form-check deposit_amount">
+                        <input class="form-check-input" type="checkbox" value="1"
+                               @if (old('_token'))
+                               @if (old('admin')) checked @endif
+
+                               @else
+                               @if ($room_reservation->reservation->deposit_paid) checked @endif
+                               @endif
+                               id="deposit_paid" name="deposit_paid">
+                        <label for="deposit_paid" class="form-check-label">Voorschot betaald</label>
+                    </div>
+                </div>
+
+                <div class="col-8">
+                    <div class="form-group">
+                        <label for="message">Opmerking:</label>
+                        <textarea name="message" id="message" rows="3" class="form-control">{{ $room_reservation->reservation->message }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="ml-1 mt-4">Aantal personen</h3>
+            <div class="row ml-2 mr-5">
+                <?php $index = 1; ?>
+                @foreach ($room_reservation->reservation->people as $person)
+                    <div class=" col-6 col-lg-3">
+                        <div class="form-group small-input">
+                            <label for="age{{ $index }}">{{$person->age->age_category}}:</label>
+                            <input type="hidden" name="age_{{$person->age_id}}" value="{{$person->id}}">
+                            <input type="number" name="age{{$person->age_id}}" id="age{{$index}}"
+                                   class="form-control @error('age' . $index) is-invalid @enderror"
+                                   placeholder="Aantal" required
+                                   value="{{$person->number_of_persons}}">
+                            @error('age' . $index)
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <?php $index ++; ?>
+                @endforeach
+
+                <div class=" col">
+                    @include('shared.alert')
+                </div>
+
+            </div>
+
+            <hr class="bg-success">
+            <h2>Persoonsgegevens</h2>
+            <div class="row ml-1 mr-5">
+                <div class="col-3">
+                    <div class="form-group">
                         <label for="name">Naam:</label>
                         <input type="text" name="name" id="name"
                                class="form-control @error('name') is-invalid @enderror"
                                placeholder="Naam" required
-                               value="{{ $reservation->name }}">
+                               value="{{ $room_reservation->reservation->name }}">
                         @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-
-                    <div class="col-6 my-2">
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
                         <label for="first_name">Voornaam:</label>
                         <input type="text" name="first_name" id="first_name"
                                class="form-control @error('first_name') is-invalid @enderror"
                                placeholder="Voornaam" required
-                               value="{{ $reservation->first_name }}">
+                               value="{{ $room_reservation->reservation->first_name }}">
                         @error('first_name')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-6 my-2">
-                        <label for="email">Email:</label>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="email">E-mail:</label>
                         <input type="email" name="email" id="email"
                                class="form-control @error('email') is-invalid @enderror"
                                placeholder="Email" required
-                               value="{{ $reservation->email }}">
+                               value="{{ $room_reservation->reservation->email }}">
                         @error('email')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label for="gender">Geslacht:</label>
+                        <select disabled name="gender" id="gender" class="form-control">
+                            <option value="M" {{ $room_reservation->reservation->gender == 'Male' ? 'selected' : '' }}>M</option>
+                            <option value="V" {{ $room_reservation->reservation->gender == 'Female' ? 'selected' : '' }}>V</option>
+                            <option value="/" {{ $room_reservation->reservation->gender == 'Other' ? 'selected' : '' }}>/</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-                    <div class="col-6 my-2">
-                        <label for="telefoonnummer">Telefoonnummer:</label>
-                        <input type="text" name="telefoonnummer" id="telefoonnummer"
-                               class="form-control @error('telefoonnummer') is-invalid @enderror"
+            <div class="row ml-1 mr-5">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="address">Adres:</label>
+                        <input type="text" name="address" id="address"
+                               class="form-control"
+                               placeholder="Adres"
+                               value="{{ $room_reservation->reservation->address }}">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="place">Stad:</label>
+                        <input type="text" name="place" id="place"
+                               class="form-control"
+                               placeholder="Stad"
+                               value="{{ $room_reservation->reservation->place }}">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="phone_number">Telefoonnummer:</label>
+                        <input type="text" name="phone_number" id="phone_number"
+                               class="form-control @error('phone_number') is-invalid @enderror"
                                placeholder="Telefoonnummer" required
-                               value="{{ $reservation->phone_number }}">
-                        @error('telefoonnummer')
+                               value="{{ $room_reservation->reservation->phone_number }}">
+                        @error('phone_number')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-
                 </div>
             </div>
-            <div class="col-5 my-2">
-                <label for="message">Opmerking:</label>
-                <textarea name="message" id="message" rows="5"
-                          class="form-control" text-left>
-                    {{ $reservation->message }}
-                </textarea>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-12 font-weight-bold">
-                <p>Aantal personen</p>
-            </div>
-            <div class="col-md-2 col-3 mb-2">
-                <label for="age1">0 - 3 jaar:</label>
-                <input type="text" class="form-control" id="age"
-                       @error('age') is-invalid @enderror
-                       placeholder="0"
-                       value=""
-                       required>
-            </div>
+                <hr class="bg-success">
+            @if ($room_reservation->reservation->id > 2)
+                <div class="alert alert-info d-inline-flex">
+                    Er zijn geen arrangementen geboekt voor deze reservatie.
+                </div>
+            @else
 
-            <div class="col-md-2 col-3 my-2">
-                <label for="age2">4 - 8 jaar:</label>
-                <input type="text" class="form-control" id="age"
-                       @error('age') is-invalid @enderror
-                       placeholder="0"
-                       value=""
-                       required>
-            </div>
-            <div class="col-md-2 col-3 my-2">
-                <label for="age3">9 - 12 jaar:</label>
-                <input type="text" class="form-control" id="age"
-                       @error('age') is-invalid @enderror
-                       placeholder="0"
-                       value=""
-                       required>
-            </div>
-            <div class="col-md-2 col-3 my-2">
-                <label for="age4">Volwassenen:</label>
-                <input type="text" class="form-control" id="age"
-                       @error('age') is-invalid @enderror
-                       placeholder="2"
-                       value=""
-                       required>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2 col-4 my-2">
+                <h2>Kamer met arrangement</h2>
+                <div class="row">
+                    <div class="col-4 pt-4">
+                        <select class="form-control mt-2 mb-2" id="">
+                            <option>Douche</option>
+                            <option>Douche/bad</option>
+                        </select>
+                        <select class="form-control mt-2" id="">
+                            <option>Met ontbijt</option>
+                            <option>Halfpension (3-gangenmenu)</option>
+                            <option>Halfpension (4-gangenmenu)</option>
+                            <option>Volpension (3-gangenmenu)</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="">Van:</label>
+                        <input type="text" class="form-control" id=""
+                               @error('') is-invalid @enderror
+                               placeholder="04/05/20"
+                               value="">
 
-                <!--
-                <label for="room_number">Kamernummer:</label>
-                <select class="form-control" name="room_number" id="room_number">
-                    <option value="{{ $reservation->id }}">{{ $reservation->id }}</option>
-                    @foreach($rooms as $room)
-                        <option value="{{ $room->id }}"
-                                {{ (request()->room_id ==  $room->id ? 'selected' : '') }}>{{ $room->id }}</option>
-                    @endforeach
-                </select>
--->
+                        <label for="">Tot:</label>
+                        <input type="text" class="form-control" id=""
+                               @error('') is-invalid @enderror
+                               placeholder="06/05/20"
+                               value="">
+                    </div>
+                </div>
+            @endif
 
-                <label for="room_number">Kamernummer:</label>
-                <select class="form-control" id="room_number" name="room_number" value="{{ $reservation->id }}">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                </select>
-            </div>
-        </div>
-
-            <hr class="bg-success">
-        @if ($reservation->id > 2)
-            <div class="alert alert-info d-inline-flex">
-                Er zijn geen arrangementen geboekt voor deze reservatie.
-            </div>
-        @else
-
-            <h2>Kamer met Arrangement</h2>
             <div class="row">
-                <div class="col-4 pt-4">
-                    <p>..foto komt hier..</p>
+                <div class="col-6 ">
+                    <button type="submit" class="btn btn-success">Opslaan</button>
+                    <a href="/admin/overview" class="btn btn-primary mx-1">Terug</a>
                 </div>
-                <div class="col-4 pt-4">
-                    <select class="form-control mt-2 mb-2" id="">
-                        <option>Douche</option>
-                        <option>Douche/bad</option>
-                    </select>
-                    <select class="form-control mt-2" id="">
-                        <option>Met ontbijt</option>
-                        <option>Halfpension (3-gangenmenu)</option>
-                        <option>Halfpension (4-gangenmenu)</option>
-                        <option>Volpension (3-gangenmenu)</option>
-                    </select>
-                </div>
-                <div class="col-4">
-                    <label for="">Van:</label>
-                    <input type="text" class="form-control" id=""
-                           @error('') is-invalid @enderror
-                           placeholder="04/05/20"
-                           value=""
-                           required>
 
-                    <label for="">Tot:</label>
-                    <input type="text" class="form-control" id=""
-                           @error('') is-invalid @enderror
-                           placeholder="06/05/20"
-                           value=""
-                           required>
+
+                </form>
+
+                <div class="col-6 text-right">
+                <form action="/admin/reservation/{{ $room_reservation->id }}" method="post"  id="deleteForm{{ $room_reservation->id }}"
+                      data-id="{{ $room_reservation->id }}">
+                    @csrf
+                    @method('delete')
+                    <div class="">
+                        <button type="button" class="btn btn-danger deleteForm"
+                                data-toggle="tooltip" data-id="{{ $room_reservation->id }}" data-name="{{ $room_reservation->reservation->name }}" data-first_name="{{ $room_reservation->reservation->first_name }}"
+                                title="Verwijder reservatie van {{ $room_reservation->reservation->first_name }} {{ $room_reservation->reservation->name }}">
+                            Verwijderen
+                        </button>
+                    </div>
+                </form>
                 </div>
             </div>
-
-        @endif
-
+    </div>
 
 
-        <div class="row">
-            <div class="col-6 ">
-                <button type="submit" class="btn btn-success">Opslaan</button>
-                <a href="/admin/overview" class="btn btn-primary mx-1 ">Terug zonder opslaan</a>
-            </div>
-
-
-            </form>
-
-            <div class="col-6 text-right">
-            <form action="/admin/reservation/{{ $reservation->id }}" method="post"  id="deleteForm{{ $reservation->id }}"
-                  data-id="{{ $reservation->id }}">
-                @csrf
-                @method('delete')
-                <div class="">
-                    <button type="button" class="btn btn-danger deleteForm"
-                            data-toggle="tooltip" data-id="{{ $reservation->id }}" data-name="{{ $reservation->name }}"
-                            title="Verwijder reservatie van {{ $reservation->name }}">
-                        Verwijderen
-                    </button>
-                </div>
-            </form>
-            </div>
+    <!-- Overlay text: when you press the info button this help page will be displayed -->
+    <div class="overlay" id="MyDiv">
+        <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
+        <div class="content">
+            <p>Je vindt hier alle informatie over een reservatie, alsook kan je de factuur hier raadplegen via de blauwe knop vanboven.
+                Ben je klaar met aanpassen? Klik dan op de groene knop 'opslaan' vanonder op de pagina. Is de reservatie geannuleerd of is deze fout? Klik dan op de rode knop 'Verwijderen' vanonder op de pagina.
+                <br>
+                <br>
+                Wil je terug naar het hoofdscherm? Klik dan op het huisje rechts vanboven.
+            </p>
+            <p>Om dit scherm te sluiten, klik je rechts boven op het kruisje.</p>
         </div>
-</div>
-
-
+    </div>
 
 @endsection
 @section('script_after')
-
     <script>
         $(function () {
             $('.deleteForm').click(function () {
                 let id = $(this).data('id');
                 let name = $(this).data('name');
+                let first_name = $(this).data('first_name');
                 // Set some values for Noty
-                let text = `<p>De reservatie van <b>${name}</b> verwijderen?</p>`;
+                let text = `<p>De reservatie van <b>${first_name} ${name}</b> verwijderen?</p>`;
                 let type = 'warning';
                 let btnText = 'Verwijder de reservatie';
                 // Show Noty
@@ -252,7 +344,30 @@
                     ]
                 }).show();
             });
+
+            //With deposit or not => show the amount
+            let checked = $('.with_deposit').prop('checked');
+            if (checked === true){
+                $('.deposit_amount').show();
+            }
+            else {
+                $('.deposit_amount').hide();
+            }
+            let $checkbox = $('input[name="with_deposit"]');
+            console.dir($checkbox);
+            $checkbox.change(function () {
+                let checked = $(this).prop('checked');
+                console.log(checked);
+                if (checked === true){
+                    $('.deposit_amount').show();
+                }
+                else {
+                    $('.deposit_amount').hide();
+                }
+            });
         });
+
+
     </script>
 @endsection
 

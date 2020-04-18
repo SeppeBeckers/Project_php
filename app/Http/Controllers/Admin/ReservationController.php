@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AccommodationChoice;
+use App\Age;
+use App\Person;
 use App\Reservation;
 use App\Room;
 use App\RoomReservation;
@@ -14,63 +17,99 @@ class ReservationController extends Controller
 
     public function index()
     {
-        return view('admin/reservation');
-    }
-
-    public function create()
-    {
         return redirect('admin.reservation');
     }
 
-    public function store(Request $request)
-    {
-        return redirect('admin/reservation');
-    }
-
-    public function show(Reservation $reservation)
-    {
-        return redirect('admin/reservation');
-    }
-
     // Edit reservation
-    public function edit(Reservation $reservation)
+    public function edit($id)
     {
+        $room_reservation = RoomReservation::with('reservation', 'room.typeRoom.prices.accommodationChoice', 'room.typeRoom.prices.occupancy', 'room.typeRoom.prices.arrangement', 'reservation.people.age')
+            ->findOrFail($id);
+        $ages = Age::with('persons')->get();
+        $rooms = Room::all();
 
-        $rooms = Room::orderBy('room_number');
-        $result = compact('reservation', 'rooms');
+        $numberPersons = 0;
+        foreach ($room_reservation->reservation->people as $person){
+            $numberPersons += $person->number_of_persons;
+        }
+
+
+        $result = compact('room_reservation', 'rooms', 'ages', 'numberPersons');
+        //dd($result);
         Json::dump($result);
-
         return view('admin/reservation', $result);
     }
 
     // Update reservation
-    public function update(Request $request, Reservation $reservation)
+    public function update(Request $request, $id)
     {
         // Validate $request
         $this->validate($request, [
             'name' => 'required',
             'first_name' => 'required',
             'email' => 'required|email',
-            'telefoonnummer' => 'required|numeric',
+            'phone_number' => 'required|numeric',
+            'age1' => 'required',
+            'age2' => 'required',
+            'age3' => 'required',
+            'age4' => 'required',
+
+
         ], [
-            'telefoonnummer.numeric' => 'Telefoonnummer mag enkel cijfers bevatten.',
+            'phone_number.numeric' => 'Telefoonnummer mag enkel cijfers bevatten.',
+            'phone_number.required' => 'Telefoonnummer is verplicht.',
+            'age1.required' => 'Leeftijd is verplicht.',
+            'age2.required' => 'Leeftijd is verplicht.',
+            'age3.required' => 'Leeftijd is verplicht.',
+            'age4.required' => 'Leeftijd is verplicht.',
         ]);
 
         // Update reservation in the database and redirect to previous page
-        //$reservation->reservation_made_at->timestamps();
-        //$reservation->with_deposit = $request->with_deposit;
-        $reservation->name = $request->name;
-        $reservation->first_name = $request->first_name;
-        $reservation->email = $request->email;
-        $reservation->phone_number = $request->telefoonnummer;
-        $reservation->address = $request->address;
-        $reservation->place = $request->place;
-        //$reservation->gender = $request->gender;
-        $reservation->message = $request->message;
-        $reservation->deposit_amount = $request->deposit_amount;
-        $reservation->save();
+        $room_reservation = RoomReservation::find($id);
+        $room_reservation->starting_date = $request->starting_date ;
+        $room_reservation->end_date = $request->end_date ;
+        $room_reservation->room_id = $request->room_number ;
+
+        $room_reservation->reservation->with_deposit = $request->with_deposit ? 1 : 0;
+        $room_reservation->reservation->deposit_amount = $request->deposit_amount ;
+        $room_reservation->reservation->deposit_paid = $request->deposit_paid ? 1 : 0;
+        $room_reservation->reservation->message = $request->message ;
+
+        $room_reservation->reservation->name = $request->name ;
+        $room_reservation->reservation->first_name = $request->first_name;
+        $room_reservation->reservation->email = $request->email;
+
+        $room_reservation->reservation->address = $request->address;
+        $room_reservation->reservation->place = $request->place;
+        $room_reservation->reservation->phone_number = $request->phone_number;
+
+        $room_reservation->push();
+
+        //aantal personen
+        $person = Person::find($request->age_1);
+        $person->number_of_persons = $request->age1;
+        $person->save();
+
+        $person = Person::find($request->age_2);
+        $person->number_of_persons = $request->age2;
+        $person->save();
+
+        $person = Person::find($request->age_3);
+        $person->number_of_persons = $request->age3;
+        $person->save();
+
+        $person = Person::find($request->age_4);
+        $person->number_of_persons = $request->age4;
+        if ($request->age4 == 0) {
+            session()->flash('danger', "Aantal volwassen is niet aangepast, je kan deze niet de waarde 0 geven.");
+            return back();
+        }else {
+            $person->save();
+
+        }
+
+
         session()->flash('success', 'De reservatie is aangepast');
-        //return back();
         return redirect('admin/overview');
 
     }
@@ -81,4 +120,9 @@ class ReservationController extends Controller
         session()->flash('success', "De reservatie van <b>$reservation->name</b> is verwijderd!");
         return redirect('admin/overview');
     }
+
+
+
+
+
 }

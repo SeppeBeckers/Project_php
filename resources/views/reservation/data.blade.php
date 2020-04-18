@@ -7,26 +7,38 @@
     <h3>Overzicht</h3>
     <div class="pl-3">
         <p>Datum: {{$aankomstdatum}} tot {{$vertrekdatum}}</p>
-        <p>Bezetting:</p>
-        <div class="col-7">
-        <table class="table  table-sm table-bordered">
-            <tr>
-                <td width="10%">Aantal 0 tot 3j</td>
-                <td width="10%">Aantal 4 tot 8j</td>
-                <td width="10%">Aantal 9 tot 12j</td>
-                <td width="10%">Aantal volwassenen</td>
-            </tr>
-            <tr>
-                <td width="10%">{{$aantal0_3}}</td>
-                <td width="10%">{{$aantal4_8}}</td>
-                <td width="10%">{{$aantal9_12}}</td>
-                <td width="10%">{{$aantal12}}</td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col-7">
+                <p>Bezetting:</p>
+                <table class="table  table-sm table-bordered">
+                    <tr>
+                        <td width="10%">Aantal 0 tot 3j</td>
+                        <td width="10%">Aantal 4 tot 8j</td>
+                        <td width="10%">Aantal 9 tot 12j</td>
+                        <td width="10%">Aantal volwassenen</td>
+                    </tr>
+                    <tr>
+                        <td width="10%">{{$aantal0_3}}</td>
+                        <td width="10%">{{$aantal4_8}}</td>
+                        <td width="10%">{{$aantal9_12}}</td>
+                        <td width="10%">{{$aantal12}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-5 text-center">
+                <p>Uw prijs:</p>
+        @foreach($prijzen as $prijs)
+            <p>€{{$prijs->amount}} per persoon @if ($prijs->occupancy_id == 2)
+                    (double bezetting) @elseif($prijs->occupancy_id == 1)
+                    (single bezetting)
+            @endif</p>
+        @endforeach
+            </div>
         </div>
     </div>
+
     <form action="/reservation/summary">
-        <h3>Persoonsgegevens:</h3>
+
             {{--Hidden velden van vorige pagina--}}
             <label for="aankomstdatum" ></label>
             <input type="text"  name="aankomstdatum" id="aankomstdatum"  hidden value="{{$aankomstdatum}}">
@@ -47,19 +59,25 @@
             <label for="comment" ></label>
             <input type="text" name="comment" id="comment"  hidden value="{{$comment}}">
 
-
+        <h3>Kies hier uw kamer(s)</h3>
             <div class="card-columns">
                 @foreach($rooms as $room)
                     <div>
                         <div class="card">
+
                             <p class="card-header">Kamer {{$room->room_number}}</p>
                             <p>Beschrijving: {{$room->description}}</p>
                             <p>max personen: {{$room->maximum_persons}}</p>
-                            <p>Type badkamer: {{$room->type_room_id}}</p>
+                            <p>Type badkamer: @if ($room->type_room_id == 1)
+                                Douche @else Bad/douche
+                            @endif</p>
+                            <input type="radio" id="room" name="room" value="{{$room->id}}">
+                            <label for="room">Ik wil deze kamer</label>
                         </div>
                     </div>
                 @endforeach
             </div>
+        <h3>Persoonsgegevens:</h3>
             <div class="form-row">
                 <div class="form-group col-md-5">
                     <label for="naam" >Naam *</label>
@@ -114,9 +132,10 @@
             </div>
             @guest()
                 <p>U dient een voorschot van 10% te betalen</p>
+
             @else
                 <label for="voorschot">Voorschot</label>
-                <input type="checkbox" class="form-control" name="voorschot" id="voorschot">
+                <input type="checkbox" class="form-control" name="voorschot" id="voorschot" checked>
             @endguest
             <button type="submit" class="btn btn-success mb-4">Bevestig reservatie</button>
     </form>

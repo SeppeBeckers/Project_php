@@ -16,7 +16,7 @@ class CreateReservationsTable extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamp('reservation_made_at');
-            $table->boolean('with_deposit')->default(true);
+            $table->boolean('with_deposit')->default(true)->nullable();
             $table->string('name');
             $table->string('first_name');
             $table->string('email');
@@ -26,6 +26,7 @@ class CreateReservationsTable extends Migration
             $table->string('gender');
             $table->string('message')->nullable();
             $table->double('deposit_amount')->nullable();
+            $table->boolean('deposit_paid')->default(false)->nullable();
             $table->timestamps();
 
             // NO Foreign key relation
