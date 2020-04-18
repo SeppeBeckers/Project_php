@@ -34,7 +34,11 @@
 
             </div>
             <button type="submit"  class="btn btn-success">Nieuwe rekening opslagen</button>
-        </form></div>
+            <a href="/admin/bill/{{ $bill->reservation_id }}" class="btn btn-primary mx-1 ">Terug zonder opslaan</a>
+
+        </form>  <div class="col-6 ">
+
+        </div></div>
 
 @endsection
 
