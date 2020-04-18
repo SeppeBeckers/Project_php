@@ -3,6 +3,7 @@
 @section('title', 'Bookings')
 
 @section('main')
+
     <div class="container-fluid ">
         <p>
             <a href="../reservation/book" class="btn btn-outline-success">
@@ -26,8 +27,17 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/locales-all.min.js"></script>
+    <script src="../resources/js/nl.js"></script>
+    <script>
 
-    {!! $calendar->script() !!}
+        const calendar = new Calendar(calendarEl, {
+            locale: 'nl'
+        });
+        calendar.setOption('locale', 'nl');
+    </script>
+ {!! $calendar->script() !!}
+
 @endsection
 @section('css_after')
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>

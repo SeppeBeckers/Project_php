@@ -15,25 +15,31 @@ class OverviewController extends Controller
     public function index()
     {
         $events = [];
-        $data = RoomReservation::with('Reservation')->get();
+        $data = RoomReservation::with('Reservation', 'room')->get();
+
         if($data->count()) {
             foreach ($data as $key => $value) {
                 $events[] = Calendar::event(
                     $value->reservation->name,
+
                     true,
                     new \DateTime($value->starting_date),
                     new \DateTime($value->end_date.' +1 day'),
                     null,
+
                     // Add color and link on event
 
                     [
-                        'color' => '#f05050',
+                        'color' => '#9BC57E',
                         'url' => '/admin/reservation/' . $value->reservation->id . '/edit',
+                        'title' =>  $value->reservation->first_name . ' ' . $value->reservation->name . ', kamer ' . $value->room->room_number ,
+                        'locale' => 'nl',
                     ]
                 );
             }
         }
         $calendar = Calendar::addEvents($events);
+
         return view('admin.overview', compact('calendar'));
     }
     public function create(Request $request)

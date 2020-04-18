@@ -1,3 +1,5 @@
+
+
 @extends('layouts.template')
 @section('title', 'Consult bill')
 
@@ -66,12 +68,7 @@
                 @endif</div>
 
 
-    <div class="col-8">Rekening gemaakt op {{$bill->bill_made_at}} </div>
-    <div class="col-4 h4"> <span class="font-weight-bold">Totaal:</span> €{{$bill->billCosts->first()->amount}}
-        @if($bill->adjusted_amount != 0 && $bill->adjusted_amount != $bill->billCosts->first()->amount)
-            <div > <span class="font-weight-bold">Totaal met extra kosten: </span> €{{$bill->adjusted_amount}}</div>
-        @else()
-        @endif</div>
+
 
 
 
@@ -79,16 +76,18 @@
                 <i class="fa fa-eur"></i>Aanpassen
             </a>
             </p>
+            <div class="col-6 ">
+                <a href="/admin/overview" class="btn btn-primary mx-1 ">Terug naar overzicht</a>
+            </div>
 
 
-
-
-
-
-</div>
 
 
 
         </div>
+
+
+
+    </div>
 
 @endsection
