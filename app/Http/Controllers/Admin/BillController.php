@@ -9,6 +9,7 @@ use App\Person;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Reservation;
+use App\Room;
 use Json;
 
 class BillController extends Controller

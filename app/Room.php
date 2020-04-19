@@ -12,7 +12,7 @@ class Room extends Model
     }
     public function notAvailables()
     {
-        return $this->hasMany('App\NotAvailable');   // a room has many notAvailables
+        return $this->hasMany('App\NotAvailable' , 'room_id');   // a room has many notAvailables
     }
 
     public function typeRoom()
