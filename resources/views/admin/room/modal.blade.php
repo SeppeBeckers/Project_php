@@ -1,5 +1,5 @@
 {{-- Model voor data te bewerken --}}
-<div class="modal" id="modal-not">
+<div class="modal fade" id="modal-not">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

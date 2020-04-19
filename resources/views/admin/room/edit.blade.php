@@ -2,10 +2,26 @@
 @section('title', 'Verander kamer')
 
 @section('main')
-    <h1>Verander kamer {{ $room->room_number }}</h1>
+    <div class="row">
+        <div class="col-8 col-md-8">
+            <h1>Verander kamer {{ $room->room_number }}</h1>
+        </div>
+        <div class="col-12 col-md-4 text-right">
+            <i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i>
+            <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3"></i></a>
+        </div>
+    </div>
     <form action="/admin/room/{{ $room->id }}" method="post">
         @method('put')
         @csrf
+        <div class="alert alert-info">
+            <a href="/admin/room" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Terug
+            </a>
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-plus-circle mr-1"></i>Kamer opslaan
+            </button>
+        </div>
         <div class="container">
             <div class="form-row">
                 {{-- Kamernummer --}}
@@ -74,10 +90,26 @@
                          alt="{{$room->picture}}" style="margin-bottom: 5%"/>
                 </div>
             </div>
-
-        <button type="submit" class="btn btn-success">Kamer opslaan</button>
         </div>
     </form>
+
+    <!-- Overlay text: when you press the info button this help page will be displayed -->
+    <div class="overlay" id="MyDiv">
+        <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
+        <div class="content">
+            <p>Op deze pagina vindt u de informatie van de geselecteerde kamer terug en kan u deze ook bewerken.
+                <br>
+            <p>Als u op de blauwe knop "terug" klikt dan keert u terug naar het overzicht scherm van de kamers,
+            <br>
+            en als u op de groene knop "Kamer opslaan" kan u de informatie opslaan die u heeft verandert. </p>
+
+            <p>
+                Wilt u terug naar het hoofdscherm? Klik dan op het huisje rechtsboven van het scherm.
+            </p>
+            <p>Om dit scherm te sluiten, klikt u rechtsboven op het kruisje.</p>
+        </div>
+    </div>
+
 @endsection
 @section('script_after')
     <script>
