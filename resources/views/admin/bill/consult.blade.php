@@ -58,6 +58,7 @@
 
         </div>
 
+
         <div class="row">
 
             <div class="col-8">Rekening gemaakt op {{$bill->bill_made_at}} </div>
