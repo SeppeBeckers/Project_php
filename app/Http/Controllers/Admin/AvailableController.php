@@ -48,4 +48,6 @@ class AvailableController extends Controller
 }
 
 
+
+
 }
