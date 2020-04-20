@@ -18,7 +18,7 @@
     @else {{$tebetalen = $prijs->amount*$aantaldagen * $occupancies}}
     @endif
     </p>
-    <p>Uw reservatie wordt bevestigd door het betalen van het voorschot dat hier €{{$tebetalen/10}} bedraagt.</p>
+    <p>Uw reservatie wordt bevestigd door het betalen van het voorschot dat hier {{$tebetalen/10}} euro bedraagt.</p>
     </div>
     <div class="col-4">
         <img src="../assets/kamer1.jpg" alt="">
