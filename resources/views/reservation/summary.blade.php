@@ -12,15 +12,11 @@
             <p>Accomodatie: {{$verblijfskeuze->type}}</p>
             @else <p>Arrangement: {{$arrangement->type}}</p>
         @endif
-    <p>Uw prijs: €
-    @if ($arrangement != null)
-        {{$tebetalen = $prijs->amount * $occupancies}}
-    @else {{$tebetalen = $prijs->amount*$aantaldagen * $occupancies}}
-    @endif
+    <p>Uw prijs: € {{$totaleprijs}}
     </p>
-    <p>Uw reservatie wordt bevestigd door het betalen van het voorschot dat hier €{{$tebetalen/10}} bedraagt.</p>
+    <p>Uw reservatie wordt bevestigd door het betalen van het voorschot dat hier €{{$totaleprijs/10}} bedraagt.</p>
     </div>
-    <div class="col-4">
-        <img src="../assets/kamer1.jpg" alt="">
+    <div class="ml-5">
+        <img src="../assets/kamer{{$kamer->room_number}}.jpg" alt="">
     </div>
 @endsection
