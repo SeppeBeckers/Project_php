@@ -34,6 +34,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('overview', 'Admin\OverviewController');
     Route::resource('room', 'Admin\RoomController');
     Route::resource('not_available', 'Admin\AvailableController');
+    Route::post('room/{id}', 'Admin\AvailableController@store');
     Route::resource('arrangement', 'Admin\ArrangementController');
     Route::resource('bill', 'Admin\BillController');
 });
