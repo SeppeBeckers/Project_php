@@ -13,7 +13,7 @@
         </div>
     </div>
     <p>
-        <a href="#!" class="btn btn-outline-success" id="btn-create">
+        <a href="#!" class="btn btn-outline-primary" id="btn-create">
             <i class="fas fa-plus-circle mr-1"></i>Kamers onbeschikbaar maken
         </a>
     </p>
@@ -62,7 +62,7 @@
                             @method('not_available')
                             @csrf
                             <div class="btn-group btn-group-sm">
-                                <a href="/admin/room/{{ $room->id }}" class="btn btn-outline-success"
+                                <a href="/admin/room/{{ $room->id }}" class="btn btn-outline-primary"
                                    data-toggle="tooltip"
                                    title="Bekijk onbeschikbaarheden van kamer {{ $room->room_number }}">
                                     <i class="fas fa-eye"> Onbeschikbaarheden</i>
@@ -77,7 +77,7 @@
                             @method('edit')
                             @csrf
                             <div class="btn-group btn-group-sm">
-                                <a href="/admin/room/{{ $room->id }}/edit" class="btn btn-outline-success"
+                                <a href="/admin/room/{{ $room->id }}/edit" class="btn btn-outline-secondary"
                                    data-toggle="tooltip" data-placement="top"
                                    title="Bewerk kamer {{ $room->room_number }}">
                                     <i class="fas fa-edit"> Bewerken</i>

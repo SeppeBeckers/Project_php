@@ -2,7 +2,7 @@
 @section('title', 'Data reservatie')
 
 @section('main')
-    <h1>Overzicht reservatie + persoonsgegevens</h1>
+    <h1>Overzicht reservatie en persoonsgegevens</h1>
     <hr>
     <h3>Overzicht</h3>
     <div class="pl-3">

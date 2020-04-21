@@ -7,18 +7,17 @@
         <div class="col-12 col-md-8">
             <h1>Overzicht reservatie: {{ $room_reservation->reservation->first_name . ' ' . $room_reservation->reservation->name }}</h1>
         </div>
-        <div class="col-12 col-md-4 text-md-right text-center">
+        <div class="col-5 col-md-4 text-md-right text-center">
             <i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i>
             <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3"></i></a>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <h2 class="p-2">Boekingsinfo</h2>
-        </div>
-        <div class="col-6 text-right">
+        <div class="col-md-6 col-7 text-md-right text-center order-md-2">
             <a href="/admin/bill/{{$room_reservation->reservation->id}}" class="btn btn-primary mx-1 ">Factuur raadplegen</a>
         </div>
+        <div class="col-md-6 col-12 order-md-1">
+            <h2 class="p-2">Boekingsinfo</h2>
+        </div>
+
     </div>
 
     <div class="mx-3">
@@ -26,7 +25,7 @@
             @method('put')
             @csrf
             <div class="row ml-1 mr-5">
-                <div class="col-3">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
                         <label for="starting_date">Aankomstdatum:</label>
                         <input type="date"  id="starting_date" name="starting_date"
@@ -37,7 +36,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
                         <label for="end_date">Vertrekdatum:</label>
                         <input type="date"  id="end_date" name="end_date"
@@ -48,7 +47,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6 col-12">
                     <div class="form-group">
                         <label for="room_number">Kamernummer:</label>
                         <select name="room_number" id="room_number" class="form-control">
@@ -65,7 +64,7 @@
             </div>
 
             <div class="row ml-1 mr-5">
-                <div class="col-3">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
                         <label for="occupancy">Bezetting:</label>
                         <input disabled type="text" name="occupancy" id="occupancy"
@@ -73,7 +72,7 @@
                                value="{{ $room_reservation->room->typeRoom->prices->first()->occupancy_id == 1 ? '1 persoon' : '2 personen'  }}">
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-12">
                     <div class="form-group">
                         <label for="accommodation_type">Verblijfskeuze:</label>
                         <input disabled type="text" name="accommodation_type" id="accommodation_type"
@@ -84,7 +83,7 @@
             </div>
 
             <div class="row ml-1 mr-5">
-                <div class="col-4">
+                <div class="col-md-4 col-12">
                     <div class="form-check">
                         <input class="form-check-input with_deposit" type="checkbox" value="1"
                                @if (old('_token'))
@@ -116,7 +115,7 @@
                     </div>
                 </div>
 
-                <div class="col-8">
+                <div class="col-md-8 col-12">
                     <div class="form-group">
                         <label for="message">Opmerking:</label>
                         <textarea name="message" id="message" rows="3" class="form-control">{{ $room_reservation->reservation->message }}</textarea>
@@ -128,7 +127,7 @@
             <div class="row ml-2 mr-5">
                 <?php $index = 1; ?>
                 @foreach ($room_reservation->reservation->people as $person)
-                    <div class=" col-6 col-lg-3">
+                    <div class="col-lg-3 col-md-6 col-12">
                         <div class="form-group small-input">
                             <label for="age{{ $index }}">{{$person->age->age_category}}:</label>
                             <input type="hidden" name="age_{{$person->age_id}}" value="{{$person->id}}">
@@ -153,7 +152,7 @@
             <hr class="bg-success">
             <h2>Persoonsgegevens</h2>
             <div class="row ml-1 mr-5">
-                <div class="col-3">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
                         <label for="name">Naam:</label>
                         <input type="text" name="name" id="name"
@@ -165,7 +164,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
                         <label for="first_name">Voornaam:</label>
                         <input type="text" name="first_name" id="first_name"
@@ -178,7 +177,7 @@
                     </div>
                 </div>
 
-                <div class="col-4">
+                <div class="col-md-4 col-12">
                     <div class="form-group">
                         <label for="email">E-mail:</label>
                         <input type="email" name="email" id="email"
@@ -190,7 +189,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-md-2 col-12">
                     <div class="form-group">
                         <label for="gender">Geslacht:</label>
                         <select disabled name="gender" id="gender" class="form-control">
@@ -203,7 +202,7 @@
             </div>
 
             <div class="row ml-1 mr-5">
-                <div class="col-3">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
                         <label for="address">Adres:</label>
                         <input type="text" name="address" id="address"
@@ -212,7 +211,7 @@
                                value="{{ $room_reservation->reservation->address }}">
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
                         <label for="place">Stad:</label>
                         <input type="text" name="place" id="place"
@@ -221,7 +220,7 @@
                                value="{{ $room_reservation->reservation->place }}">
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-3 col-12">
                     <div class="form-group">
                         <label for="phone_number">Telefoonnummer:</label>
                         <input type="text" name="phone_number" id="phone_number"
@@ -244,7 +243,7 @@
 
                 <h2>Kamer met arrangement</h2>
                 <div class="row">
-                    <div class="col-4 pt-4">
+                    <div class="col-md-4 col-12 pt-4">
                         <select class="form-control mt-2 mb-2" id="">
                             <option>Douche</option>
                             <option>Douche/bad</option>
@@ -256,7 +255,7 @@
                             <option>Volpension (3-gangenmenu)</option>
                         </select>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-4 col-12">
                         <label for="">Van:</label>
                         <input type="text" class="form-control" id=""
                                @error('') is-invalid @enderror
@@ -273,15 +272,14 @@
             @endif
 
             <div class="row">
-                <div class="col-6 ">
-                    <button type="submit" class="btn btn-success">Opslaan</button>
-                    <a href="/admin/overview" class="btn btn-primary mx-1">Terug</a>
+                <div class="col-md-6 col-12">
+                    <a href="/admin/overview" class="btn btn-primary"><i class="fas fa-arrow-left"></i>Terug</a>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle mr-1"></i>Opslaan</button>
                 </div>
-
 
                 </form>
 
-                <div class="col-6 text-right">
+                <div class="col-md-6 col-12 my-1 text-md-right">
                 <form action="/admin/reservation/{{ $room_reservation->id }}" method="post"  id="deleteForm{{ $room_reservation->id }}"
                       data-id="{{ $room_reservation->id }}">
                     @csrf
@@ -290,7 +288,7 @@
                         <button type="button" class="btn btn-danger deleteForm"
                                 data-toggle="tooltip" data-id="{{ $room_reservation->id }}" data-name="{{ $room_reservation->reservation->name }}" data-first_name="{{ $room_reservation->reservation->first_name }}"
                                 title="Verwijder reservatie van {{ $room_reservation->reservation->first_name }} {{ $room_reservation->reservation->name }}">
-                            Verwijderen
+                            <i class="fas fa-trash mr-1"></i>Verwijderen
                         </button>
                     </div>
                 </form>
@@ -338,7 +336,7 @@
                             modal.close();
                             $(`#deleteForm${id}`).submit();
                         }),
-                        Noty.button('Terug', 'btn btn-secondary ml-2', function () {
+                        Noty.button('Terug', 'btn btn-primary ml-2', function () {
                             modal.close();
                         }),
                     ]

@@ -12,7 +12,7 @@
                 <br>
                 <br>
                 Ons project is een toepassing maken voor online een kamer te kunnen reserveren. Achter de schermen wil ook de hoteleigenaar (de admin) een kamer reserveren en alles errond kunnen beheren.
-                Om alles te beheren kan de admin zich inloggen, hij is de enige die dat kan. Het is een klein hotel en daarmee is er maar 1 loginaccount.
+                Om alles te beheren, kan de admin zich inloggen. Hij is de enige die dat kan. Het is een klein hotel en daarmee is er maar 1 loginaccount.
                 Ik som hieronder even op wat de admin met zijn account kan doen:
 
             </p>
@@ -24,7 +24,7 @@
                 <li>Een bestaande reservatie aanpassen</li>
                 <li>Info van alle kamers aanpassen, hier kan een kamer onbeschikbaar gemaakt worden voor een onderhoud of een sluitingsperiode van het hotel</li>
                 <li>Arrangementen bekijken en eventueel de naam of prijs ervan veranderen <br> (Een arrangement is een verblijf met een vast aantal dagen en een vaste verblijfskeuze.)</li>
-                <li>Facturen raadplegen, aanpassen en afdrukken</li>
+                <li>Facturen raadplegen en aanpassen</li>
             </ul>
         </div>
     </div>
