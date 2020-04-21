@@ -87,9 +87,9 @@
             op klikt kom u op een bewerkscherm waar u de datums kunt wijzigen of zelfs verwijderen</p>
             <br>
             <p>
-                Wil je terug naar het hoofdscherm? Klik dan op het huisje rechts vanboven.
+                Wilt u terug naar het hoofdscherm? Klik dan op het huisje rechts vanboven.
             </p>
-            <p>Om dit scherm te sluiten, klik je rechts boven op het kruisje.</p>
+            <p>Om dit scherm te sluiten, klikt u rechts boven op het kruisje.</p>
         </div>
     </div>
 
@@ -146,7 +146,7 @@
             $('#btn-create').click(function () {
                 // Update the modal
                 $('.modal-title').text(`Kamer onbeschikbaar maken`);
-                $('form').attr('action', `/admin/room`);
+                $('form').attr('action', `/admin/room/{id}`);
                 $('#id').val('{{$room->id}}');
                 $('input[id="_method"]').val('post');
                 $('#starting_date').val('');

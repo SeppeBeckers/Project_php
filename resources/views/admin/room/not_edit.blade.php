@@ -73,9 +73,9 @@
                  </p>
             <br>
             <p>
-                Wil je terug naar het hoofdscherm? Klik dan op het huisje rechts vanboven.
+                Wilt u terug naar het hoofdscherm? Klik dan op het huisje rechts vanboven.
             </p>
-            <p>Om dit scherm te sluiten, klik je rechts boven op het kruisje.</p>
+            <p>Om dit scherm te sluiten, klikt u rechts boven op het kruisje.</p>
         </div>
     </div>
 @endsection
