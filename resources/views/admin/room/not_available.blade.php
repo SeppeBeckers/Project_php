@@ -13,14 +13,7 @@
         </div>
     </div>
 
-    <p>
-        <a href="/admin/room" class="btn btn-outline-primary">
-            <i class="fas fa-arrow-left"></i> Terug
-        </a>
-        <a href="#!" class="btn btn-outline-success" id="btn-create">
-            <i class="fas fa-plus-circle mr-1"></i>Onbeschikbaar maken
-        </a>
-    </p>
+
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -42,7 +35,7 @@
                             @method('not_available')
                             @csrf
                             <div class="btn-group btn-group-sm">
-                                <a href="/admin/not_available/{{$not_available->id}}/edit" class="btn btn-outline-success"
+                                <a href="/admin/not_available/{{$not_available->id}}/edit" class="btn btn-outline-secondary"
                                    data-toggle="tooltip"
                                    {{-- Anders is knop raar bezig--}}
                                    @if ($not->count() > 1)
@@ -70,6 +63,19 @@
            Er zijn geen onbeschikbaarheden gevonden
         </div>
     @endif
+
+
+
+    <p>
+        <a href="/admin/room" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Terug
+        </a>
+        <a href="#!" class="btn btn-success" id="btn-create">
+            <i class="fas fa-plus-circle mr-1"></i>Onbeschikbaar maken
+        </a>
+    </p>
+
+
 
     @include('admin.room.modal')
 

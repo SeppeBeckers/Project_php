@@ -4,30 +4,20 @@
 
 @section('main')
     <div class="row">
-        <div class="col-12 col-md-8">
-            <h1>Verander datums</h1>
-        </div>
-        <div class="col-12 col-md-4 text-right">
+        <div class="col-12 text-right">
             <i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i>
             <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3"></i></a>
+        </div>
+        <div class="col-12">
+            <h1>Verander datums</h1>
         </div>
     </div>
     <form action="/admin/not_available/{{ $not_available->id }}" method="post">
         @method('put')
         @csrf
-            <div class="alert alert-primary">
-                <a href="/admin/room/{{$not_available->room_id}}" class="btn btn-primary">
-                    <i class="fas fa-arrow-left"></i> Terug
-                </a>
-                <button type="submit"  class="btn btn-success">
-                    <i class="fas fa-plus-circle mr-1"></i>opslaan
-                </button>
-                <a href="#!" class="btn btn-danger" id="deleteDate">
-                    <i class="fas fa-trash mr-1"></i>Verwijderen
-                </a>
-            </div>
-        <div class="form-group">
-            <div class="form-row">
+
+        <div class="form-group my-5 ">
+            <div class="form-row justify-content-center">
             <label for="starting_date">Van: </label>
                 <div class="col-6" style="margin-left: 10px;">
                     <input type="date" name="starting_date" id="starting_date"
@@ -42,7 +32,7 @@
                 </div>
             </div>
             <br>
-            <div class="form-row">
+            <div class="form-row justify-content-center">
                 <label for="end_date">Tot: </label>
                 <div class="col-6" style="margin-left: 12px;">
                 <input type="date" name="end_date" id="end_date"
@@ -56,6 +46,18 @@
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+        </div>
+
+        <div class="div m-3">
+            <a href="/admin/room/{{$not_available->room_id}}" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Terug
+            </a>
+            <button type="submit"  class="btn btn-success">
+                <i class="fas fa-plus-circle mr-1"></i>opslaan
+            </button>
+            <a href="#!" class="btn btn-danger" id="deleteDate">
+                <i class="fas fa-trash mr-1"></i>Verwijderen
+            </a>
         </div>
     </form>
 
@@ -127,4 +129,17 @@
         });
 
     </script>
+@endsection
+@section('css_after')
+
+    <style>
+        @media (min-width: 750px) {
+            .container-sm{
+                width: 30%!important;
+
+            }
+        }
+
+    </style>
+
 @endsection
