@@ -17,12 +17,12 @@
                 <p><i class="fas fa-utensils fa-2x"></i> Accomodatie: {{$verblijfskeuze->type}}</p>
             @else <p><i class="fas fa-utensils fa-2x"></i> Arrangement: {{$arrangement->type}}</p>
             @endif
-        <p>Uw contactgegevens: </p>
+            <p>Uw contactgegevens: </p>
             <p class="ml-3">Email: {{$reservation->email}}</p>
             <p class="ml-3">Gsm: {{$reservation->phone_number}}</p>
         </div>
 
-            <img class="img-fluid text-center" src="../assets/enjoy.jpg" alt="">
+        <img class="img-fluid text-center" src="../assets/enjoy.jpg" alt="">
         <p class="card-footer mb-0">Uw reservatie wordt bevestigd door het betalen van het voorschot dat hier {{$totaleprijs/10}} euro bedraagt.</p>
     </div>
 @endsection
