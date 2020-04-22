@@ -22,9 +22,7 @@
                 @yield('main')
             </main>
 
-            <footer>
             @include('shared.footer')
-            </footer>
     <script src="{{ mix('js/app.js') }}">    </script>
     @yield('script_after')
 
