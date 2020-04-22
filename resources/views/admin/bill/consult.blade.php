@@ -68,11 +68,6 @@
                 @else()
                 @endif</div>
 
-
-
-
-
-
             <a href="/admin/bill/{{$bill->reservation_id}}/edit" class="btn btn-outline-success">
                 <i class="fa fa-eur"></i>Aanpassen
             </a>

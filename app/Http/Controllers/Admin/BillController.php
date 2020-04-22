@@ -59,11 +59,14 @@ class BillController extends Controller
 
         $bill = Bill::with('Reservation.people.age', 'Reservation.roomReservations.room.typeRoom.prices.accommodationChoice', 'billCosts')->findOrFail($reservation_id);
         $eindPrijs = $this->calculateDiscount($bill->reservation->people, $bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->amount);
-        $bill->billCosts->first()->amount = $eindPrijs;
+
         $aantal = 0;
         foreach($bill->reservation->people as $person){
             $aantal+= $person->number_of_persons;
         }
+        $aantaldagen = (strtotime($bill->reservation->roomReservations->first()->end_date)-strtotime($bill->reservation->roomReservations->first()->starting_date))/86400;
+
+        $bill->billCosts->first()->amount = $eindPrijs * $aantaldagen;
 
 
         $result = compact('bill', 'aantal');
@@ -137,4 +140,7 @@ class BillController extends Controller
         $totalprice -=  $korting  ;
         return $totalprice;
     }
+
+
+
 }
