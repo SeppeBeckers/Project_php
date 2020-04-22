@@ -9,6 +9,8 @@ window.Noty = require('noty');
 require('./kempenrust');
 window.Vue = require('vue');
 
+window.kempenrust = require('./kempenrust.js')
+
 
 /**
  * The following block of code may be used to automatically register your

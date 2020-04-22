@@ -7,14 +7,14 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-10">
+            <div class="col-9">
                 <h1>Klant</h1>
                 <p><span class="font-weight-bold">Naam:</span> {{$bill->reservation->name}}  {{$bill->reservation->first_name}} <br>
                     <span class="font-weight-bold">Adres:</span> {{$bill->reservation->address}} <br>
                     <span class="font-weight-bold">Email:</span> {{$bill->reservation->email}}
                 </p>
             </div>
-            <div class="col-2">
+            <div class="col-3">
                 <p>Hotel Kempenrust <br>
                     Geelsebaan 51 <br>
                     2460 Kasterlee <br>
@@ -42,6 +42,7 @@
                 <span class="font-weight-bold">Verblijfskeuze:</span>  {{$bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->AccommodationChoice->type}}
                 <br>
             </p>
+
             <p>
                 @if($bill->Reservation->with_deposit == 1)
                     <span class="font-weight-bold">Voorschot:</span>  <i class="fas fa-check"></i> <br>
@@ -54,17 +55,16 @@
                 @else()
                     <span class="font-weight-bold">Prijs met kinderkorting:</span> €{{$bill->billCosts->first()->amount}} <br>
                 @endif
+                    Rekening gemaakt op {{$bill->bill_made_at}}
             </p>
 
         </div>
 
 
-        <div class="row">
 
-            <div class="col-8">Rekening gemaakt op {{$bill->bill_made_at}} </div>
-            <div class="col-4 h4"> <span class="font-weight-bold">Totaal:</span> €{{$bill->billCosts->first()->amount}}
+            <div class="h4"> <span class="font-weight-bold">Totaal:</span> € {{$bill->billCosts->first()->amount}}
                 @if($bill->adjusted_amount != 0 && $bill->adjusted_amount != $bill->billCosts->first()->amount)
-                    <div > <span class="font-weight-bold">Totaal met extra kosten: </span> €{{$bill->adjusted_amount}}</div>
+                    <div > <span class="font-weight-bold">Totaal met extra kosten: </span> € {{$bill->adjusted_amount}}</div>
                 @else()
                 @endif</div>
 
@@ -83,7 +83,34 @@
 
 
 
-        </div>
     </div>
 
 @endsection
+
+@section('script_after')
+    <script>
+        $(function () {
+            $('#footer_names').append(
+                kempenrust.names_footer(2,4)
+
+            );
+        });
+
+
+    </script>
+
+@endsection
+@section('css_after')
+
+    <style>
+        @media (min-width: 750px) {
+            .container-sm{
+                width: 55%!important;
+
+            }
+        }
+
+    </style>
+
+@endsection
+

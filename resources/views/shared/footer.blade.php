@@ -9,21 +9,16 @@
                     <p class="my-0">In opdracht van Kristine Mangelschots.</p>
 
                 </div>
-                <div class="col-5 col-sm-4 col-xl-2 text-right text-sm-center">
+                <div class="col-10 col-sm-8 col-xl-7 ">
                     <ul class="p-0 m-0">
-                        <li class="list-unstyled">Brent Vervecken</li>
-                        <li class="list-unstyled">Babette Geerkens</li>
+                       <p id="footer_names"></p>
                     </ul>
 
                 </div>
-                <div class="col-5 col-sm-4 col-xl-2 text-left text-sm-center">
-                    <ul class="p-0 m-0">
-                        <li class="list-unstyled">Jentse van Thielen</li>
-                        <li class="list-unstyled">Seppe Beckers</li>
-                    </ul>
-                </div>
+
             </div>
         </div>
+
 
         <div class="col-12 col-md-4 align-self-center verticalLine text-xl-left">
             <a href="https://kempenrust.be" class="text-dark font-weight-bold">Hotel Kempenrust</a>
