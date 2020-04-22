@@ -38,7 +38,7 @@ class OverviewController extends Controller
                     // Add color and link on event
 
                     [
-                        'color' => '#9BC57E',
+                        'color' => '#2f9087',
                         'url' => '/admin/reservation/' . $value->id . '/edit',
                         'title' => $value->reservation->first_name . ' ' . $value->reservation->name . ', kamer ' . $value->room->room_number ,
                         'locale' => 'nl',
@@ -64,8 +64,8 @@ class OverviewController extends Controller
                     // Add color and link on event
 
                     [
-                        'color' => '#ff9f89',
-                        'title' =>  'kamer '. $value2->room_id. ' niet beschikbaar' ,
+                        'color' => '#edc9a7',
+                        'title' =>  'Kamer '. $value2->room_id. ' niet beschikbaar' ,
 
 
                     ]

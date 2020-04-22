@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Arrangement;
+use App\NotAvailable;
 use App\Price;
 use App\Reservation;
 use App\Room;
@@ -74,6 +75,7 @@ class ReservationController extends Controller
                 ->where('maximum_persons','>=',$occupancies)
                 ->where('type_room_id',$soortkamer);
 
+
             json::dump($rooms);
             $gekozenkamer = TypeRoom::where('id',$soortkamer);
             $result = compact('prijzen','rooms', 'gekozenkamer','reservation','aankomstdatum', 'vertrekdatum', 'aantal0_3', 'aantal4_8', 'aantal9_12', 'aantal12', 'soortkamer','verblijfskeuze','arrangement', 'comment');
@@ -123,7 +125,7 @@ class ReservationController extends Controller
         $roomreservation->starting_date = $request->aankomstdatum;
         $roomreservation->end_date = $request->vertrekdatum;
         $roomreservation->room_id = $request->room;
-        $roomreservation->save();
+
 
         $people = new Person();
         $people->reservation_id=$reservation->id;
@@ -149,6 +151,8 @@ class ReservationController extends Controller
         $people->age_id = 4;
         $people->save();
 
+
+
         $kamer = Room::find($request->room);
                 $maxpersonen = $kamer->maximum_persons;
         $occupancies = $request->aantal0_3 + $request->aantal4_8 + $request->aantal9_12 + $request->aantal12;
@@ -158,6 +162,8 @@ class ReservationController extends Controller
         } else {
             $sofd = 0;
         }
+
+
 
         $arrangement = $request->arrangement;
         $verblijfskeuze = $request->verblijfskeuze;
@@ -169,13 +175,7 @@ class ReservationController extends Controller
             $filter = $arrangement;
         }
 
-
-//        $prijs = Price::orderBy('id')
-//            ->where('type_room_id', $request->soortkamer)
-//            ->where($tefilterenop, $filter)
-//            ->where('occupancy_id', $sofd)
-//            ->get();
-
+        //prijs bepalen
         $prijs= Price::orderBy('id')
             ->where('type_room_id', 'like', $request->soortkamer)
             ->where('occupancy_id', 'like', $sofd)
@@ -188,7 +188,11 @@ class ReservationController extends Controller
             $totaleprijs *= $aantaldagen;
         }
         $verblijfskeuze = AccommodationChoice::find($request->verblijfskeuze);
-//          dd($totaleprijs);
+
+
+        $roomreservation->price_id = $prijs->id;
+        $roomreservation->save;
+
         Json::dump($verblijfskeuze);
 //        session()->flash('success', "Succesvol geboekt");
         $result = compact('totaleprijs','aantaldagen','kamer','prijs','arrangement','verblijfskeuze','reservation', 'roomreservation', 'occupancies');

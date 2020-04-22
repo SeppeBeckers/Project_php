@@ -13,9 +13,8 @@ use Json;
 class ArrangementController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Door Babette Geerkens R0251746
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -104,20 +103,6 @@ class ArrangementController extends Controller
         session()->flash('success', 'Your price has been updated');
         return redirect('admin/arrangement');
     }
-
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Arrangement  $arrangement
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Arrangement $arrangement)
-    {
-        //
-    }
-
 
 
 }

@@ -1,4 +1,4 @@
-<footer class="bg-white border-top border-success text-center py-1 ">
+<footer class="footer bg-white border-top border-success text-center pt-1 ">
 
     <div class="row justify-content-center align-items-center">
         <div class="col-12 col-sm-10 col-md-8">

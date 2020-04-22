@@ -15,6 +15,12 @@ use Json;
 class ReservationController extends Controller
 {
 
+    /**
+     * Door Babette Geerkens R0251746
+     *
+     */
+
+
     public function index()
     {
         return redirect('admin.reservation');
@@ -105,11 +111,10 @@ class ReservationController extends Controller
             return back();
         }else {
             $person->save();
-
         }
 
 
-        session()->flash('success', 'De reservatie is aangepast');
+        session()->flash('success', "De reservatie van <b>{$room_reservation->reservation->first_name } {$room_reservation->reservation->name }</b> is aangepast.");
         return redirect('admin/overview');
 
     }
@@ -117,12 +122,9 @@ class ReservationController extends Controller
     public function destroy(Reservation $reservation)
     {
         $reservation->delete();
-        session()->flash('success', "De reservatie van <b>$reservation->name</b> is verwijderd!");
+        session()->flash('success', "De reservatie van <b>$reservation->first_name $reservation->name</b> is verwijderd.");
         return redirect('admin/overview');
     }
-
-
-
 
 
 }
