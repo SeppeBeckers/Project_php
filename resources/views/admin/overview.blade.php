@@ -8,10 +8,9 @@
             <h1>Overzicht reservaties</h1>
         </div>
         <div class="col-12 col-md-4 text-right">
-            <a href="../reservation/book" class="btn btn-outline-success">
+            <a href="../reservation/book" class="btn btn-outline-secondary">
                 <i class="fas fa-plus-circle mr-1"></i>Maak een nieuwe boeking
             </a>
-            <i class="fas fa-2x fa-info-circle px-2 align-middle" id="openHelp"></i>
         </div>
     </div>
 
@@ -27,12 +26,7 @@
         </div>
     </div>
 
-
-
-
 @endsection
-
-
 @section('script_after')
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -45,5 +39,4 @@
 @endsection
 @section('css_after')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
-
 @endsection

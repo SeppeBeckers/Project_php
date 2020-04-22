@@ -3,26 +3,23 @@
 @section('title', 'Verander kamer')
 
 @section('main')
+    <div class="row">
+        <div class="col-12 text-right">
+            <i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i>
+            <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3"></i></a>
+        </div>
+        <div class="col-12">
+            <h1>Verander datums</h1>
+        </div>
+    </div>
     <form action="/admin/not_available/{{ $not_available->id }}" method="post">
         @method('put')
         @csrf
-            <div class="alert alert-primary">
-                <a href="javascript:history.go(-1)" class="btn btn-primary">
-                    <i class="fas fa-arrow-left"></i> Terug
-                </a>
-                <button type="submit"  class="btn btn-success">
-                    <i class="fas fa-plus-circle mr-1"></i>opslaan
-                </button>
-                <a href="#!" class="btn btn-danger" id="deleteDate">
-                    <i class="fas fa-trash mr-1"></i>Verwijderen
-                </a>
-            </div>
-    <h1>Verander datums</h1>
 
-        <div class="form-group">
-            <div class="form-row">
+        <div class="form-group my-5 ">
+            <div class="form-row justify-content-center">
             <label for="starting_date">Van: </label>
-                <div class="col-sm-10" style="margin-left: 10px;">
+                <div class="col-6" style="margin-left: 10px;">
                     <input type="date" name="starting_date" id="starting_date"
                         class="form-control"
                         placeholder="Starting_date"
@@ -35,9 +32,9 @@
                 </div>
             </div>
             <br>
-            <div class="form-row">
+            <div class="form-row justify-content-center">
                 <label for="end_date">Tot: </label>
-                <div class="col-sm-10" style="margin-left: 12px;">
+                <div class="col-6" style="margin-left: 12px;">
                 <input type="date" name="end_date" id="end_date"
                    class="form-control"
                    placeholder="end_date"
@@ -50,8 +47,39 @@
                 @enderror
             </div>
         </div>
+
+        <div class="div m-3">
+            <a href="/admin/room/{{$not_available->room_id}}" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Terug
+            </a>
+            <button type="submit"  class="btn btn-success">
+                <i class="fas fa-plus-circle mr-1"></i>opslaan
+            </button>
+            <a href="#!" class="btn btn-danger" id="deleteDate">
+                <i class="fas fa-trash mr-1"></i>Verwijderen
+            </a>
+        </div>
     </form>
 
+    <!-- Overlay text: when you press the info button this help page will be displayed -->
+    <div class="overlay" id="MyDiv">
+        <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
+        <div class="content">
+            <p>Dit is de pagina waar u de datums kan veranderen van de onbeschikbaarheid (dus de datums waar deze kamer onbeschikbaar is).
+                <br>
+            <p>Als u op de blauwe knop "terug" klikt dan keert u terug naar het overzichtsscherm van de onbeschikbaarheden van de geselecteerde kamer,
+                <br>
+                door op de groene knop "opslaan" te klikken slaat u de 2 datums op van deze onbeschikbaarheid,
+                <br>
+                als u op de rode knop "verwijderen" klikt dan verwijdert u deze onbeschikbaarheden.
+                 </p>
+            <br>
+            <p>
+                Wilt u terug naar het hoofdscherm? Klik dan op het huisje rechts vanboven.
+            </p>
+            <p>Om dit scherm te sluiten, klikt u rechts boven op het kruisje.</p>
+        </div>
+    </div>
 @endsection
 @section('script_after')
     <script>
@@ -101,4 +129,17 @@
         });
 
     </script>
+@endsection
+@section('css_after')
+
+    <style>
+        @media (min-width: 750px) {
+            .container-sm{
+                width: 30%!important;
+
+            }
+        }
+
+    </style>
+
 @endsection

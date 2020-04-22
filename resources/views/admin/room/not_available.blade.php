@@ -3,12 +3,17 @@
 
 @section('main')
     @include('shared.alert')
-    <h1>Overzicht onbeschikbaarheden kamer {{$room->id}}</h1>
-    <p>
-        <a href="#!" class="btn btn-outline-success" id="btn-create">
-            <i class="fas fa-plus-circle mr-1"></i>Onbeschikbaar maken
-        </a>
-    </p>
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <h1>Overzicht onbeschikbaarheden kamer {{$room->id}}</h1>
+        </div>
+        <div class="col-12 col-md-4 text-right">
+            <i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i>
+            <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3"></i></a>
+        </div>
+    </div>
+
+
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -20,7 +25,7 @@
             </thead>
             <tbody>
 
-            {{-- Alle onbeschikbaarheden zien plus knoppen --}}
+            {{-- Alle onbeschikbaarheden zien samen met de knoppen --}}
             @foreach($not as $not_available)
                 <tr>
                     <td>{{$not_available->starting_date}}</td>
@@ -30,10 +35,17 @@
                             @method('not_available')
                             @csrf
                             <div class="btn-group btn-group-sm">
-                                <a href="/admin/not_available/{{$not_available->id}}/edit" class="btn btn-outline-success"
-                                   data-toggle="tooltip" data-id="{{ $not_available->id }}"
-                                   title="Aanpassen onbeschikbaarheid van">
-                                    <i class="fas fa-edit"></i>
+                                <a href="/admin/not_available/{{$not_available->id}}/edit" class="btn btn-outline-secondary"
+                                   data-toggle="tooltip"
+                                   {{-- Anders is knop raar bezig--}}
+                                   @if ($not->count() > 1)
+                                   title="Aanpassen onbeschikbaarheid {{$not_available->starting_date}} tot {{$not_available->end_date}}"
+                                           @else
+                                   title="Aanpassen onbeschikbaarheid"
+                                   @endif
+
+                                   data-id="{{ $not_available->id }}">
+                                    <i class="fas fa-edit">Bewerken</i>
                                 </a>
 
                             </div>
@@ -52,7 +64,41 @@
         </div>
     @endif
 
+
+
+    <p>
+        <a href="/admin/room" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Terug
+        </a>
+        <a href="#!" class="btn btn-success" id="btn-create">
+            <i class="fas fa-plus-circle mr-1"></i>Onbeschikbaar maken
+        </a>
+    </p>
+
+
+
     @include('admin.room.modal')
+
+    <!-- Overlay text: when you press the info button this help page will be displayed -->
+    <div class="overlay" id="MyDiv">
+        <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
+        <div class="content">
+            <p>Op deze pagina vindt u alle onbeschikbaarheden terug van de geselecteerde kamer
+                <br>
+            <p>Als u op de blauwe knop "terug" klikt dan keert u terug naar het overzicht scherm van de kamers,
+                <br>
+                en als u op de groene knop "Kamer opslaan" kan u de informatie opslaan die u heeft verandert. </p>
+            <br>
+            <p>Elke onbeschikbaarheid (dus de datums waar deze kamer onbeschikbaar is) heeft een groene knop mmet een potlood erin, als u hier
+            op klikt kom u op een bewerkscherm waar u de datums kunt wijzigen of zelfs verwijderen</p>
+            <br>
+            <p>
+                Wilt u terug naar het hoofdscherm? Klik dan op het huisje rechts vanboven.
+            </p>
+            <p>Om dit scherm te sluiten, klikt u rechts boven op het kruisje.</p>
+        </div>
+    </div>
+
 @endsection
 
 @section('script_after')
@@ -106,7 +152,7 @@
             $('#btn-create').click(function () {
                 // Update the modal
                 $('.modal-title').text(`Kamer onbeschikbaar maken`);
-                $('form').attr('action', `/admin/room`);
+                $('form').attr('action', `/admin/room/{id}`);
                 $('#id').val('{{$room->id}}');
                 $('input[id="_method"]').val('post');
                 $('#starting_date').val('');

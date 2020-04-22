@@ -8,6 +8,7 @@ use App\TypeRoom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Json;
+use phpDocumentor\Reflection\Element;
 
 class RoomController extends Controller
 {
@@ -28,9 +29,10 @@ class RoomController extends Controller
         return view('admin.room.overview', $result);
     }
 
+    //Show availabilities
     public function show($id)
     {
-        $room = Room::with('typeRoom')->findOrFail($id);
+        $room = Room::where('id', $id)->findOrFail($id);
         $not = NotAvailable::where('room_id',$id )->orderBy('starting_date')->get();
         $standard_date = date("Y-m-d", strtotime('now'));
 
@@ -47,6 +49,8 @@ class RoomController extends Controller
         $not = NotAvailable::where('room_id',$id )->orderBy('starting_date')->first();
         $standard_date = date("Y-m-d", strtotime('now'));
         $typeRoom = TypeRoom::orderBy('id')->get();
+
+
 
         $result = compact('room', 'not', 'typeRoom', 'standard_date');
         Json::dump($result);
@@ -78,30 +82,44 @@ class RoomController extends Controller
             $room->picture = $request->afbeelding;
         }
         $room->save();
-        session()->flash('success', 'De kamer is succesvol verandert');
+        session()->flash('success', "Kamer <b>$room->room_number</b> is succesvol verandert");
         return redirect('admin/room');
     }
 
-    //opslaan nieuwe onbeschikbaarheid
-    public function store(Request $request, NotAvailable $not_available)
+    //Save availability
+    public function store(Request $request)
     {
         $this->validate($request, [
             'starting_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:starting_date',
+            'id' => 'required'
         ], [
             'starting_date.required' => 'Gelieve een begindatum in te geven',
             'end_date.required' => 'Gelieve een einddatum in te geven',
-            'end_date.after_or_equal' => 'De einddatum mag niet voor de startdatum komen'
+            'end_date.after_or_equal' => 'De einddatum mag niet voor de startdatum komen',
+            'id.required' => 'Gelieve een of meerdere kamers te selecteren'
         ]);
-        $not_available = new NotAvailable();
-        $not_available->room_id = $request->id;
-        $not_available->starting_date = $request->starting_date;
-        $not_available->end_date = $request->end_date;
-        $not_available->save();
+
+        //zet alle ids v/d checkboxes om naar een integer en in een array gestopt
+        $array = array_map('intval', explode(',', $request->id));
+
+
+        foreach ($array as $value){
+            $not_available = new NotAvailable();
+            $not_available->starting_date = $request->starting_date;
+            $not_available->end_date = $request->end_date;
+            $not_available->room_id = $value;
+            $not_available->save();
+
+        }
+
         return response()->json([
             'type' => 'success',
-            'text' => "De kamers is onbeschikbaar gesteld van: <b>$not_available->starting_date</b> tot: <b>$not_available->end_date</b>"
+            'text' => "De kamers zijn onbeschikbaar gesteld van: <b>$not_available->starting_date</b> tot: <b>$not_available->end_date</b> "
         ]);
+
     }
+
+
 
 }
