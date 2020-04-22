@@ -129,6 +129,18 @@
         });
 
     </script>
+    <script>
+        $(function () {
+            $('#footer_names').append(
+                kempenrust.names_footer(4,2)
+
+            );
+        });
+
+
+    </script>
+
+
 @endsection
 @section('css_after')
 

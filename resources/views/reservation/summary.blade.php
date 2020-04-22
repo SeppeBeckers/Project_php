@@ -26,3 +26,18 @@
         <p class="card-footer mb-0">Uw reservatie wordt bevestigd door het betalen van het voorschot dat hier {{$totaleprijs/10}} euro bedraagt.</p>
     </div>
 @endsection
+
+@section('script_after')
+    <script>
+        $(function () {
+            $('#footer_names').append(
+                kempenrust.names_footer(4,1)
+
+            );
+        });
+
+
+    </script>
+
+@endsection
+

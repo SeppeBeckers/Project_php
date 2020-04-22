@@ -141,3 +141,18 @@
     </form>
 
 @endsection
+
+@section('script_after')
+    <script>
+        $(function () {
+            $('#footer_names').append(
+                kempenrust.names_footer(4,1)
+
+            );
+        });
+
+
+    </script>
+
+@endsection
+

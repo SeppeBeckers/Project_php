@@ -99,7 +99,9 @@ class BillController extends Controller
     {
         $optel = 0;
         $eindPrijs = $this->calculateDiscount($bill->reservation->people, $bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->amount);
-        $bill->billCosts->first()->amount = $eindPrijs;
+        $aantaldagen = (strtotime($bill->reservation->roomReservations->first()->end_date)-strtotime($bill->reservation->roomReservations->first()->starting_date))/86400;
+
+        $bill->billCosts->first()->amount = $eindPrijs * $aantaldagen;
         if(($request->zwembad == true) ? 1 : 0){
             $optel +=10;
         }
@@ -107,6 +109,7 @@ class BillController extends Controller
             $optel +=5;
         }
         $bill->adjusted_amount = $bill->billCosts->first()->amount + $request->extra + $optel;
+
         $bill->save();
         session()->flash('success', "De reservatie is aangepast!");
         return redirect('admin/overview');

@@ -33,8 +33,20 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/lang/nl.js"></script>
+    <script >
+        $(function () {
+            $('#footer_names').append(
+                kempenrust.names_footer(2,4)
+
+            );
+        });
+
+        </script>
+
+
 
     {!! $calendar->script() !!}
+
 
 @endsection
 @section('css_after')
