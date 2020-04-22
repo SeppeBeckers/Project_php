@@ -2,7 +2,11 @@
 @section('title', 'Data reservatie')
 
 @section('main')
-    <h1>Overzicht reservatie en persoonsgegevens</h1>
+    <div class="row">
+        <div class="col text-left"> <h1>Overzicht reservatie en persoonsgegevens</h1></div>
+        <div title="info" class="col text-right"><i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i></div>
+    </div>
+
     <hr>
     <h3>Overzicht</h3>
     <div class="pl-3">
@@ -139,7 +143,18 @@
                 <label for="voorschot">Voorschot</label>
                 <input type="checkbox" class="form-control" name="voorschot" id="voorschot" checked>
             @endguest
-            <button type="submit" class="btn btn-success mb-4">Bevestig reservatie</button>
+            <button title="bevesig" type="submit" class="btn btn-success mb-4">Bevestig reservatie</button>
     </form>
+    <div class="overlay" id="MyDiv">
+        <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
+        <div class="content">
+            <p>Dit is de tweede pagina van de twee om een reservatie te maken. Hierin geef je alle persoongegevens in en kies je de kamer die je wilt.
+                <br>
+                <br>
+                Als deze allemaal ingevuld zijn ga je verder door op de knop "Verder naar persoonsgegevens" te drukken onderaan.
+            </p>
+            <p>Om dit scherm te sluiten, klik je rechts boven op het kruisje.</p>
+        </div>
+    </div>
 
 @endsection
