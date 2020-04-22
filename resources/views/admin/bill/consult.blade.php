@@ -70,6 +70,7 @@
 
 
 
+
             <div class="div m-3">
                 <a href="/admin/reservation/{{ $bill->reservation->id }}/edit" class="btn btn-primary mx-1 "><i class="fas fa-arrow-left"></i>Terug</a>
                 <a href="/admin/bill/{{$bill->reservation_id}}/edit" class="btn btn-secondary">
