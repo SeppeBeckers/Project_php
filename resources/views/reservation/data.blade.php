@@ -56,6 +56,8 @@
             <input type="text" name="soortkamer" id="soortkamer"  hidden value="{{$soortkamer}}">
             <label for="verblijfskeuze" ></label>
             <input type="text" name="verblijfskeuze" id="verblijfskeuze"  hidden value="{{$verblijfskeuze}}">
+            <label for="arrangement" ></label>
+            <input type="text" name="arrangement" id="arrangement"  hidden value="{{$arrangement}}">
             <label for="comment" ></label>
             <input type="text" name="comment" id="comment"  hidden value="{{$comment}}">
 
