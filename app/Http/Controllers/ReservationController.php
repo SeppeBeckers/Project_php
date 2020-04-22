@@ -76,7 +76,7 @@ class ReservationController extends Controller
                 ->where('type_room_id',$soortkamer);
 
             $notavailables = NotAvailable::all();
-            dd($notavailables);
+            //dd($notavailables);
 
             json::dump($rooms);
             $gekozenkamer = TypeRoom::where('id',$soortkamer);
@@ -127,7 +127,7 @@ class ReservationController extends Controller
         $roomreservation->starting_date = $request->aankomstdatum;
         $roomreservation->end_date = $request->vertrekdatum;
         $roomreservation->room_id = $request->room;
-        $roomreservation->save();
+        
 
         $people = new Person();
         $people->reservation_id=$reservation->id;
@@ -183,13 +183,17 @@ class ReservationController extends Controller
             ->where('occupancy_id', 'like', $sofd)
             ->where($tefilterenop, 'like', $filter)
             ->first();
-        $roomreservation->price_id = $prijs->id;
+
         $aantaldagen = (strtotime($request->vertrekdatum)-strtotime($request->aankomstdatum))/86400;
         $totaleprijs = ($prijs->amount *$request->aantal0_3 * 0.2 + $prijs->amount *$request->aantal4_8 *0.5 +$prijs->amount *$request->aantal9_12 *0.7  +$prijs->amount *$request->aantal12)*$occupancies;
         if($arrangement != null) {
             $totaleprijs *= $aantaldagen;
         }
         $verblijfskeuze = AccommodationChoice::find($request->verblijfskeuze);
+
+        $roomreservation->price_id = $prijs->id;
+        $roomreservation->save;
+
         Json::dump($verblijfskeuze);
 //        session()->flash('success', "Succesvol geboekt");
         $result = compact('totaleprijs','aantaldagen','kamer','prijs','arrangement','verblijfskeuze','reservation', 'roomreservation', 'occupancies');

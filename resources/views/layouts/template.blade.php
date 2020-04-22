@@ -15,14 +15,16 @@
             <meta name="msapplication-TileColor" content="#00aba9">
             <meta name="theme-color" content="#ffffff">
         </head>
-        <body class="body">
+        <body class="body d-flex flex-column min-vh-100">
 
             @include('shared.navigation')
             <main class="container-sm mt-3 p-4 ">
                 @yield('main')
             </main>
-            @include('shared.footer')
 
+            <footer>
+            @include('shared.footer')
+            </footer>
     <script src="{{ mix('js/app.js') }}">    </script>
     @yield('script_after')
 

@@ -70,25 +70,19 @@
 
 
 
-
-
-
-            <a href="/admin/bill/{{$bill->reservation_id}}/edit" class="btn btn-outline-success">
-                <i class="fa fa-eur"></i>Aanpassen
-            </a>
-            </p>
-            <div class="col-6 ">
-                <a href="/admin/overview" class="btn btn-primary mx-1 ">Terug naar overzicht</a>
+            <div class="div m-3">
+                <a href="/admin/reservation/{{ $bill->reservation->id }}/edit" class="btn btn-primary mx-1 "><i class="fas fa-arrow-left"></i>Terug</a>
+                <a href="/admin/bill/{{$bill->reservation_id}}/edit" class="btn btn-secondary">
+                    <i class="fas fa-edit"></i>Aanpassen
+                </a>
             </div>
 
 
 
 
 
+
         </div>
-
-
-
     </div>
 
 @endsection

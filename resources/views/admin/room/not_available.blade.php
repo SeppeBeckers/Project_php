@@ -13,14 +13,7 @@
         </div>
     </div>
 
-    <p>
-        <a href="/admin/room" class="btn btn-outline-primary">
-            <i class="fas fa-arrow-left"></i> Terug
-        </a>
-        <a href="#!" class="btn btn-outline-success" id="btn-create">
-            <i class="fas fa-plus-circle mr-1"></i>Onbeschikbaar maken
-        </a>
-    </p>
+
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -42,7 +35,7 @@
                             @method('not_available')
                             @csrf
                             <div class="btn-group btn-group-sm">
-                                <a href="/admin/not_available/{{$not_available->id}}/edit" class="btn btn-outline-success"
+                                <a href="/admin/not_available/{{$not_available->id}}/edit" class="btn btn-outline-secondary"
                                    data-toggle="tooltip"
                                    {{-- Anders is knop raar bezig--}}
                                    @if ($not->count() > 1)
@@ -71,6 +64,19 @@
         </div>
     @endif
 
+
+
+    <p>
+        <a href="/admin/room" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Terug
+        </a>
+        <a href="#!" class="btn btn-success" id="btn-create">
+            <i class="fas fa-plus-circle mr-1"></i>Onbeschikbaar maken
+        </a>
+    </p>
+
+
+
     @include('admin.room.modal')
 
     <!-- Overlay text: when you press the info button this help page will be displayed -->
@@ -87,9 +93,9 @@
             op klikt kom u op een bewerkscherm waar u de datums kunt wijzigen of zelfs verwijderen</p>
             <br>
             <p>
-                Wil je terug naar het hoofdscherm? Klik dan op het huisje rechts vanboven.
+                Wilt u terug naar het hoofdscherm? Klik dan op het huisje rechts vanboven.
             </p>
-            <p>Om dit scherm te sluiten, klik je rechts boven op het kruisje.</p>
+            <p>Om dit scherm te sluiten, klikt u rechts boven op het kruisje.</p>
         </div>
     </div>
 
@@ -146,7 +152,7 @@
             $('#btn-create').click(function () {
                 // Update the modal
                 $('.modal-title').text(`Kamer onbeschikbaar maken`);
-                $('form').attr('action', `/admin/room`);
+                $('form').attr('action', `/admin/room/{id}`);
                 $('#id').val('{{$room->id}}');
                 $('input[id="_method"]').val('post');
                 $('#starting_date').val('');

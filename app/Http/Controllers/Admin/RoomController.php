@@ -8,6 +8,7 @@ use App\TypeRoom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Json;
+use phpDocumentor\Reflection\Element;
 
 class RoomController extends Controller
 {
@@ -49,6 +50,8 @@ class RoomController extends Controller
         $standard_date = date("Y-m-d", strtotime('now'));
         $typeRoom = TypeRoom::orderBy('id')->get();
 
+
+
         $result = compact('room', 'not', 'typeRoom', 'standard_date');
         Json::dump($result);
         return view('admin.room.edit', $result);
@@ -89,39 +92,32 @@ class RoomController extends Controller
         $this->validate($request, [
             'starting_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:starting_date',
+            'id' => 'required'
         ], [
             'starting_date.required' => 'Gelieve een begindatum in te geven',
             'end_date.required' => 'Gelieve een einddatum in te geven',
-            'end_date.after_or_equal' => 'De einddatum mag niet voor de startdatum komen'
+            'end_date.after_or_equal' => 'De einddatum mag niet voor de startdatum komen',
+            'id.required' => 'Gelieve een of meerdere kamers te selecteren'
         ]);
 
-        $rooms = Room::orderBy('id')->get();
-        $count = 1;
-        if ($request->id == null){
-            foreach ($rooms as $room){
-                $not_available = new NotAvailable();
-                $not_available->starting_date = $request->starting_date;
-                $not_available->end_date = $request->end_date;
-                $not_available->room_id = $count;
-                $count++;
-                $not_available->save();
+        //zet alle ids v/d checkboxes om naar een integer en in een array gestopt
+        $array = array_map('intval', explode(',', $request->id));
 
-            }
-            return response()->json([
-                'type' => 'success',
-                'text' => "De kamers zijn onbeschikbaar gesteld van: <b>$not_available->starting_date</b> tot: <b>$not_available->end_date</b>"
-            ]);
-        } else {
+
+        foreach ($array as $value){
             $not_available = new NotAvailable();
             $not_available->starting_date = $request->starting_date;
             $not_available->end_date = $request->end_date;
-            $not_available->room_id = $request->id;
+            $not_available->room_id = $value;
             $not_available->save();
-            return response()->json([
-                'type' => 'success',
-                'text' => "De kamer is onbeschikbaar gesteld van: <b>$not_available->starting_date</b> tot: <b>$not_available->end_date</b>"
-            ]);
+
         }
+
+        return response()->json([
+            'type' => 'success',
+            'text' => "De kamers zijn onbeschikbaar gesteld van: <b>$not_available->starting_date</b> tot: <b>$not_available->end_date</b> "
+        ]);
+
     }
 
 

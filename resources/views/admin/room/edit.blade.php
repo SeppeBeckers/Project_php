@@ -14,14 +14,6 @@
     <form action="/admin/room/{{ $room->id }}" method="post">
         @method('put')
         @csrf
-        <div class="alert alert-info">
-            <a href="/admin/room" class="btn btn-primary">
-                <i class="fas fa-arrow-left"></i> Terug
-            </a>
-            <button type="submit" class="btn btn-success">
-                <i class="fas fa-plus-circle mr-1"></i>Kamer opslaan
-            </button>
-        </div>
         <div class="container">
             <div class="form-row">
                 {{-- Kamernummer --}}
@@ -91,6 +83,14 @@
                 </div>
             </div>
         </div>
+        <div class="row m-2">
+            <a href="/admin/room" class="btn btn-primary mx-2">
+                <i class="fas fa-arrow-left"></i> Terug
+            </a>
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-plus-circle mr-1"></i>Kamer opslaan
+            </button>
+        </div>
     </form>
 
     <!-- Overlay text: when you press the info button this help page will be displayed -->
@@ -100,8 +100,7 @@
             <p>Op deze pagina vindt u de informatie van de geselecteerde kamer terug en kan u deze ook bewerken.
                 <br>
             <p>Als u op de blauwe knop "terug" klikt dan keert u terug naar het overzicht scherm van de kamers,
-            <br>
-            en als u op de groene knop "Kamer opslaan" kan u de informatie opslaan die u heeft verandert. </p>
+            en als u op de groene knop "Kamer opslaan" kan u de informatie opslaan die u heeft veranderd. </p>
 
             <p>
                 Wilt u terug naar het hoofdscherm? Klik dan op het huisje rechtsboven van het scherm.

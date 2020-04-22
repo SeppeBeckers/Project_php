@@ -65,9 +65,10 @@
                 @endforeach
 
             </div>
-            <div class="my-3">
-                <button type="submit" id="submit" class="btn btn-success ">Opslaan</button>
-                <a href="/admin/arrangement" class="btn btn-primary mx-1 ">Terug</a>
+            <div class="m-3">
+                <a href="/admin/arrangement" class="btn btn-primary mx-1 "><i class="fas fa-arrow-left"></i> Terug</a>
+                <button type="submit" id="submit" class="btn btn-success "><i class="fas fa-plus-circle mr-1"></i>Opslaan</button>
+
             </div>
         </form>
     </div>
@@ -87,6 +88,7 @@
         </div>
     </div>
 @endsection
+
 
 
 

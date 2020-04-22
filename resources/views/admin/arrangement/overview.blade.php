@@ -57,8 +57,8 @@
                                 </div>
                             </div>
                             <p class="m-0">{{ $arrangement->from_day . ' - ' . $arrangement->until_day }}
-                            <a href="/admin/arrangement/{{ $arrangement->id }}/edit" class="btn btn-success ml-3 mb-3"
-                            data-toggle="tooltip" title="{{ $arrangement->type }} aanpassen" >Aanpassen</a>
+                            <a href="/admin/arrangement/{{ $arrangement->id }}/edit" class="btn btn-outline-secondary ml-3 mb-3"
+                            data-toggle="tooltip" title="{{ $arrangement->type }} bewerken" ><i class="fas fa-edit"> Bewerken</i></a>
                             </p>
                         </div>
                     </div>

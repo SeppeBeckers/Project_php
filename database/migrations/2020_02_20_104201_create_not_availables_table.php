@@ -42,7 +42,7 @@ class CreateNotAvailablesTable extends Migration
             ],
             [
                 'room_id'=>'4',
-                'starting_date'=>'2020/03/10',
+                'starting_date'=>'2020/05/10',
                 'end_date'=>'2020/05/30'
             ],
             [
