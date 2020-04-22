@@ -76,6 +76,10 @@ class ReservationController extends Controller
                 ->where('type_room_id',$soortkamer);
 
 
+            $notavailables = NotAvailable::all();
+            //dd($notavailables);
+
+
             json::dump($rooms);
             $gekozenkamer = TypeRoom::where('id',$soortkamer);
             $result = compact('prijzen','rooms', 'gekozenkamer','reservation','aankomstdatum', 'vertrekdatum', 'aantal0_3', 'aantal4_8', 'aantal9_12', 'aantal12', 'soortkamer','verblijfskeuze','arrangement', 'comment');
@@ -188,7 +192,6 @@ class ReservationController extends Controller
             $totaleprijs *= $aantaldagen;
         }
         $verblijfskeuze = AccommodationChoice::find($request->verblijfskeuze);
-
 
         $roomreservation->price_id = $prijs->id;
         $roomreservation->save;
