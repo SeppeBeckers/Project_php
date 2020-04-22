@@ -75,8 +75,10 @@ class ReservationController extends Controller
                 ->where('maximum_persons','>=',$occupancies)
                 ->where('type_room_id',$soortkamer);
 
+
             $notavailables = NotAvailable::all();
             //dd($notavailables);
+
 
             json::dump($rooms);
             $gekozenkamer = TypeRoom::where('id',$soortkamer);
@@ -127,7 +129,7 @@ class ReservationController extends Controller
         $roomreservation->starting_date = $request->aankomstdatum;
         $roomreservation->end_date = $request->vertrekdatum;
         $roomreservation->room_id = $request->room;
-        
+
 
         $people = new Person();
         $people->reservation_id=$reservation->id;
