@@ -6,7 +6,7 @@
         <div class="col-8 col-md-8">
             <h1>Verander kamer {{ $room->room_number }}</h1>
         </div>
-        <div class="col-12 col-md-4 text-right">
+        <div class="col-12 text-right">
             <i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i>
             <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3"></i></a>
         </div>
@@ -161,7 +161,7 @@
             );
         });
 
-
+    </script>
 
 @endsection
 
