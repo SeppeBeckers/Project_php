@@ -22,6 +22,10 @@ footer{
   p,ul,a{
     font-size: 12px;
   }
+  .row{
+    margin: 0!important;
+  }
+  margin-bottom: 0!important;
 }
 
 .verticalLine {
@@ -113,9 +117,9 @@ h3{
 
 }
 
-@media (min-width: 800px){
+@media (min-width: 1000px){
   .overlay p{
-    font-size: 20px;
+    font-size: 24px;
   }
   .content{
     padding-left: 100px;

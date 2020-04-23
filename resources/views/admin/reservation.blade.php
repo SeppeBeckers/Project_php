@@ -8,11 +8,11 @@
             <h1>Overzicht reservatie: {{ $room_reservation->reservation->first_name . ' ' . $room_reservation->reservation->name }}</h1>
         </div>
         <div class="col-5 col-md-4 text-md-right text-center">
-            <i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i>
-            <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3"></i></a>
+            <i class="fas fa-2x fa-info-circle pr-2" id="openHelp" data-toggle="tooltip" title="Extra informatie"></i>
+            <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3" data-toggle="tooltip" title="Naar overzicht reservaties"></i></a>
         </div>
         <div class="col-md-6 col-7 text-md-right text-center order-md-2">
-            <a href="/admin/bill/{{$room_reservation->reservation->id}}" class="btn btn-primary mx-1 ">Factuur raadplegen</a>
+            <a href="/admin/bill/{{$room_reservation->reservation->id}}" class="btn btn-primary mx-1">Factuur raadplegen</a>
         </div>
         <div class="col-md-6 col-12 order-md-1">
             <h2 class="p-2">Boekingsinfo</h2>
@@ -62,25 +62,35 @@
                     </div>
                 </div>
             </div>
+            @if ($price->arrangement_id != null)
+            @else
+                <div class="row ml-1 mr-5">
+                    <div class="col-md-3 col-12">
+                        <div class="form-group">
+                            <label for="occupancy_id">Bezetting: <i class="far fa-question-circle" data-toggle="tooltip" title="De lichtgrijze vakken kan je niet aanpassen"></i></label>
+                            <select disabled name="occupancy_id" id="occupancy_id" class="form-control">
+                                <option value="" disabled>Kies een bezetting</option>
+                                @foreach($occupancies as $occupancy)
+                                    <option value="{{ $occupancy->id }}" {{ $occupancy->id == $price->occupancy_id ? 'selected' : '' }}>{{ $occupancy->is_double == false ? '1 persoon' : '2 personen'  }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
 
-            <div class="row ml-1 mr-5">
-                <div class="col-md-3 col-12">
-                    <div class="form-group">
-                        <label for="occupancy">Bezetting:</label>
-                        <input disabled type="text" name="occupancy" id="occupancy"
-                               class="form-control"
-                               value="{{ $room_reservation->room->typeRoom->prices->first()->occupancy_id == 1 ? '1 persoon' : '2 personen'  }}">
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <label for="accommodation_choice_id">Verblijfskeuze: <i class="far fa-question-circle" data-toggle="tooltip" title="De lichtgrijze vakken kan je niet aanpassen"></i>
+                            </label>
+                            <select disabled name="accommodation_choice_id" id="accommodation_choice_id" class="form-control">
+                                <option value="" disabled>Kies een verblijfskeuze</option>
+                                @foreach($accommodation_choices as $accommodation_choice)
+                                    <option value="{{ $accommodation_choice->id }}" {{ $accommodation_choice->id == $price->accommodation_choice_id ? 'selected' : '' }}>{{ $accommodation_choice->type }} </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-12">
-                    <div class="form-group">
-                        <label for="accommodation_type">Verblijfskeuze:</label>
-                        <input disabled type="text" name="accommodation_type" id="accommodation_type"
-                               class="form-control"
-                               value="{{ $room_reservation->room->typeRoom->prices->first()->accommodationChoice->type }}">
-                    </div>
-                </div>
-            </div>
+            @endif
 
             <div class="row ml-1 mr-5">
                 <div class="col-md-4 col-12">
@@ -143,10 +153,6 @@
                     <?php $index ++; ?>
                 @endforeach
 
-                <div class=" col">
-                    @include('shared.alert')
-                </div>
-
             </div>
 
             <hr class="bg-success">
@@ -191,7 +197,7 @@
                 </div>
                 <div class="col-md-2 col-12">
                     <div class="form-group">
-                        <label for="gender">Geslacht:</label>
+                        <label for="gender">Geslacht: <i class="far fa-question-circle" data-toggle="tooltip" title="De lichtgrijze vakken kan je niet aanpassen"></i></label>
                         <select disabled name="gender" id="gender" class="form-control">
                             <option value="M" {{ $room_reservation->reservation->gender == 'Male' ? 'selected' : '' }}>M</option>
                             <option value="V" {{ $room_reservation->reservation->gender == 'Female' ? 'selected' : '' }}>V</option>
@@ -233,51 +239,32 @@
                     </div>
                 </div>
             </div>
+            <hr class="bg-success">
 
-                <hr class="bg-success">
-            @if ($room_reservation->reservation->id > 2)
+            @if ($price->arrangement_id == null)
                 <div class="alert alert-info d-inline-flex">
                     Er zijn geen arrangementen geboekt voor deze reservatie.
                 </div>
             @else
 
-                <h2>Kamer met arrangement</h2>
+                <h2>Arrangement</h2>
                 <div class="row">
-                    <div class="col-md-4 col-12 pt-4">
-                        <select class="form-control mt-2 mb-2" id="">
-                            <option>Douche</option>
-                            <option>Douche/bad</option>
-                        </select>
-                        <select class="form-control mt-2" id="">
-                            <option>Met ontbijt</option>
-                            <option>Halfpension (3-gangenmenu)</option>
-                            <option>Halfpension (4-gangenmenu)</option>
-                            <option>Volpension (3-gangenmenu)</option>
-                        </select>
+                    <div class="col-12 mx-2">
+                        <h3 class="font-weight-bolder">{{$arrangement->type}}</h3>
+                        <p class="px-2">{{$arrangement->description}} <br>
+                        Dagen: {{ $arrangement->from_day . ' - ' . $arrangement->until_day }}</p>
                     </div>
-                    <div class="col-md-4 col-12">
-                        <label for="">Van:</label>
-                        <input type="text" class="form-control" id=""
-                               @error('') is-invalid @enderror
-                               placeholder="04/05/20"
-                               value="">
 
-                        <label for="">Tot:</label>
-                        <input type="text" class="form-control" id=""
-                               @error('') is-invalid @enderror
-                               placeholder="06/05/20"
-                               value="">
-                    </div>
                 </div>
             @endif
 
             <div class="row">
                 <div class="col-md-6 col-12">
-                    <a href="/admin/overview" class="btn btn-primary"><i class="fas fa-arrow-left"></i>Terug</a>
+                    <a href="/admin/overview" class="btn btn-primary" data-toggle="tooltip" title="Terug naar het overzicht"><i class="fas fa-arrow-left" ></i>Terug</a>
                     <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle mr-1"></i>Opslaan</button>
                 </div>
 
-                </form>
+        </form>
 
                 <div class="col-md-6 col-12 my-1 text-md-right">
                 <form action="/admin/reservation/{{ $room_reservation->id }}" method="post"  id="deleteForm{{ $room_reservation->id }}"

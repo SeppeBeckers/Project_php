@@ -8,8 +8,8 @@
             <h1>Overzicht arrangementen</h1>
         </div>
         <div class="col-12 col-md-4 text-right">
-            <i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i>
-            <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3"></i></a>
+            <i class="fas fa-2x fa-info-circle pr-2" id="openHelp" data-toggle="tooltip" title="Extra informatie"></i>
+            <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3" data-toggle="tooltip" title="Naar overzicht reservaties"></i></a>
         </div>
     </div>
 
@@ -73,7 +73,7 @@
         <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
         <div class="content">
             <p>Hier kan je de arrangementen bekijken. Je vindt hier de informatie erover terug en je kan ook bepaalde informatie bewerken zoals de naam, de beschrijving en de prijzen.
-                Dit doe je door op de groene knop 'Aanpassen' te klikken.
+                Dit doe je door op de knop 'Bewerken' te klikken.
                 <br>
                 <br>
                 Wil je terug naar het hoofdscherm? Klik dan op het huisje rechts vanboven.

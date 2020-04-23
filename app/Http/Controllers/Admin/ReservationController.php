@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\AccommodationChoice;
 use App\Age;
+use App\Arrangement;
+use App\Occupancy;
 use App\Person;
+use App\Price;
 use App\Reservation;
 use App\Room;
 use App\RoomReservation;
@@ -33,14 +36,17 @@ class ReservationController extends Controller
             ->findOrFail($id);
         $ages = Age::with('persons')->get();
         $rooms = Room::all();
+        $occupancies = Occupancy::all();
+        $accommodation_choices  = AccommodationChoice::all();
+        $price = Price::find($room_reservation->price_id);
+        $arrangement  = Arrangement::find($price->arrangement_id);
 
         $numberPersons = 0;
         foreach ($room_reservation->reservation->people as $person){
             $numberPersons += $person->number_of_persons;
         }
 
-
-        $result = compact('room_reservation', 'rooms', 'ages', 'numberPersons');
+        $result = compact('room_reservation', 'rooms', 'occupancies', 'accommodation_choices', 'price', 'arrangement', 'ages', 'numberPersons');
         //dd($result);
         Json::dump($result);
         return view('admin/reservation', $result);

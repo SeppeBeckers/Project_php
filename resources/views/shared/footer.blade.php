@@ -10,15 +10,11 @@
 
                 </div>
                 <div class="col-10 col-sm-8 col-xl-7 ">
-                    <ul class="p-0 m-0">
-                       <p id="footer_names"></p>
-                    </ul>
-
+                        <p id="footer_names"></p>
                 </div>
 
             </div>
         </div>
-
 
         <div class="col-12 col-md-4 align-self-center verticalLine text-xl-left">
             <a href="https://kempenrust.be" class="text-dark font-weight-bold">Hotel Kempenrust</a>
@@ -26,6 +22,3 @@
         </div>
     </div>
 </footer>
-
-
-

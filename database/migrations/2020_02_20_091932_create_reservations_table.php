@@ -84,6 +84,17 @@ class CreateReservationsTable extends Migration
                     'gender' => 'Male',
                     'message' => null,
                     'deposit_amount' => '10'
+                ],
+                [
+                    'name' => 'Peters',
+                    'first_name' => 'Piet',
+                    'email' => 'pietpeters@gmail.com',
+                    'phone_number' => '0472123456',
+                    'address' => 'Dorpsstraat 41',
+                    'place' => 'Geel',
+                    'gender' => 'Other',
+                    'message' => null,
+                    'deposit_amount' => null
                 ]
             ]
         );

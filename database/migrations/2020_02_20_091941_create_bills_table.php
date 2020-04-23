@@ -51,6 +51,11 @@ class CreateBillsTable extends Migration
                     'adjusted_amount' => null,
                     'VAT'=>'105'
                 ],
+                [
+                    'reservation_id' => '6',
+                    'adjusted_amount' => null,
+                    'VAT'=>'105'
+                ]
 
             ]
         );
