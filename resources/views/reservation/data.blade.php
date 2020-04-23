@@ -8,6 +8,15 @@
     </div>
 
     <hr>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <h3>Overzicht</h3>
     <div class="pl-3">
         <p>Datum: {{$aankomstdatum}} tot {{$vertrekdatum}}</p>
@@ -77,8 +86,8 @@
                             <p>Type badkamer: @if ($room->type_room_id == 1)
                                 Douche @else Bad/douche
                             @endif</p>
-                            <input type="radio" id="room" name="room" value="{{$room->id}}">
-                            <label for="room">Ik wil deze kamer</label>
+                            <input type="radio" id="kamer" name="kamer" value="{{$room->id}}">
+                            <label for="kamer">Ik wil deze kamer</label>
                         </div>
                     </div>
                 @endforeach
@@ -87,11 +96,11 @@
             <div class="form-row">
                 <div class="form-group col-md-5">
                     <label for="naam" >Naam *</label>
-                    <input type="text" class="form-control" name="naam" id="naam" value="" required placeholder="Naam">
+                    <input type="text" class="form-control" name="naam" id="naam" value="{{old('naam')}}" required placeholder="Naam">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="voornaam">Voornaam *</label>
-                    <input required type="text" class="form-control" name="voornaam" id="voornaam" placeholder="Voornaam">
+                    <input required type="text" class="form-control" name="voornaam" id="voornaam" placeholder="Voornaam" value="{{old('voornaam')}}">
                 </div>
                 <div class="form-group col-1">
                     <label for="geslacht">Geslacht *</label>
@@ -105,35 +114,35 @@
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label required for="email">E-mail *</label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{old('email')}}">
                 </div>
                 <div class="form-group col-md-4">
                     <label required for="telefoonnummer">Telefoonnummer *</label>
-                    <input type="tel" class="form-control" name="telefoonnummer" id="telefoonnummer" placeholder="Telefoonnummer">
+                    <input type="tel" class="form-control" name="telefoonnummer" id="telefoonnummer" placeholder="Telefoonnummer" value="{{old('telefoonnummer')}}">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-10">
                     <label for="adres">Adres</label>
-                    <input type="text" class="form-control" name="adres" id="adres" placeholder="Straat en nummer">
+                    <input type="text" class="form-control" name="adres" id="adres" placeholder="Straat en nummer" value="{{old('adres')}}">
                 </div>
                 <div class="form-group col-2">
                     <label for="bus">Bus</label>
-                    <input type="text" class="form-control" name="bus" id="bus" placeholder="Bus">
+                    <input type="text" class="form-control" name="bus" id="bus" placeholder="Bus" value="{{old('bus')}}">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="stad">Stad</label>
-                    <input type="text" class="form-control" name="stad" id="stad">
+                    <input type="text" class="form-control" name="stad" id="stad" value="{{old('stad')}}">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="provincie">Provincie</label>
-                    <input type="text" name="provincie" id="provincie" class="form-control">
+                    <input type="text" name="provincie" id="provincie" class="form-control" value="{{old('provincie')}}">
                 </div>
                 <div class="form-group col-md-2">
                     <label for="postcode">Postcode</label>
-                    <input type="text" class="form-control" name="postcode" id="postcode">
+                    <input type="text" class="form-control" name="postcode" id="postcode" value="{{old('postcode')}}">
                 </div>
             </div>
             @guest()
