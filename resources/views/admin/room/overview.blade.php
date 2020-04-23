@@ -34,7 +34,7 @@
             @foreach($rooms as $room)
                 <tr>
                     <td class="text-center"><input class="kamer_checkbox" type="checkbox" name="kamer_checkbox[]" value="{{$room->id}}"></td>
-                    <td><img src="{{ $room->picture }}" alt="foto van kamer {{ $room->room_number }} "></td>
+                    <td><img class="img-thumbnail" src="../../../img/{{$room->picture}}" alt="foto van kamer {{ $room->room_number }} "></td>
                     <td>{{ $room->room_number }}</td>
                     <td style="white-space:pre-wrap; word-wrap:break-word"> {{ $room->description }}
  @if ($room -> maximum_persons == 1)
@@ -123,7 +123,6 @@
         $('#modal-not form').submit(function (e) {
             // Don't submit the form
             e.preventDefault();
-
             // Get the action property (the URL to submit)
             let action = $(this).attr('action');
             // Serialize the form and send it as a parameter with the post

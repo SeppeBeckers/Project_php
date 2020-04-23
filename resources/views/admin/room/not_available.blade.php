@@ -28,8 +28,8 @@
             {{-- Alle onbeschikbaarheden zien samen met de knoppen --}}
             @foreach($not as $not_available)
                 <tr>
-                    <td>{{$not_available->starting_date}}</td>
-                    <td>{{$not_available->end_date}}</td>
+                    <td>{{date("d-m-Y", strtotime($not_available->starting_date))}}</td>
+                    <td>{{date("d-m-Y", strtotime($not_available->end_date))}}</td>
                     <td>
                         <form action="/admin/room/{{ $room->id }}" method="post">
                             @method('not_available')

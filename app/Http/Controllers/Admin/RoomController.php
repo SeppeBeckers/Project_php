@@ -7,6 +7,7 @@ use App\Room;
 use App\TypeRoom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 use Json;
 use phpDocumentor\Reflection\Element;
 
@@ -79,7 +80,9 @@ class RoomController extends Controller
         if ($request->afbeelding == null){
             $request->afbeelding = $room->picture;
         } else {
-            $room->picture = $request->afbeelding;
+            $image = Input::file('afbeelding');
+            $room->picture = $image->getClientOriginalName();
+            $image->move('img', $image->getClientOriginalName());
         }
         $room->save();
         session()->flash('success', "Kamer <b>$room->room_number</b> is succesvol verandert");

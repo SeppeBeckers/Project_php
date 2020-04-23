@@ -11,7 +11,7 @@
             <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3"></i></a>
         </div>
     </div>
-    <form action="/admin/room/{{ $room->id }}" method="post">
+    <form action="/admin/room/{{ $room->id }}" method="post" enctype="multipart/form-data">
         @method('put')
         @csrf
         <div class="container">
