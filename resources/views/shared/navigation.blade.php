@@ -43,7 +43,7 @@
 
                 @endguest
                 <li class="nav-item ml-md-5">
-                    <a class="nav-link handleiding" href="/assets/Handleiding.pfd"> <i class="fas fa-question-circle mr-1"></i>Handleiding</a>
+                    <a class="nav-link handleiding" href="/assets/Handleiding.pdf"> <i class="fas fa-question-circle mr-1"></i>Handleiding</a>
                 </li>
             </ul>
 
