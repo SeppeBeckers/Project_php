@@ -6,6 +6,8 @@ use App\AccommodationChoice;
 use App\Arrangement;
 use App\Bill;
 use App\Person;
+use App\Price;
+use App\RoomReservation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Reservation;
@@ -57,19 +59,30 @@ class BillController extends Controller
     public function show($reservation_id)
     {
 
-        $bill = Bill::with('Reservation.people.age', 'Reservation.roomReservations.room.typeRoom.prices.accommodationChoice', 'billCosts')->findOrFail($reservation_id);
-        $eindPrijs = $this->calculateDiscount($bill->reservation->people, $bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->amount);
+        $room_reservation = RoomReservation::with('reservation', 'room.typeRoom.prices.accommodationChoice', 'room.typeRoom.prices.arrangement')->findOrFail($reservation_id);
+        $bill = Bill::with('Reservation.people.age', 'Reservation.roomReservations.room.typeRoom.prices.accommodationChoice','Reservation.roomReservations.room.typeRoom.prices.arrangement', 'billCosts')->findOrFail($reservation_id);
+        $price = Price::find($bill->reservation->roomReservations->first()->price_id);
+        $arrangement  = Arrangement::find($price->arrangement_id);
 
+        $verblijfsgetal = $price->amount;
         $aantal = 0;
         foreach($bill->reservation->people as $person){
             $aantal+= $person->number_of_persons;
         }
         $aantaldagen = (strtotime($bill->reservation->roomReservations->first()->end_date)-strtotime($bill->reservation->roomReservations->first()->starting_date))/86400;
+        $eindPrijs = $this->calculateDiscount($bill->reservation->people, $verblijfsgetal);
+        if ($eindPrijs == $verblijfsgetal){
+            $korting = 0;
+        }
+        else{
+            $korting = 1;
+        }
 
-        $bill->billCosts->first()->amount = $eindPrijs * $aantaldagen;
+        $zonderKorting = $verblijfsgetal * $aantaldagen;
+        $duurtotaal = $eindPrijs * $aantaldagen;
+        $totaal = $duurtotaal * $aantal;
 
-
-        $result = compact('bill', 'aantal');
+        $result = compact('bill', 'aantal', 'room_reservation' ,'price','totaal', 'verblijfsgetal','zonderKorting', 'korting', 'arrangement');
         Json::dump($result);
         return view('admin.bill.consult', $result);  // Pass $result to the view
 
@@ -98,9 +111,20 @@ class BillController extends Controller
     public function update(Request $request, Bill $bill)
     {
         $optel = 0;
-        $eindPrijs = $this->calculateDiscount($bill->reservation->people, $bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->amount);
-        $aantaldagen = (strtotime($bill->reservation->roomReservations->first()->end_date)-strtotime($bill->reservation->roomReservations->first()->starting_date))/86400;
+        $price = Price::find($bill->reservation->roomReservations->first()->price_id);
+        $verblijfsgetal = $price->amount;
+        $eindPrijs = $this->calculateDiscount($bill->reservation->people, $verblijfsgetal);
 
+
+
+
+        $aantaldagen = (strtotime($bill->reservation->roomReservations->first()->end_date)-strtotime($bill->reservation->roomReservations->first()->starting_date))/86400;
+        $aantal = 0;
+        foreach($bill->reservation->people as $person){
+            $aantal+= $person->number_of_persons;
+        }
+        $duurtotaal = $eindPrijs * $aantaldagen;
+        $totaal = $duurtotaal * $aantal;
         $bill->billCosts->first()->amount = $eindPrijs * $aantaldagen;
         if(($request->zwembad == true) ? 1 : 0){
             $optel +=10;
@@ -108,7 +132,7 @@ class BillController extends Controller
         if(($request->hond == true) ? 1 : 0){
             $optel +=5;
         }
-        $bill->adjusted_amount = $bill->billCosts->first()->amount + $request->extra + $optel;
+        $bill->adjusted_amount = $totaal + $request->extra + $optel;
 
         $bill->save();
         session()->flash('success', "De reservatie is aangepast!");
@@ -127,9 +151,9 @@ class BillController extends Controller
     }
 
     //Call the function like: calculateDiscount($Bill->reservation->people, $Bill->reservation->roomReservations->first()->Room->TypeRoom->Prices->first()->price)
-    public function calculateDiscount($people, $amount)
+    public function calculateDiscount($people, $verblijfsgetal)
     {
-        $totalprice = $amount;
+        $totalprice = $verblijfsgetal;
         $aantal = 0;
         $percentage = 0;
         foreach($people as $person){
@@ -139,7 +163,7 @@ class BillController extends Controller
                 $percentage = $person->Age->percentage_discount ;
             }
         }
-        $korting = ($amount / $aantal) * $percentage ;
+        $korting = ($verblijfsgetal / $aantal) * $percentage ;
         $totalprice -=  $korting  ;
         return $totalprice;
     }
