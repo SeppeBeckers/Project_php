@@ -82,7 +82,7 @@ class RoomController extends Controller
         } else {
             $image = Input::file('afbeelding');
             $room->picture = $image->getClientOriginalName();
-            $image->move('img', $image->getClientOriginalName());
+            $image->move('assets', $image->getClientOriginalName());
         }
         $room->save();
         session()->flash('success', "Kamer <b>$room->room_number</b> is succesvol verandert");

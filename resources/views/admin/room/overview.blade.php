@@ -34,7 +34,7 @@
             @foreach($rooms as $room)
                 <tr>
                     <td class="text-center"><input class="kamer_checkbox" type="checkbox" name="kamer_checkbox[]" value="{{$room->id}}"></td>
-                    <td><img class="img-thumbnail" src="../../../img/{{$room->picture}}" alt="foto van kamer {{ $room->room_number }} "></td>
+                    <td><img class="img-thumbnail" src="../../../assets/{{$room->picture}}" alt="foto van kamer {{ $room->room_number }} " style="max-height: 250px; max-width: 250px"></td>
                     <td>{{ $room->room_number }}</td>
                     <td style="white-space:pre-wrap; word-wrap:break-word"> {{ $room->description }}
  @if ($room -> maximum_persons == 1)
