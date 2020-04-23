@@ -2,60 +2,68 @@
 @section('title', 'Boek kamer')
 
 @section('main')
-    <h1 class="mb-4">Reserveer een kamer</h1>
-    <form action="/reservation/data" class="ml-2">
-        <div class="row">
-            <div class="col text-left"><h3>Selecteer de data van uw verblijf</h3></div>
-            <div title="info" class="col text-right"><i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i></div>
+    <h1 class="mb-4"></h1>
+    <div class="row">
+        <div class="col text-left"> <h1>Reserveer een kamer</h1></div>
+        <div title="info" class="col text-right"><i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i></div>
+    </div>
+    <hr>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
-        <div class="row ml-4">
-            <div class="col-5">
-                <label for="aankomstdatum">Aankomstdatum:</label>
-                <input class=" {{ $errors->first('aankomstdatum') ? 'is-invalid' : '' }}" required type="date" min="{{date('Y-m-d')}}" id="aankomstdatum" name="aankomstdatum">
-                <div class="invalid-feedback">{{ $errors->first('aankomstdatum') }}</div>
+    @endif
+    <form action="/reservation/data" class="ml-2">
+
+        <div class=" text-left"><h3>Selecteer de data van uw verblijf</h3></div>
+
+        <div class="form-group row ml-3">
+            <div class="form-group col-4">
+                <label class="font-weight-bolder" for="aankomstdatum">Aankomstdatum:</label>
+                <input class="form-control" type="date" min="{{date('Y-m-d')}}" id="aankomstdatum" name="aankomstdatum" required value="{{old ('aankomstdatum')}}">
             </div>
-            <div class="col-5">
-                <label for="vertrekdatum">Vertrekdatum:</label>
-                <input required type="date" min="{{date('Y-m-d', time() + 86400)}}" id="vertrekdatum" name="vertrekdatum">
+            <div class="form-group col-4">
+                <label class="font-weight-bolder" for="vertrekdatum">Vertrekdatum:</label>
+                <input class="form-control" type="date" min="{{date('Y-m-d', time() + 86400)}}" id="vertrekdatum" name="vertrekdatum" required value="{{old ('vertrekdatum')}}">
             </div>
         </div>
         <h3>Aantal volwassenen en kinderen (met leeftijd)</h3>
-        <div class="form-rom small-input row text-center ml-4">
-            <div class="">
-                <label for="aantal0_3">0-3j:</label>
-                <input type="number" min="0" id="aantal0_3" name="aantal0_3" value="0">
+        <div class="form-rom row text-center ml-3">
+            <div class="form-group col-2">
+                <label class="font-weight-bolder" for="aantal0_3">0-3j:</label>
+                <input class="form-control" type="number" min="0" id="aantal0_3" name="aantal0_3" value="0">
             </div>
-            <div class="">
-                <label for="aantal4_8">4-8j:</label>
-                <input type="number" min="0" id="aantal4_8" name="aantal4_8" value="0">
+            <div class="form-group col-2">
+                <label class="font-weight-bolder" for="aantal4_8">4-8j:</label>
+                <input class="form-control" type="number" min="0" id="aantal4_8" name="aantal4_8"  value="0">
             </div>
-            <div class="">
-                <label for="aantal9_12">9-12j:</label>
-                <input type="number" min="0" id="aantal9_12" name="aantal9_12" value="0">
+            <div class="form-group col-2">
+                <label class="font-weight-bolder" for="aantal9_12">9-12j:</label>
+                <input class="form-control" type="number" min="0" id="aantal9_12" name="aantal9_12"value="0">
             </div>
-            <div class="">
-                <label for="aantal12+">Volwassenen:</label>
-                <input type="number" min="0" id="aantal12" name="aantal12" value="0">
+            <div class="form-group col-2">
+                <label class="font-weight-bolder" for="aantal12+">Volwassenen:</label>
+                <input class="form-control" type="number" min="0" id="aantal12" name="aantal12" value="0">
             </div>
-        </div>
-        <div class="row ml-4">
-            <input class="mr-1" type="checkbox" name="samenopkamer" id="samenopkamer">
-            <label for="samenopkamer"> Duid dit aan als je allemaal op 1 kamer wil.</label>
         </div>
 
         <h3>Selecteer het soort kamer</h3>
         @foreach($typerooms as $typeroom)
             <div class="ml-4">
-                <input type="radio" id="bad" name="soortkamer" value="{{$typeroom->id}}">
-                <label required for="bad">Kamer met {{$typeroom->type_bath}}, toilet en tv</label><br>
+                <input type="radio" id="soortkamer" name="soortkamer" value="{{$typeroom->id}}" required>
+                <label for="soortkamer">Kamer met {{$typeroom->type_bath}}, toilet en tv</label><br>
             </div>
         @endforeach
 
-        <h3>Kies uw verblijfkeuze</h3>
+        <h3>Kies uw verblijfkeuze (Of een speciaal arrangement hieronder)   </h3>
         @foreach($accomodationchoices as $accomodationchoice)
         <div class="ml-4">
-            <input type="radio" id="douche" name="verblijfskeuze" value="{{ $accomodationchoice->id }}">
-            <label required for="douche">{{ $accomodationchoice->type  }}</label><br>
+            <input type="radio" id="verblijfskeuze" name="verblijfskeuze" value="{{ $accomodationchoice->id }}">
+            <label for="verblijfskeuze">{{ $accomodationchoice->type  }}</label><br>
         </div>
         @endforeach
 
@@ -69,10 +77,10 @@
         @endforeach
 
         {{--extra opmerkingen--}}
-        <div class="text-center">
-            <textarea placeholder="Geef hier uw eventuele extra opmerkingen" rows="4" cols="120" name="comment" form="usrform"></textarea>
+        <div class="form-group text-center">
+            <textarea class="form-control" placeholder="Geef hier uw eventuele extra opmerkingen" rows="4" cols="120" name="comment" form="usrform"></textarea>
         </div>
-        <button title="naar persoonsgegevens" class="btn btn-success mb-3 pull-right" type="submit">Verder naar persoonsgegevens</button>
+        <button data-toggle="tooltip" title="naar persoonsgegevens" class="btn btn-success mb-3 pull-right" type="submit">Verder naar persoonsgegevens</button>
     </form>
 
 

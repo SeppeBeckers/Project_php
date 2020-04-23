@@ -31,19 +31,17 @@ class ReservationController extends Controller
     }
     public function create(Request $request)
     {
-//        $this->validate($request,[
-//            'aankomstdatum' => 'required'|'date'|'after:today',
-//            'vertrekdatum' => 'required'|'after:aankomstdatum',
-//            'soortkamer' => 'required',
-//            'verblijfskeuze' => 'required',
-//        ], [
-//            'aankomstdatum.after' => 'Je kan niet in het verleden boeken.',
-//            'vertrekdatum.after' => 'Gelieve een geldige einddatum in te geven.',
-//            'soortkamer.required' => 'Kies de soort kamer die je wilt.',
-//            'verblijfskeuze.required' => 'Gelieve een verblijfskeuze te kiezen.',
-//        ]);
 
-         $reservation = new Reservation();
+        $this->validate($request,[
+            'aankomstdatum' => 'required|date|after:today',
+            'vertrekdatum' => 'required|after:aankomstdatum',
+            'soortkamer' => 'required',
+        ]
+        , [
+        'aankomstdatum.after' => 'Je kan niet in het verleden boeken.',
+        'vertrekdatum.after' => 'Gelieve een geldige einddatum in te geven.',
+        'soortkamer.required' => 'Kies de soort kamer die je wilt.',
+    ]);
             $aankomstdatum = $request->aankomstdatum;
             $vertrekdatum = $request->vertrekdatum;
             $aantal0_3 = $request->aantal0_3;
@@ -55,7 +53,7 @@ class ReservationController extends Controller
             $soortkamer = $request->soortkamer;
             $comment = $request->comment;
             $occupancies = $request->aantal0_3 + $request->aantal4_8 + $request->aantal9_12 + $request->aantal12;
-            $samenopkamer = $request->samenopkamer;
+
             if ($arrangement == null) {
                 $tefilterenop = 'accommodation_choice_id';
                 $filter = $verblijfskeuze;
@@ -63,8 +61,8 @@ class ReservationController extends Controller
                 $tefilterenop = 'arrangement_id';
                 $filter = $arrangement;
             }
-            //prijzen
 
+            //prijzen
             $prijzen = Price::where('type_room_id', $soortkamer)
                 ->where($tefilterenop, $filter)
                 ->get();
@@ -75,36 +73,32 @@ class ReservationController extends Controller
                 ->where('maximum_persons','>=',$occupancies)
                 ->where('type_room_id',$soortkamer);
 
-
             $notavailables = NotAvailable::all();
-            //dd($notavailables);
 
-
-            json::dump($rooms);
             $gekozenkamer = TypeRoom::where('id',$soortkamer);
-            $result = compact('prijzen','rooms', 'gekozenkamer','reservation','aankomstdatum', 'vertrekdatum', 'aantal0_3', 'aantal4_8', 'aantal9_12', 'aantal12', 'soortkamer','verblijfskeuze','arrangement', 'comment');
+            $result = compact('prijzen','rooms', 'gekozenkamer','aankomstdatum', 'vertrekdatum', 'aantal0_3', 'aantal4_8', 'aantal9_12', 'aantal12', 'soortkamer','verblijfskeuze','arrangement', 'comment');
             Json::dump($result);
             return view('reservation.data', $result);
 
     }
     public function store(Request $request)
     {
-//        $request->validate([
-//            'aankomstdatum' => 'required',
-//            'vertrekdatum' => 'required',
-//            'soortkamer' => 'required',
-//            'verblijfskeuze' => 'required',
-//            'verblijfskeuze' => 'required',
-//            'naam' => 'required',
-//            'voornaam' => 'required',
-//            'geslacht' => 'required',
-//            'email' => 'required',
-//            'telefoonnummer' => 'required',
-//            'adres' => 'required',
-//            'stad' => 'required',
-//            'provincie' => 'required',
-//            'postcode' => 'required',
-//        ]);
+        $request->validate([
+            'soortkamer' => 'required',
+            'verblijfskeuze' => 'required',
+            'naam' => 'required',
+            'voornaam' => 'required',
+            'geslacht' => 'required',
+            'email' => 'required|email',
+            'telefoonnummer' => 'required|min:10|numeric',
+            'adres' => 'required',
+            'stad' => 'required',
+            'postcode' => 'required',
+            'kamer'=>'required'
+        ], [
+            'naam.required' => 'Het veld naam is verplicht',
+            'voornaam.requiered' => 'Het veld voornaam is verplicht'
+        ]);
 
         $reservation = new Reservation();
         $reservation->name = $request->naam;
@@ -128,8 +122,7 @@ class ReservationController extends Controller
         $roomreservation->room_id=5;
         $roomreservation->starting_date = $request->aankomstdatum;
         $roomreservation->end_date = $request->vertrekdatum;
-        $roomreservation->room_id = $request->room;
-        $roomreservation->save();
+        $roomreservation->room_id = $request->kamer;
 
 
         $people = new Person();
@@ -156,7 +149,7 @@ class ReservationController extends Controller
         $people->age_id = 4;
         $people->save();
 
-        $kamer = Room::find($request->room);
+        $kamer = Room::find($request->kamer);
         $maxpersonen = $kamer->maximum_persons;
         $occupancies = $request->aantal0_3 + $request->aantal4_8 + $request->aantal9_12 + $request->aantal12;
         //false = 0, true=1
@@ -191,7 +184,7 @@ class ReservationController extends Controller
         $verblijfskeuze = AccommodationChoice::find($request->verblijfskeuze);
         $arrangement = Arrangement::find($arrangement);
         $roomreservation->price_id = $prijs->id;
-        $roomreservation->save;
+        $roomreservation->save();
         $result = compact('totaleprijs','aantaldagen','kamer','prijs','arrangement','verblijfskeuze','reservation', 'roomreservation', 'occupancies');
         return view('reservation.summary', $result);
     }
