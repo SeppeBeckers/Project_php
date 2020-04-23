@@ -85,7 +85,6 @@ class ReservationController extends Controller
     {
         $request->validate([
             'soortkamer' => 'required',
-            'verblijfskeuze' => 'required',
             'naam' => 'required',
             'voornaam' => 'required',
             'geslacht' => 'required',
