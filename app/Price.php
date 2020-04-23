@@ -20,7 +20,7 @@ class Price extends Model
     }
     public function arrangement()
     {
-        return $this->belongsTo('App\Arrangement')->withDefault();   // a price belongs to a arrangement
+        return $this->belongsTo('App\Arrangement', 'arrangement_id')->withDefault();   // a price belongs to a arrangement
     }
 
     protected $price = 'prices';
