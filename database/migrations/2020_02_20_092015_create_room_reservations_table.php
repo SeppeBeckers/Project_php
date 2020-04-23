@@ -33,14 +33,14 @@ class CreateRoomReservationsTable extends Migration
                     'room_id'=>'5',
                     'starting_date'=>'2020/05/05',
                     'end_date'=>'2020/05/09',
-                    'price_id' =>'2'
+                    'price_id' =>'3'
                 ],
                 [
                     'reservation_id'=>'2',
                     'room_id'=>'2',
                     'starting_date'=>'2020/05/08',
                     'end_date'=>'2020/05/10',
-                    'price_id' =>'3'
+                    'price_id' =>'7'
 
                 ],
                 [
@@ -48,28 +48,28 @@ class CreateRoomReservationsTable extends Migration
                     'room_id'=>'7',
                     'starting_date'=>'2020/05/09',
                     'end_date'=>'2020/05/10',
-                    'price_id' =>'4'
+                    'price_id' =>'11'
                 ],
                 [
                     'reservation_id'=>'4',
                     'room_id'=>'1',
                     'starting_date'=>'2020/05/04',
                     'end_date'=>'2020/05/07',
-                    'price_id' =>'1'
+                    'price_id' =>'14'
                 ],
                 [
                     'reservation_id'=>'5',
                     'room_id'=>'3',
                     'starting_date'=>'2020/05/08',
                     'end_date'=>'2020/05/10',
-                    'price_id' =>'2'
+                    'price_id' =>'12'
                 ],
                 [
-                    'reservation_id'=>'5',
-                    'room_id'=>'9',
-                    'starting_date'=>'2020/05/08',
-                    'end_date'=>'2020/05/11',
-                    'price_id' =>'2'
+                    'reservation_id'=>'6',
+                    'room_id'=>'4',
+                    'starting_date'=>'2020/04/25',
+                    'end_date'=>'2020/04/26',
+                    'price_id' =>'29'
                 ]
             ]
         );

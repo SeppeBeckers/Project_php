@@ -61,28 +61,28 @@ class CreatePricesTable extends Migration
                 [
                     'accommodation_choice_id'=>'2',
                     'occupancy_id' => '1',
-                    'arrangement_id'=> '1',
+                    'arrangement_id'=> null,
                     'type_room_id' => '1',
                     'amount'=>'87'
                 ],
                 [
                     'accommodation_choice_id'=>'2',
                     'occupancy_id' => '1',
-                    'arrangement_id'=> '1',
+                    'arrangement_id'=> null,
                     'type_room_id' => '2',
                     'amount'=>'89.5'
                 ],
                 [
                     'accommodation_choice_id'=>'2',
                     'occupancy_id' => '2',
-                    'arrangement_id'=>'1',
+                    'arrangement_id'=>null,
                     'type_room_id' => '1',
                     'amount'=>'74.5'
                 ],
                 [
                     'accommodation_choice_id'=>'2',
                     'occupancy_id' => '2',
-                    'arrangement_id'=>'1',
+                    'arrangement_id'=>null,
                     'type_room_id' => '2',
                     'amount'=>'76'
                 ],
@@ -225,6 +225,34 @@ class CreatePricesTable extends Migration
                     'arrangement_id'=>'4',
                     'type_room_id' => '2',
                     'amount'=>'265'
+                ],
+                [
+                    'accommodation_choice_id'=>null,
+                    'occupancy_id' => '1',
+                    'arrangement_id'=> '1',
+                    'type_room_id' => '1',
+                    'amount'=>'87'
+                ],
+                [
+                    'accommodation_choice_id'=>null,
+                    'occupancy_id' => '1',
+                    'arrangement_id'=> '1',
+                    'type_room_id' => '2',
+                    'amount'=>'89.5'
+                ],
+                [
+                    'accommodation_choice_id'=>null,
+                    'occupancy_id' => '2',
+                    'arrangement_id'=>'1',
+                    'type_room_id' => '1',
+                    'amount'=>'74.5'
+                ],
+                [
+                    'accommodation_choice_id'=>null,
+                    'occupancy_id' => '2',
+                    'arrangement_id'=>'1',
+                    'type_room_id' => '2',
+                    'amount'=>'76'
                 ]
             ]
         );

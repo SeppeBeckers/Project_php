@@ -126,6 +126,26 @@ class CreatePeopleTable extends Migration
                     'age_id'=>'4',
                     'number_of_persons'=>'2'
                 ],
+                [
+                    'reservation_id'=>6,
+                    'age_id'=>'1',
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>6,
+                    'age_id'=>'2',
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>6,
+                    'age_id'=>'3',
+                    'number_of_persons'=>'0'
+                ],
+                [
+                    'reservation_id'=>6,
+                    'age_id'=>'4',
+                    'number_of_persons'=>'1'
+                ]
             ]
         );
     }
