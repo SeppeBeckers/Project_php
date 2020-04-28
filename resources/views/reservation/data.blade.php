@@ -153,6 +153,7 @@
                 <input type="checkbox" class="form-control" name="voorschot" id="voorschot" checked>
             @endguest
             <button title="bevesig" type="submit" class="btn btn-success mb-4">Bevestig reservatie</button>
+        <a data-toggle="tooltip" title="Annuleer" class="float-right btn btn-danger" href="{{ url('/') }}">Annuleer</a>
     </form>
     <div class="overlay" id="MyDiv">
         <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
