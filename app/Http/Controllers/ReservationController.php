@@ -20,39 +20,42 @@ class ReservationController extends Controller
 {
     public function index()
     {
+        $ages = Age::all();
         $arrangements = Arrangement::with('prices')
             ->get();
         $accomodationchoices = AccommodationChoice::with('prices')->get();
         $typerooms = TypeRoom::with('prices')->get();
-        $result = compact('arrangements', 'accomodationchoices', 'typerooms');
+        $result = compact('arrangements', 'accomodationchoices', 'typerooms', 'ages');
         Json::dump($result);
         return view('reservation.book', $result);
 
     }
     public function create(Request $request)
     {
-
+        $aantal0_3 = $request->aantal1;
+        $aantal4_8 = $request->aantal2;
+        $aantal9_12 = $request->aantal3;
+        $aantal12 = $request->aantal4;
+        $occupancies = $aantal0_3 + $aantal4_8 + $aantal9_12 + $aantal12;
         $this->validate($request,[
             'aankomstdatum' => 'required|date|after:today',
             'vertrekdatum' => 'required|after:aankomstdatum',
             'soortkamer' => 'required',
+            'occupancies' => 'integer|size:4'
         ]
         , [
         'aankomstdatum.after' => 'Je kan niet in het verleden boeken.',
         'vertrekdatum.after' => 'Gelieve een geldige einddatum in te geven.',
         'soortkamer.required' => 'Kies de soort kamer die je wilt.',
+        'occpancies.max' => 'Indien u voor meer dan 4 personen wilt reserveren, dient u meerdere reservaties te maken.'
     ]);
             $aankomstdatum = $request->aankomstdatum;
             $vertrekdatum = $request->vertrekdatum;
-            $aantal0_3 = $request->aantal0_3;
-            $aantal4_8 = $request->aantal4_8;
-            $aantal9_12 = $request->aantal9_12;
-            $aantal12 = $request->aantal12;
+
             $verblijfskeuze = $request->verblijfskeuze;
             $arrangement = $request->arrangement;
             $soortkamer = $request->soortkamer;
             $comment = $request->comment;
-            $occupancies = $request->aantal0_3 + $request->aantal4_8 + $request->aantal9_12 + $request->aantal12;
 
             if ($arrangement == null) {
                 $tefilterenop = 'accommodation_choice_id';

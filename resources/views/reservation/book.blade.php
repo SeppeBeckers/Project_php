@@ -33,22 +33,12 @@
         </div>
         <h3>Aantal volwassenen en kinderen (met leeftijd)</h3>
         <div class="form-rom row text-center ml-3">
-            <div class="form-group col-2">
-                <label class="font-weight-bolder" for="aantal0_3">0-3j:</label>
-                <input class="form-control" type="number" min="0" id="aantal0_3" name="aantal0_3" value="0">
-            </div>
-            <div class="form-group col-2">
-                <label class="font-weight-bolder" for="aantal4_8">4-8j:</label>
-                <input class="form-control" type="number" min="0" id="aantal4_8" name="aantal4_8"  value="0">
-            </div>
-            <div class="form-group col-2">
-                <label class="font-weight-bolder" for="aantal9_12">9-12j:</label>
-                <input class="form-control" type="number" min="0" id="aantal9_12" name="aantal9_12"value="0">
-            </div>
-            <div class="form-group col-2">
-                <label class="font-weight-bolder" for="aantal12+">Volwassenen:</label>
-                <input class="form-control" type="number" min="0" id="aantal12" name="aantal12" value="0">
-            </div>
+            @foreach($ages as $age)
+                <div class="form-group col-2">
+                    <label class="font-weight-bolder" for="{{$age->age_category}}">{{$age->age_category}}</label>
+                    <input class="form-control tellen" type="number" min="0" id="{{$age->age_category}}" name="aantal{{$age->id}}" value="0">
+                </div>
+            @endforeach
         </div>
 
         <h3>Selecteer het soort kamer</h3>
@@ -67,6 +57,8 @@
         </div>
         @endforeach
 
+
+
         <h3>Speciale arrangementen</h3>
         @foreach ($arrangements as $arrangement)
         <div class="ml-4">
@@ -81,7 +73,7 @@
             <textarea class="form-control" placeholder="Geef hier uw eventuele extra opmerkingen" rows="4" cols="120" name="comment" form="usrform"></textarea>
         </div>
 
-        <button data-toggle="tooltip" title="naar persoonsgegevens" class="btn btn-success mb-3 pull-right" type="submit">Verder naar persoonsgegevens</button>
+        <button id="bevestig" data-toggle="tooltip" title="naar persoonsgegevens" class="btn btn-success mb-3 pull-right" type="submit">Verder naar persoonsgegevens</button>
         <a data-toggle="tooltip" title="Annuleer" class="float-right btn btn-danger" href="{{ url('/') }}">Annuleer</a>
     </form>
     <div>
@@ -110,9 +102,6 @@
 
             );
         });
-
-
     </script>
-
 @endsection
 
