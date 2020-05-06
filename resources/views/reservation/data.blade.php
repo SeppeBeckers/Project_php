@@ -81,6 +81,7 @@
                         <div class="card">
 
                             <p class="card-header">Kamer {{$room->room_number}}</p>
+                            <img class="card-img" src="../assets/{{$room->picture}}" alt="foto kamer {{$room->room_number}}">
                             <p>Beschrijving: {{$room->description}}</p>
                             <p>max personen: {{$room->maximum_persons}}</p>
                             <p>Type badkamer: @if ($room->type_room_id == 1)
