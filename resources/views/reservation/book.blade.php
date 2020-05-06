@@ -88,7 +88,6 @@
 
     </div>
 
-
     <div class="overlay" id="MyDiv">
         <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
         <div class="content">

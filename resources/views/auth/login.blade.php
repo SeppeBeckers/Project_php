@@ -53,12 +53,6 @@
                             <button type="submit" class="btn btn-primary float-left col-md-12">
                                 {{ __('Inloggen') }}
                             </button>
-
-                            @if (Route::has('password.request'))
-                                <a class="btn btn-link float-right col-md-12" href="{{ route('password.request') }}">
-                                    {{ __('Wachtwoord vergeten?') }}
-                                </a>
-                            @endif
                         </div>
                     </div>
                 </form>

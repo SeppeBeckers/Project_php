@@ -100,9 +100,7 @@ class ArrangementController extends Controller
         $price->amount = $request->amount4;
         $price->save();
 
-        session()->flash('success', 'Your price has been updated');
+        session()->flash('success', "Het arrangement <b>{$arrangement->type}</b> is aangepast.");
         return redirect('admin/arrangement');
     }
-
-
 }

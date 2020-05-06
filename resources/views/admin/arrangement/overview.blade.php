@@ -15,6 +15,7 @@
 
     <div class="mx-4">
         <p class="font-weight-bold">Prijzen per persoon</p>
+        @include('shared.alert')
         <div class="row">
             @foreach($arrangements as $arrangement)
                 <div class="col-12 col-xl-6 d-xl-flex align-items-stretch">
