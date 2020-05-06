@@ -81,8 +81,11 @@
             <textarea class="form-control" placeholder="Geef hier uw eventuele extra opmerkingen" rows="4" cols="120" name="comment" form="usrform"></textarea>
         </div>
         <button data-toggle="tooltip" title="naar persoonsgegevens" class="btn btn-success mb-3 pull-right" type="submit">Verder naar persoonsgegevens</button>
+        <a data-toggle="tooltip" title="Annuleer" class="float-right btn btn-danger" href="{{ url('/') }}">Annuleer</a>
     </form>
+    <div>
 
+    </div>
 
     <div class="overlay" id="MyDiv">
         <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
