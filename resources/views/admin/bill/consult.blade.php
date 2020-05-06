@@ -45,7 +45,7 @@
 
             <p>
                 @if($bill->Reservation->with_deposit == 1)
-                    <span class="font-weight-bold">Voorschot:</span>  <i class="fas fa-check"></i> <br>
+                    <span class="font-weight-bold">Voorschot:</span>  <i class="fas fa-check"></i>  € {{$voorschot}} <br>
                 @else
                     <span class="font-weight-bold">Voorschot:</span> <i class="fas fa-times"></i> <br>
                 @endif

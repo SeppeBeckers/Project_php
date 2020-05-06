@@ -81,8 +81,9 @@ class BillController extends Controller
         $zonderKorting = $verblijfsgetal * $aantaldagen;
         $duurtotaal = $eindPrijs * $aantaldagen;
         $totaal = $duurtotaal * $aantal;
+        $voorschot =  $totaal * 0.1;
 
-        $result = compact('bill', 'aantal', 'room_reservation' ,'price','totaal', 'verblijfsgetal','zonderKorting', 'korting', 'arrangement');
+        $result = compact('bill', 'aantal', 'room_reservation' ,'price','totaal', 'verblijfsgetal','zonderKorting', 'korting', 'arrangement', 'voorschot');
         Json::dump($result);
         return view('admin.bill.consult', $result);  // Pass $result to the view
 

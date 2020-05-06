@@ -25,7 +25,7 @@
             <div class="form-group col-4">
                 <label class="font-weight-bolder" for="aankomstdatum">Aankomstdatum:</label>
                 <input class="form-control" type="date" min="{{date('Y-m-d')}}" id="aankomstdatum" name="aankomstdatum" required value="{{old ('aankomstdatum')}}">
-            </div>
+        </div>
             <div class="form-group col-4">
                 <label class="font-weight-bolder" for="vertrekdatum">Vertrekdatum:</label>
                 <input class="form-control" type="date" min="{{date('Y-m-d', time() + 86400)}}" id="vertrekdatum" name="vertrekdatum" required value="{{old ('vertrekdatum')}}">
@@ -80,6 +80,7 @@
         <div class="form-group text-center">
             <textarea class="form-control" placeholder="Geef hier uw eventuele extra opmerkingen" rows="4" cols="120" name="comment" form="usrform"></textarea>
         </div>
+
         <button data-toggle="tooltip" title="naar persoonsgegevens" class="btn btn-success mb-3 pull-right" type="submit">Verder naar persoonsgegevens</button>
         <a data-toggle="tooltip" title="Annuleer" class="float-right btn btn-danger" href="{{ url('/') }}">Annuleer</a>
     </form>
