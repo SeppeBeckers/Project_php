@@ -26,7 +26,6 @@ class CreateReservationsTable extends Migration
             $table->string('gender');
             $table->string('message')->nullable();
             $table->double('deposit_amount')->nullable();
-            $table->boolean('deposit_paid')->default(false)->nullable();
             $table->timestamps();
 
             // NO Foreign key relation
