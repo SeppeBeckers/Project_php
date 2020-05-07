@@ -62,9 +62,11 @@
         <h3>Speciale arrangementen</h3>
         @foreach ($arrangements as $arrangement)
         <div class="ml-4">
-            <input type="radio" id="{{ $arrangement->type }}" name="arrangement" value="{{ $arrangement->id }}">
-            <label for="{{ $arrangement->type }}">{{ $arrangement->type }}</label><br>
-            <p>{{ $arrangement->description }}</p>
+
+            <input type="radio" id="arrangement" name="arrangement" value="{{ $arrangement->id }}">
+            <label for="arrangement">{{ $arrangement->type }}</label><br>
+            <p class="ml-3">{{ $arrangement->description }}</p>
+
         </div>
         @endforeach
 
@@ -98,7 +100,7 @@
     <script>
         $(function () {
             $('#footer_names').append(
-                kempenrust.names_footer(4,1)
+                kempenrust.names_footer(3,1)
 
             );
         });

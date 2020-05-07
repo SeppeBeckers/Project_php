@@ -3,23 +3,28 @@
 @section('title', 'Overzicht arrangement')
 
 @section('main')
-    <div class="row">
+    <div class="row mb-md-4">
         <div class="col-12 col-md-8">
             <h1>Overzicht arrangementen</h1>
         </div>
-        <div class="col-12 col-md-4 text-right">
+        <div class="col-12 col-md-4 text-left text-md-right">
             <i class="fas fa-2x fa-info-circle pr-2" id="openHelp" data-toggle="tooltip" title="Extra informatie"></i>
             <a href="/admin/overview" ><i class="fas fa-2x fa-home text-dark pr-3" data-toggle="tooltip" title="Naar overzicht reservaties"></i></a>
+        </div>
+        <div class="col-md-6 col-7 text-md-right text-center order-md-2">
+            <a href="/admin/arrangement/create" class="btn btn-primary mx-1">Nieuw arrangement</a>
+        </div>
+        <div class="col-md-6 col-12 order-md-1">
+            <p class="font-weight-bold pl-4">Prijzen per persoon</p>
         </div>
     </div>
 
     <div class="mx-4">
-        <p class="font-weight-bold">Prijzen per persoon</p>
         @include('shared.alert')
         <div class="row">
             @foreach($arrangements as $arrangement)
-                <div class="col-12 col-xl-6 d-xl-flex align-items-stretch">
-                    <div class="card mb-3 border-green">
+                <div class="col-12 col-xl-6 card-deck">
+                    <div class="card my-3 border-green">
                         <h3 class="card-header border-bottom bg-white font-weight-bold">{{ $arrangement->type }}</h3>
                         <div class="card-body pb-0 text-center px-xl-2">
                             <p> {{ $arrangement->description}} </p>
@@ -57,10 +62,15 @@
                                     </table>
                                 </div>
                             </div>
-                            <p class="m-0">{{ $arrangement->from_day . ' - ' . $arrangement->until_day }}
+                            <p class="m-0">{{ $arrangement->from_day . ' - ' . $arrangement->until_day }}</p>
+                            <br>
+                            <p>
                             <a href="/admin/arrangement/{{ $arrangement->id }}/edit" class="btn btn-outline-secondary ml-3 mb-3"
                             data-toggle="tooltip" title="{{ $arrangement->type }} bewerken" ><i class="fas fa-edit"> Bewerken</i></a>
                             </p>
+
+
+
                         </div>
                     </div>
                 </div>
@@ -73,8 +83,8 @@
     <div class="overlay" id="MyDiv">
         <a href="#" class="text-danger" id="closeHelp"><i class="far fa-times-circle"></i></a>
         <div class="content">
-            <p>Hier kan je de arrangementen bekijken. Je vindt hier de informatie erover terug en je kan ook bepaalde informatie bewerken zoals de naam, de beschrijving en de prijzen.
-                Dit doe je door op de knop 'Bewerken' te klikken.
+            <p>Hier kan je de arrangementen bekijken. Je vindt hier de informatie erover terug en je kan de informatie bewerken. Een nieuw arrangement aanmaken is ook mogelijk.
+                Verwijderen kan je door op de knop 'Bewerken' te klikken en vervolgens op 'Verwijderen'.
                 <br>
                 <br>
                 Wil je terug naar het hoofdscherm? Klik dan op het huisje rechts vanboven.
@@ -89,14 +99,10 @@
     <script>
         $(function () {
             $('#footer_names').append(
-                kempenrust.names_footer(4,2)
-
+                kempenrust.names_footer(1,3)
             );
         });
-
-
     </script>
-
 @endsection
 
 

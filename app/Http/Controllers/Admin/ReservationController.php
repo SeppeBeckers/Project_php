@@ -35,7 +35,7 @@ class ReservationController extends Controller
         $room_reservation = RoomReservation::with('reservation', 'room.typeRoom.prices.accommodationChoice', 'room.typeRoom.prices.occupancy', 'room.typeRoom.prices.arrangement', 'reservation.people.age')
             ->findOrFail($id);
         $ages = Age::with('persons')->get();
-        $rooms = Room::all();
+        $rooms = Room::orderBy('room_number')->get();
         $occupancies = Occupancy::all();
         $accommodation_choices  = AccommodationChoice::all();
         $price = Price::find($room_reservation->price_id);
@@ -80,11 +80,10 @@ class ReservationController extends Controller
         $room_reservation = RoomReservation::find($id);
         $room_reservation->starting_date = $request->starting_date ;
         $room_reservation->end_date = $request->end_date ;
-        $room_reservation->room_id = $request->room_number ;
+        $room_reservation->room_id = $request->room_idnr ;
 
         $room_reservation->reservation->with_deposit = $request->with_deposit ? 1 : 0;
         $room_reservation->reservation->deposit_amount = $request->deposit_amount ;
-        $room_reservation->reservation->deposit_paid = $request->deposit_paid ? 1 : 0;
         $room_reservation->reservation->message = $request->message ;
 
         $room_reservation->reservation->name = $request->name ;
@@ -95,7 +94,31 @@ class ReservationController extends Controller
         $room_reservation->reservation->place = $request->place;
         $room_reservation->reservation->phone_number = $request->phone_number;
 
+        $type_room_id = $room_reservation->room->typeRoom->id;
+
+        if($request->arrangement_id != null){
+            //price adjustment
+            $price= Price::orderBy('id')
+                ->where('arrangement_id', 'like', $request->arrangement_id)
+                ->where('occupancy_id', 'like', $request->occupancy_id)
+                ->where('type_room_id', 'like', $type_room_id)
+                ->first();
+
+        }
+        else{
+            //price adjustment
+            $price= Price::orderBy('id')
+                ->where('accommodation_choice_id', 'like', $request->accommodation_choice_id)
+                ->where('occupancy_id', 'like', $request->occupancy_id)
+                ->where('type_room_id', 'like', $type_room_id)
+                ->first();
+        }
+
+        $price_id = $price->id;
+        $room_reservation->price_id = $price_id;
         $room_reservation->push();
+
+
 
         //aantal personen
         $person = Person::find($request->age_1);
@@ -119,12 +142,24 @@ class ReservationController extends Controller
             $person->save();
         }
 
+        $aantal_personen = $request->age1 + $request->age2 + $request->age3 + $request->age4;
 
+        if ($aantal_personen == 2 && $request->occupancy_id == 1) {
+            session()->flash('danger', "Het aantal personen komt niet overeen met de bezetting");
+            return back();
+        }
+        if ($aantal_personen == 1 && $request->occupancy_id == 2) {
+            session()->flash('danger', "Het aantal personen komt niet overeen met de bezetting");
+            return back();
+        }
+
+        //dd($request);
         session()->flash('success', "De reservatie van <b>{$room_reservation->reservation->first_name } {$room_reservation->reservation->name }</b> is aangepast.");
         return redirect('admin/overview');
 
     }
 
+    // Delete reservation
     public function destroy(Reservation $reservation)
     {
         $reservation->delete();
