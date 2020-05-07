@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Arrangement;
+use App\Bill;
 use App\NotAvailable;
 use App\Price;
 use App\Reservation;
@@ -133,6 +134,12 @@ class ReservationController extends Controller
         $roomreservation->starting_date = $request->aankomstdatum;
         $roomreservation->end_date = $request->vertrekdatum;
         $roomreservation->room_id = $request->kamer;
+
+        $bills = new Bill();
+        $bills->reservation_id = $reservation->id;
+        $bills->adjusted_amount = null;
+        $bills->VAT = 21;
+        $bills->save();
 
 
         $people = new Person();
