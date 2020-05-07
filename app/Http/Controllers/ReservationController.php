@@ -27,6 +27,7 @@ class ReservationController extends Controller
         $typerooms = TypeRoom::with('prices')->get();
         $result = compact('arrangements', 'accomodationchoices', 'typerooms', 'ages');
         Json::dump($result);
+
         return view('reservation.book', $result);
 
     }
@@ -37,17 +38,24 @@ class ReservationController extends Controller
         $aantal9_12 = $request->aantal3;
         $aantal12 = $request->aantal4;
         $occupancies = $aantal0_3 + $aantal4_8 + $aantal9_12 + $aantal12;
+        if ($occupancies >4) {
+            session()->flash('danger', "Het is niet mogelijk om voor meer dan 4 personen te reserveren, gelieve 2 aparte reservaties te maken dan.");
+            return back();
+        }
+        if ($occupancies ==0) {
+            session()->flash('danger', "Gelieve een gezelschap in te geven.");
+            return back();
+        }
+
         $this->validate($request,[
             'aankomstdatum' => 'required|date|after:today',
             'vertrekdatum' => 'required|after:aankomstdatum',
             'soortkamer' => 'required',
-            'occupancies' => 'integer|size:4'
         ]
         , [
         'aankomstdatum.after' => 'Je kan niet in het verleden boeken.',
         'vertrekdatum.after' => 'Gelieve een geldige einddatum in te geven.',
         'soortkamer.required' => 'Kies de soort kamer die je wilt.',
-        'occpancies.max' => 'Indien u voor meer dan 4 personen wilt reserveren, dient u meerdere reservaties te maken.'
     ]);
             $aankomstdatum = $request->aankomstdatum;
             $vertrekdatum = $request->vertrekdatum;
@@ -64,7 +72,12 @@ class ReservationController extends Controller
                 $tefilterenop = 'arrangement_id';
                 $filter = $arrangement;
             }
-
+            if ($arrangement and $verblijfskeuze){
+                session()->flash('danger', "Het is niet mogelijk om een verblijfskeuze en een arrangement te kiezen.");
+                return back();}
+        if (!$arrangement and !$verblijfskeuze){
+            session()->flash('danger', "Gelieve een verblijfskeuze of arrangement te kiezen.");
+            return back();}
             //prijzen
             $prijzen = Price::where('type_room_id', $soortkamer)
                 ->where($tefilterenop, $filter)
@@ -111,12 +124,7 @@ class ReservationController extends Controller
         $reservation->place = $request->stad;
         $reservation->gender = $request->geslacht;
         $reservation->message = $request->comment;
-        if ($request->voorschot == true) {
-            $voorschot = 1;
-        } else {
-            $voorschot=0;
-        }
-        $reservation->with_deposit = $voorschot;
+        $reservation->with_deposit = $request->voorschot ? 1 : 0;
         $reservation->save();
 
         $roomreservation = new RoomReservation();

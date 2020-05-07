@@ -8,6 +8,7 @@
         <div title="info" class="col text-right"><i class="fas fa-2x fa-info-circle pr-2" id="openHelp"></i></div>
     </div>
     <hr>
+    @include('shared.alert')
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -44,33 +45,32 @@
         <h3>Selecteer het soort kamer</h3>
         @foreach($typerooms as $typeroom)
             <div class="ml-4">
-                <input type="radio" id="soortkamer" name="soortkamer" value="{{$typeroom->id}}" required>
-                <label for="soortkamer">Kamer met {{$typeroom->type_bath}}, toilet en tv</label><br>
+                <input type="radio" id="{{$typeroom->id}}" name="soortkamer" value="{{$typeroom->id}}" required>
+                <label for="{{$typeroom->id}}">Kamer met {{$typeroom->type_bath}}, toilet en tv</label><br>
             </div>
         @endforeach
 
         <h3>Kies uw verblijfkeuze (Of een speciaal arrangement hieronder)   </h3>
         @foreach($accomodationchoices as $accomodationchoice)
         <div class="ml-4">
-            <input type="radio" id="verblijfskeuze" name="verblijfskeuze" value="{{ $accomodationchoice->id }}">
-            <label for="verblijfskeuze">{{ $accomodationchoice->type  }}</label><br>
+            <input type="radio" id="{{$accomodationchoice->type}}" name="verblijfskeuze" value="{{ $accomodationchoice->id }}">
+            <label for="{{$accomodationchoice->type}}">{{ $accomodationchoice->type  }}</label><br>
         </div>
         @endforeach
-
 
 
         <h3>Speciale arrangementen</h3>
         @foreach ($arrangements as $arrangement)
         <div class="ml-4">
-            <input type="radio" id="arrangement" name="arrangement" value="{{ $arrangement->id }}">
-            <label for="arrangement">{{ $arrangement->type }}</label><br>
+            <input type="radio" id="{{ $arrangement->type }}" name="arrangement" value="{{ $arrangement->id }}">
+            <label for="{{ $arrangement->type }}">{{ $arrangement->type }}</label><br>
             <p>{{ $arrangement->description }}</p>
         </div>
         @endforeach
 
         {{--extra opmerkingen--}}
         <div class="form-group text-center">
-            <textarea class="form-control" placeholder="Geef hier uw eventuele extra opmerkingen" rows="4" cols="120" name="comment" form="usrform"></textarea>
+            <textarea  class="form-control" placeholder="Geef hier uw eventuele extra opmerkingen" rows="4" cols="120" id="comment" name="comment" form="usrform"></textarea>
         </div>
 
         <button id="bevestig" data-toggle="tooltip" title="naar persoonsgegevens" class="btn btn-success mb-3 pull-right" type="submit">Verder naar persoonsgegevens</button>

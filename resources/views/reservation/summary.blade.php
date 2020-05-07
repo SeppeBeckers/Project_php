@@ -10,9 +10,8 @@
             <div class="col text-right">Uw prijs: <span class="font-weight-bold">€ {{$totaleprijs}}</span></div>
         </div>
         <div class="pl-2 card-body">
-            <p><i class="far fa-calendar-alt fa-2x"></i> Wanneer: {{$roomreservation->starting_date}} tot {{$roomreservation->end_date}} <small>({{$aantaldagen}} nachten)</small></p>
-            <p><i class="fas fa-users fa-2x"></i> Met {{$occupancies}} personen in kamer {{$kamer->room_number}}</p>
-
+            <p><i class="far fa-calendar-alt fa-2x"></i> Wanneer: {{$roomreservation->starting_date}} tot {{$roomreservation->end_date}} <small>({{$aantaldagen}} @if ($aantaldagen>1)nachten) @else nacht @endif</small></p>
+            <p><i class="fas fa-users fa-2x"></i> Met {{$occupancies}} @if ($occupancies >1)personen @else persoon @endif in kamer {{$kamer->room_number}}</p>
             @if ($verblijfskeuze != null)
                 <p><i class="fas fa-utensils fa-2x"></i> Accomodatie: {{$verblijfskeuze->type}}</p>
             @else <p><i class="fas fa-utensils fa-2x"></i> Arrangement: {{$arrangement->type}}</p>
@@ -27,16 +26,16 @@
 {{--            <div class="col-8 text-left"><p>Uw reservatie wordt bevestigd door het betalen van het voorschot dat hier {{$totaleprijs/10}} euro bedraagt</p></div>--}}
 {{--            <div class="col-4 text-right"><a href="#">Home</a></div>--}}
 {{--        </div>--}}
-        <div class="card-footer row align-items-center pb-0">
-            <div class="col-md-8">
-                <div class="text-left">
-                    <p>Uw reservatie wordt bevestigd door het betalen van het voorschot dat hier {{$totaleprijs/10}} euro bedraagt</p>
-                </div>
+        <div class="card-footer row pb-0">
+            <div class="col-8 text-left">
+                @if ($reservation->with_deposit == 1)
+                <p>Uw reservatie wordt bevestigd door het betalen van het voorschot dat hier {{$totaleprijs/10}} euro bedraagt</p>
+                @else
+                <p>Er dient geen voorschot betaald te worden.</p>
+                @endif
             </div>
-            <div class="col-md-4">
-                <div class="text-right">
-                    <p><a href="{{ url('/') }}"><i class="fas fa-home"></i> Home</a></p>
-                </div>
+            <div class="col-4 text-right">
+                <p><a href="{{ url('/') }}"><i class="fas fa-home"></i> Home</a></p>
             </div>
         </div>
 

@@ -46,6 +46,9 @@
                     (single bezetting)
             @endif</p>
         @endforeach
+                @if ($aantal0_3 > 0 or $aantal4_8 > 0 or $aantal9_12>0)
+                    Er wordt op het einde nog een kinderkorting verrekend.
+                @endif
             </div>
         </div>
     </div>
@@ -123,32 +126,26 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-10">
-                    <label for="adres">Adres</label>
+                <div class="form-group col-7">
+                    <label for="adres">Adres *</label>
                     <input type="text" class="form-control" name="adres" id="adres" placeholder="Straat en nummer" value="{{old('adres')}}">
                 </div>
-                <div class="form-group col-2">
-                    <label for="bus">Bus</label>
-                    <input type="text" class="form-control" name="bus" id="bus" placeholder="Bus" value="{{old('bus')}}">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
+
+
+                <div class="form-group col-md-3">
                     <label for="stad">Stad</label>
                     <input type="text" class="form-control" name="stad" id="stad" value="{{old('stad')}}">
                 </div>
-                <div class="form-group col-md-4">
-                    <label for="provincie">Provincie</label>
-                    <input type="text" name="provincie" id="provincie" class="form-control" value="{{old('provincie')}}">
-                </div>
+
                 <div class="form-group col-md-2">
                     <label for="postcode">Postcode</label>
                     <input type="text" class="form-control" name="postcode" id="postcode" value="{{old('postcode')}}">
                 </div>
             </div>
             @guest()
+            <label for="voorschot">Voorschot</label>
+            <input type="checkbox" class="form-control" name="voorschot" id="voorschot" checked hidden>
                 <p>U dient een voorschot van 10% te betalen</p>
-
             @else
                 <label for="voorschot">Voorschot</label>
                 <input type="checkbox" class="form-control" name="voorschot" id="voorschot" checked>
