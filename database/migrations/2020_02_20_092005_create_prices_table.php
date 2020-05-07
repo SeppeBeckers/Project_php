@@ -26,7 +26,8 @@ class CreatePricesTable extends Migration
             $table->foreign('occupancy_id')->references('id')->on('occupancies');
             $table->foreign('accommodation_choice_id')->references('id')->on('accommodation_choices');
             $table->foreign('type_room_id')->references('id')->on('type_rooms');
-            $table->foreign('arrangement_id')->references('id')->on('arrangements');
+            $table->foreign('arrangement_id')->references('id')->on('arrangements')->onDelete('cascade')->onUpdate('cascade');
+
         });
         DB::table('prices')->insert(
             [

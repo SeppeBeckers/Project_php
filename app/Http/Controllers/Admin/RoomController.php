@@ -85,7 +85,7 @@ class RoomController extends Controller
             $image->move('assets', $image->getClientOriginalName());
         }
         $room->save();
-        session()->flash('success', "Kamer <b>$room->room_number</b> is succesvol verandert");
+        session()->flash('success', "Kamer <b>$room->room_number</b> is succesvol veranderd");
         return redirect('admin/room');
     }
 

@@ -72,7 +72,7 @@
         <div class="ml-4">
             <input type="radio" id="arrangement" name="arrangement" value="{{ $arrangement->id }}">
             <label for="arrangement">{{ $arrangement->type }}</label><br>
-            <p>{{ $arrangement->description }}</p>
+            <p class="ml-3">{{ $arrangement->description }}</p>
         </div>
         @endforeach
 
@@ -106,7 +106,7 @@
     <script>
         $(function () {
             $('#footer_names').append(
-                kempenrust.names_footer(4,1)
+                kempenrust.names_footer(3,1)
 
             );
         });

@@ -19,7 +19,7 @@
         </div>
 
     </div>
-
+    @include('shared.alert')
     <div class="mx-3">
         <form action="/admin/reservation/{{ $room_reservation->id }}" method="post">
             @method('put')
@@ -49,39 +49,38 @@
                 </div>
                 <div class="col-md-6 col-12">
                     <div class="form-group">
-                        <label for="room_number">Kamernummer:</label>
-                        <select name="room_number" id="room_number" class="form-control">
+                        <label for="room_idnr">Kamernummer:</label>
+                        <select name="room_idnr" id="room_number" class="form-control">
                             <option value="" disabled>Kies een kamer</option>
                             @foreach($rooms as $room)
                                 @if ($room->maximum_persons >= $numberPersons)
                                     <option value="{{ $room->id }}" {{ $room->id == $room_reservation->room_id ? 'selected' : '' }}>{{ $room->room_number }} &nbsp;({{ $room->typeRoom->type_bath }} - max personen: {{ $room->maximum_persons }})  </option>
-
                                 @endif
                             @endforeach
                         </select>
                     </div>
                 </div>
             </div>
-            @if ($price->arrangement_id != null)
-            @else
-                <div class="row ml-1 mr-5">
-                    <div class="col-md-3 col-12">
-                        <div class="form-group">
-                            <label for="occupancy_id">Bezetting: <i class="far fa-question-circle" data-toggle="tooltip" title="De lichtgrijze vakken kan je niet aanpassen"></i></label>
-                            <select disabled name="occupancy_id" id="occupancy_id" class="form-control">
-                                <option value="" disabled>Kies een bezetting</option>
-                                @foreach($occupancies as $occupancy)
-                                    <option value="{{ $occupancy->id }}" {{ $occupancy->id == $price->occupancy_id ? 'selected' : '' }}>{{ $occupancy->is_double == false ? '1 persoon' : '2 personen'  }} </option>
-                                @endforeach
-                            </select>
-                        </div>
+            <div class="row ml-1 mr-5">
+                <div class="col-md-3 col-12">
+                    <div class="form-group">
+                        <label for="occupancy_id">Bezetting:</label>
+                        <select name="occupancy_id" id="occupancy_id" class="form-control">
+                            <option value="" disabled>Kies een bezetting</option>
+                            @foreach($occupancies as $occupancy)
+                                <option value="{{ $occupancy->id }}" {{ $occupancy->id == $price->occupancy_id ? 'selected' : '' }}>{{ $occupancy->is_double == false ? '1 persoon' : '2 personen'  }} </option>
+                            @endforeach
+                        </select>
                     </div>
+                </div>
 
+                @if ($price->arrangement_id != null)
+
+                @else
                     <div class="col-md-4 col-12">
                         <div class="form-group">
-                            <label for="accommodation_choice_id">Verblijfskeuze: <i class="far fa-question-circle" data-toggle="tooltip" title="De lichtgrijze vakken kan je niet aanpassen"></i>
-                            </label>
-                            <select disabled name="accommodation_choice_id" id="accommodation_choice_id" class="form-control">
+                            <label for="accommodation_choice_id">Verblijfskeuze:</label>
+                            <select name="accommodation_choice_id" id="accommodation_choice_id" class="form-control">
                                 <option value="" disabled>Kies een verblijfskeuze</option>
                                 @foreach($accommodation_choices as $accommodation_choice)
                                     <option value="{{ $accommodation_choice->id }}" {{ $accommodation_choice->id == $price->accommodation_choice_id ? 'selected' : '' }}>{{ $accommodation_choice->type }} </option>
@@ -89,9 +88,9 @@
                             </select>
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
 
+            </div>
             <div class="row ml-1 mr-5">
                 <div class="col-md-4 col-12">
                     <div class="form-check">
@@ -111,17 +110,6 @@
                                class="form-control"
                                placeholder="0"
                                value="{{ $room_reservation->reservation->deposit_amount }}">
-                    </div>
-                    <div class="form-check deposit_amount">
-                        <input class="form-check-input" type="checkbox" value="1"
-                               @if (old('_token'))
-                               @if (old('admin')) checked @endif
-
-                               @else
-                               @if ($room_reservation->reservation->deposit_paid) checked @endif
-                               @endif
-                               id="deposit_paid" name="deposit_paid">
-                        <label for="deposit_paid" class="form-check-label">Voorschot betaald</label>
                     </div>
                 </div>
 
@@ -251,6 +239,7 @@
                 <div class="row">
                     <div class="col-12 mx-2">
                         <h3 class="font-weight-bolder">{{$arrangement->type}}</h3>
+                        <input type="hidden" name="arrangement_id" value="{{ $arrangement->id }}">
                         <p class="px-2">{{$arrangement->description}} <br>
                         Dagen: {{ $arrangement->from_day . ' - ' . $arrangement->until_day }}</p>
                     </div>
@@ -361,10 +350,6 @@
 
             );
         });
-
-
     </script>
-
-
 @endsection
 

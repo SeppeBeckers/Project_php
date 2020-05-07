@@ -173,7 +173,7 @@
     <script>
         $(function () {
             $('#footer_names').append(
-                kempenrust.names_footer(4,1)
+                kempenrust.names_footer(3,1)
 
             );
         });
