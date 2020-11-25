@@ -1,11 +1,11 @@
 # Project PHP | 2 ITF APP-BI | 2019-2020
 
-## Team: xx
-## Opdrachtgever: Voornaam Naam 
-## Onderwerp: zie planningsdocument
+## Team: KM-62
+## Opdrachtgever: Kristel Maes
+## Onderwerp: Hotel kempenrust
 ## Teamleden:
-- Voornaam 1 Naam 1
-- Voornaam 2 Naam 2
-- Voornaam 3 Naam 3
-- Voornaam 4 Naam 4
-- Voornaam 5 Naam 5
+- Babette Geerkens
+- Jentse van Thielen
+- Brent Vervecken
+- Seppe Beckers
+
